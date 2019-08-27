@@ -1,0 +1,266 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>MetaInfo | @businessanalytics/customvis-lib</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">@businessanalytics/customvis-lib</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="metainfo.html">MetaInfo</a>
+				</li>
+			</ul>
+			<h1>Class MetaInfo</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The MetaInfo class holds meta information for the visualization. The <a href="renderbase.html">RenderBase</a> class
+							owns an instance of MetaInfo and Subclasses are allowed to access and change attributes.
+						See <a href="renderbase.html#meta">RenderBase.meta</a> for more information and some sample code.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">MetaInfo</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="metainfo.html#datalimit" class="tsd-kind-icon">data<wbr>Limit</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="metainfo.html#legendshape" class="tsd-kind-icon">legend<wbr>Shape</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="metainfo.html#slotlimits" class="tsd-kind-icon">slot<wbr>Limits</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="datalimit" class="tsd-anchor"></a>
+					<h3>data<wbr>Limit</h3>
+					<div class="tsd-signature tsd-kind-icon">data<wbr>Limit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;-1</span></div>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Data limit defines the maximum number of data points the visualization supports.
+							Can be set to -1 to indicate there is no limit.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="legendshape" class="tsd-anchor"></a>
+					<h3>legend<wbr>Shape</h3>
+					<div class="tsd-signature tsd-kind-icon">legend<wbr>Shape<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Shape of elements in a categorical (swatch) legend. Possible values are <code>circle</code>,
+								<code>rectangle</code>, <code>square</code>, <code>triangle</code>, <code>cross</code>, <code>donut</code>, <code>line</code>, <code>diamond</code>, <code>star</code>,
+								<code>triangle-down</code>, <code>triangle-up</code>, <code>triangle-left</code> or <code>triangle-right</code>.
+								Can also be null to indicate that the host should use a default shape or the
+							string <code>none</code> to indicate that no shape should be displayed.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="slotlimits" class="tsd-anchor"></a>
+					<h3>slot<wbr>Limits</h3>
+					<div class="tsd-signature tsd-kind-icon">slot<wbr>Limits<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map&lt;string, number&gt;()</span></div>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Slot limits define the number of supported tuples in a slot. Implemented as a
+								map from &#39;slot name&#39; to &#39;limit value&#39;. If you don&#39;t want the limit the slot,
+							remove the slot name from the map or set its value to -1.</p>
+						</div>
+					</div>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="../enums/fontstyle.html" class="tsd-kind-icon">Font<wbr>Style</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/fontweight.html" class="tsd-kind-icon">Font<wbr>Weight</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/formattype.html" class="tsd-kind-icon">Format<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/lengthunit.html" class="tsd-kind-icon">Length<wbr>Unit</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="catencoding.html" class="tsd-kind-icon">Cat<wbr>Encoding</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="catencodingentry.html" class="tsd-kind-icon">Cat<wbr>Encoding<wbr>Entry</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="catpalette.html" class="tsd-kind-icon">Cat<wbr>Palette</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="color.html" class="tsd-kind-icon">Color</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="colorstop.html" class="tsd-kind-icon">Color<wbr>Stop</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="colorstops.html" class="tsd-kind-icon">Color<wbr>Stops</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="contencoding.html" class="tsd-kind-icon">Cont<wbr>Encoding</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="contpalette.html" class="tsd-kind-icon">Cont<wbr>Palette</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="datapoint.html" class="tsd-kind-icon">Data<wbr>Point</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="dataset.html" class="tsd-kind-icon">Data<wbr>Set</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="domain.html" class="tsd-kind-icon">Domain</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="encoding.html" class="tsd-kind-icon">Encoding</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="font.html" class="tsd-kind-icon">Font</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="length.html" class="tsd-kind-icon">Length</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
+						<a href="metainfo.html" class="tsd-kind-icon">Meta<wbr>Info</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="metainfo.html#datalimit" class="tsd-kind-icon">data<wbr>Limit</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="metainfo.html#legendshape" class="tsd-kind-icon">legend<wbr>Shape</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="metainfo.html#slotlimits" class="tsd-kind-icon">slot<wbr>Limits</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class">
+						<a href="point.html" class="tsd-kind-icon">Point</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="properties.html" class="tsd-kind-icon">Properties</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="renderbase.html" class="tsd-kind-icon">Render<wbr>Base</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="renderreason.html" class="tsd-kind-icon">Render<wbr>Reason</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="slot.html" class="tsd-kind-icon">Slot</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="tuple.html" class="tsd-kind-icon">Tuple</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="updateinfo.html" class="tsd-kind-icon">Update<wbr>Info</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
