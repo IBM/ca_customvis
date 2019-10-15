@@ -1,0 +1,635 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>RenderBase | @businessanalytics/customvis-lib</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">@businessanalytics/customvis-lib</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="renderbase.html">RenderBase</a>
+				</li>
+			</ul>
+			<h1>Class RenderBase</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>RenderBase serves as the base class for all custom visualizations. It provides a
+							custom visualization with meta information, properties, nls support and a number
+							of methods that can be overridden to implement rendering and hit testing.
+						A minimal custom visualization would look like this:</p>
+					</div>
+					<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { RenderBase } <span class="hljs-keyword">from</span> <span class="hljs-string">"@businessanalytics/customvis-lib"</span>
+
+<span class="hljs-keyword">class</span> MyCustomVis <span class="hljs-keyword">extends</span> RenderBase
+{
+    create( _node: HTMLElement ): <span class="hljs-built_in">void</span>
+    {
+        _node.textContent = <span class="hljs-string">"Hello Custom Visualization"</span>;
+    }
+}</code></pre>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">RenderBase</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-private-protected">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="renderbase.html#meta" class="tsd-kind-icon">meta</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="renderbase.html#properties" class="tsd-kind-icon">properties</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="renderbase.html#create" class="tsd-kind-icon">create</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="renderbase.html#getslotforpalette" class="tsd-kind-icon">get<wbr>Slot<wbr>For<wbr>Palette</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="renderbase.html#hittest" class="tsd-kind-icon">hit<wbr>Test</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="renderbase.html#loadcss" class="tsd-kind-icon">load<wbr>Css</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="renderbase.html#nls" class="tsd-kind-icon">nls</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="renderbase.html#tourl" class="tsd-kind-icon">to<wbr>Url</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="renderbase.html#update" class="tsd-kind-icon">update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="renderbase.html#updatelegend" class="tsd-kind-icon">update<wbr>Legend</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="renderbase.html#updateproperty" class="tsd-kind-icon">update<wbr>Property</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="meta" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> meta</h3>
+					<div class="tsd-signature tsd-kind-icon">meta<span class="tsd-signature-symbol">:</span> <a href="metainfo.html" class="tsd-signature-type">MetaInfo</a></div>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Object holding various meta information that controls how the visualization behaves.
+								For instance, an attribute can be set that controls the default shape that is used
+								for encoding categorical legend items. A good place to make changes to this meta
+							information is in the <code>create</code> method of the visualization.</p>
+						</div>
+						<pre><code class="language-typescript"><span class="hljs-comment">// Change the shape of all categorical legend items to 'rectangle'.</span>
+<span class="hljs-keyword">this</span>.meta.legendShape = <span class="hljs-string">"rectangle"</span>;
+
+<span class="hljs-comment">// Limit the 'categories' slot to 250 tuples.</span>
+<span class="hljs-keyword">this</span>.meta.slotLimits.set( <span class="hljs-string">"categories"</span>, <span class="hljs-number">250</span> );</code></pre>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="properties" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> properties</h3>
+					<div class="tsd-signature tsd-kind-icon">properties<span class="tsd-signature-symbol">:</span> <a href="properties.html" class="tsd-signature-type">Properties</a></div>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The properties of the rendering service. Created at initialization time, this object
+								will not change during the lifetime of the instance. Since VIPR handles locking of
+							properties during rendering, we can safely pass this instance as part of <a href="updateinfo.html">UpdateInfo</a>.</p>
+						</div>
+						<p>Properties are &#39;protected&#39; to allow subclasses to access them in methods that don&#39;t
+							have an <a href="updateinfo.html">UpdateInfo</a>. An example is [[getEncodings]], where the renderer may need to
+							return legend encodings based on certain property values. The general rule however
+						is to access properties through <a href="updateinfo.html#props">UpdateInfo.props</a>.</p>
+						<pre><code class="language-typescript"><span class="hljs-comment">// Retrieve the background color of the visualization.</span>
+<span class="hljs-keyword">const</span> bgColor = _info.props.get( <span class="hljs-string">"color.background"</span> );</code></pre>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="create" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> create</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>_parent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Called during initialization of the visualization. This is, after the constructor,
+									the very first method that is called on the visualization object.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>_parent: <span class="tsd-signature-type">HTMLElement</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>HTML element used as entry point for the visualization.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">void</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span>
+							</h4>
+							<p>An Element or a promise that resolves to an element. The element that is
+								returned here will be passed to the <code>update</code> function as part of <code>UpdateInfo</code>.
+								This element is considered the root element of the visualization.
+								A void return value is also allowed (or a Promise that resolves with void). In
+								that case, the root element of the visualization will be the _parent that was
+							passed to <code>create</code>.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="getslotforpalette" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> get<wbr>Slot<wbr>For<wbr>Palette</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Slot<wbr>For<wbr>Palette<span class="tsd-signature-symbol">(</span>_data<span class="tsd-signature-symbol">: </span><a href="dataset.html" class="tsd-signature-type">DataSet</a>, _palette<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Called for every palette that is not linked to a slot. Subclasses can override this
+									method to dynamically link a palette to a slot.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>_data: <a href="dataset.html" class="tsd-signature-type">DataSet</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Actual data.</p>
+									</div>
+								</li>
+								<li>
+									<h5>_palette: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">null</span>
+							</h4>
+							<p>The name of a slot that is supposed to be linked to the palette, or null
+							if the palette remains unlinked.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="hittest" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> hit<wbr>Test</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">hit<wbr>Test<span class="tsd-signature-symbol">(</span>_elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, _client<span class="tsd-signature-symbol">: </span><a href="point.html" class="tsd-signature-type">Point</a>, _viewport<span class="tsd-signature-symbol">: </span><a href="point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="datapoint.html" class="tsd-signature-type">DataPoint</a><span class="tsd-signature-symbol"> | </span><a href="tuple.html" class="tsd-signature-type">Tuple</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Performs a hit test on a given position. The position is specified in both client
+										coordinates and viewport coordinates. Client coordinates are relative to the
+										upper left corner of the browser. Viewport coordinates are relative to the top
+										left of the visualization.
+									Subclasses can override this method to perform specific hit testing.</p>
+									<blockquote>
+										<p><strong>Note:</strong> the default implementation checks if <code>_elem.__data__</code> represents
+											a <a href="datapoint.html">DataPoint</a> or <a href="tuple.html">Tuple</a>. If that is the case, then <code>_elem.__data__</code> is
+											returned. This provides automatic hit testing for d3 visualizations when the
+										node is bound to a <a href="datapoint.html">DataPoint</a> or <a href="tuple.html">Tuple</a>.</p>
+									</blockquote>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>_elem: <span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Element that was found on on the hit test position. Can be null in
+										case no element was found on the specified hit test position.</p>
+									</div>
+								</li>
+								<li>
+									<h5>_client: <a href="point.html" class="tsd-signature-type">Point</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Client coordinate of the hit test position.</p>
+									</div>
+								</li>
+								<li>
+									<h5>_viewport: <a href="point.html" class="tsd-signature-type">Point</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Viewport coordinate of the hit test position.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="datapoint.html" class="tsd-signature-type">DataPoint</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<a href="tuple.html" class="tsd-signature-type">Tuple</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">null</span>
+							</h4>
+							<p>An DataPoint or Tuple element from the data model, or null if nothing
+							was hit.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="loadcss" class="tsd-anchor"></a>
+					<h3>load<wbr>Css</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">load<wbr>Css<span class="tsd-signature-symbol">(</span>_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Load a stylesheet by appending a style tag to the head of the HTML document.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>_url: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Absolute or relative url of the stylesheet. If the url is relative, then it
+											will be made absolute by calling <a href="renderbase.html#tourl">toUrl</a>. Relative means relative to the root of the
+										visualization.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="nls" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> nls</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">nls<span class="tsd-signature-symbol">(</span>_key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a translated string given a key.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>_key: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The key to lookup in the translation table.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>The translated string, or an empty string if the key is unknown.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="tourl" class="tsd-anchor"></a>
+					<h3>to<wbr>Url</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Url<span class="tsd-signature-symbol">(</span>_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns an absolute Url based on a Url relative to the visualization. Can be used
+									to create absolute references to e.g. static resources.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>_url: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Path of the content relative to the root of the visualization.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>An absolute url.</p>
+							<pre><code class="language-typescript"><span class="hljs-keyword">const</span> img = <span class="hljs-keyword">this</span>.toUrl( <span class="hljs-string">"./static/image.png"</span> );</code></pre>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="update" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> update</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span>_info<span class="tsd-signature-symbol">: </span><a href="updateinfo.html" class="tsd-signature-type">UpdateInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<div class="tsd-comment tsd-typography">
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>_info: <a href="updateinfo.html" class="tsd-signature-type">UpdateInfo</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Info which can be used to render the visualization. Contains the root
+											element in which rendering should take place, along with properties, locale info and
+										data. During (async) rendering this info will not change.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span>
+							</h4>
+							<p>Optionally a promise that resolves when rendering is complete. If no promise
+							is returned, rendering is considered to have completed synchronously.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="updatelegend" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> update<wbr>Legend</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Legend<span class="tsd-signature-symbol">(</span>_data<span class="tsd-signature-symbol">: </span><a href="dataset.html" class="tsd-signature-type">DataSet</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="encoding.html" class="tsd-signature-type">Encoding</a><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Called when the host application requests information to update the legend.
+										The default implementation creates the correct encodings needed for the host.
+										Override this method only when you need to make modifications to the automatically
+									created legend.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>_data: <a href="dataset.html" class="tsd-signature-type">DataSet</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The active data set.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="encoding.html" class="tsd-signature-type">Encoding</a><span class="tsd-signature-symbol">[]</span></h4>
+							<p>A list of legend encodings.</p>
+							<pre><code class="language-typescript"><span class="hljs-comment">// Reverse the items in the categorical legend.</span>
+updateLegend( _data: DataSet ) : Encoding[]
+{
+    <span class="hljs-comment">// Call base class implementation.</span>
+    encodings = <span class="hljs-keyword">super</span>.updateLegend( _data );
+
+    <span class="hljs-comment">// Retrieve the first, categorical, encoding.</span>
+    <span class="hljs-keyword">const</span> encoding = encodings[ <span class="hljs-number">0</span> ] <span class="hljs-keyword">as</span> CatEncoding;
+
+    <span class="hljs-comment">// Reverse the entries in the encoding.</span>
+    encoding.entries.reverse();
+}</code></pre>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="updateproperty" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> update<wbr>Property</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Property<span class="tsd-signature-symbol">(</span>_name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, _value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Called immediately if the host assigns a new value to a property. Also called at
+										initialization time for each property in the bundle. Subclasses of Renderbase can
+										override this method to process property changes. For instance, they can set the
+									active state of properties based on the value of another property.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>_name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Name of the property that has changed.</p>
+									</div>
+								</li>
+								<li>
+									<h5>_value: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>New value of the property.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="../enums/fontstyle.html" class="tsd-kind-icon">Font<wbr>Style</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/fontweight.html" class="tsd-kind-icon">Font<wbr>Weight</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/formattype.html" class="tsd-kind-icon">Format<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/lengthunit.html" class="tsd-kind-icon">Length<wbr>Unit</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="catencoding.html" class="tsd-kind-icon">Cat<wbr>Encoding</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="catencodingentry.html" class="tsd-kind-icon">Cat<wbr>Encoding<wbr>Entry</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="catpalette.html" class="tsd-kind-icon">Cat<wbr>Palette</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="color.html" class="tsd-kind-icon">Color</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="colorstop.html" class="tsd-kind-icon">Color<wbr>Stop</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="colorstops.html" class="tsd-kind-icon">Color<wbr>Stops</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="contencoding.html" class="tsd-kind-icon">Cont<wbr>Encoding</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="contpalette.html" class="tsd-kind-icon">Cont<wbr>Palette</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="datapoint.html" class="tsd-kind-icon">Data<wbr>Point</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="dataset.html" class="tsd-kind-icon">Data<wbr>Set</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="domain.html" class="tsd-kind-icon">Domain</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="encoding.html" class="tsd-kind-icon">Encoding</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="font.html" class="tsd-kind-icon">Font</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="length.html" class="tsd-kind-icon">Length</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="metainfo.html" class="tsd-kind-icon">Meta<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="point.html" class="tsd-kind-icon">Point</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="properties.html" class="tsd-kind-icon">Properties</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
+						<a href="renderbase.html" class="tsd-kind-icon">Render<wbr>Base</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="renderbase.html#meta" class="tsd-kind-icon">meta</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="renderbase.html#properties" class="tsd-kind-icon">properties</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="renderbase.html#create" class="tsd-kind-icon">create</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="renderbase.html#getslotforpalette" class="tsd-kind-icon">get<wbr>Slot<wbr>For<wbr>Palette</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="renderbase.html#hittest" class="tsd-kind-icon">hit<wbr>Test</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="renderbase.html#loadcss" class="tsd-kind-icon">load<wbr>Css</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="renderbase.html#nls" class="tsd-kind-icon">nls</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="renderbase.html#tourl" class="tsd-kind-icon">to<wbr>Url</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="renderbase.html#update" class="tsd-kind-icon">update</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="renderbase.html#updatelegend" class="tsd-kind-icon">update<wbr>Legend</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="renderbase.html#updateproperty" class="tsd-kind-icon">update<wbr>Property</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class">
+						<a href="renderreason.html" class="tsd-kind-icon">Render<wbr>Reason</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="slot.html" class="tsd-kind-icon">Slot</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="tuple.html" class="tsd-kind-icon">Tuple</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="updateinfo.html" class="tsd-kind-icon">Update<wbr>Info</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
