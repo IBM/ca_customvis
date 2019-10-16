@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="categories" caption="$nls.slot_categories" type="cat" optional="false" channel="color" />
+        <slot name="xpos" caption="$nls.slot_xpos" type="cont" optional="false" />
+        <slot name="ypos" caption="$nls.slot_ypos" type="cont" optional="false" />
+        <slot name="color" caption="$nls.slot_color" type="cont" optional="true" channel="color" />
+    </slots>
+
+    <dataSets>
+        <dataSet>
+            <ref slot="categories" />
+            <ref slot="xpos" />
+            <ref slot="ypos" />
+            <ref slot="color" />
+        </dataSet>
+    </dataSets>
+
+    <properties>
+        <group name="general">
+            <palette name="color_cat" caption="$nls.prop_color_cat" slot="categories" />
+            <palette name="color_cont" caption="$nls.prop_color_cont" slot="color" />
+            <enum name="pointShape" caption="$nls.prop_shape" defaultValue="circle">
+                <possibleValue caption="$nls.prop_shape_circle">circle</possibleValue>
+                <possibleValue caption="$nls.prop_shape_square">square</possibleValue>
+            </enum>
+            <string name="background" caption="$nls.prop_background" defaultValue="" />
+            <boolean name="showBackground" caption="$nls.prop_show_background" defaultValue="true" />
+        </group>
+        <group name="axis" caption="$nls.prop_axis">
+            <number name="xmax" caption="$nls.prop_xmax" allowNull="true" />
+            <number name="ymax" caption="$nls.prop_ymax" allowNull="true" />
+        </group>
+    </properties>
+
+    <capabilities>
+        <decorations>
+            <decoration name="selected" type="boolean" target="datapoint" />
+            <decoration name="hasSelection" type="boolean" target="dataset" />
+            <decoration name="highlighted" type="boolean" target="datapoint" />
+        </decorations>
+    </capabilities>
+</visualizationDefinition>

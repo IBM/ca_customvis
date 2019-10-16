@@ -1,0 +1,21 @@
+{
+    "name": "scatter-custom-visualization",
+    "version": "0.0.1",
+    "description": "Scatter Custom Visualization",
+    "licence": "Licensed Materials - Property of IBM",
+    "repository": {},
+    "devDependencies": {
+        "@types/d3": "^5.7.0"
+    },
+    "dependencies": {
+        "@businessanalytics/customvis-lib": "file:customvis-lib.tgz"
+    },
+    "meta": {
+        "name": "Scatter",
+        "id": "com.ibm.vis.custom.scatter",
+        "type": "renderer",
+        "version": "1.0",
+        "description": "This sample custom visualization uses data points to plot two measures anywhere along a scale, not only at regular tick marks. You can use scatter visualizations to explore correlations between different measures.",
+        "icon": "Scatter.svg"
+    }
+}
