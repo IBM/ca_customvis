@@ -1,0 +1,21 @@
+{
+    "name": "quadrant-custom-visualization",
+    "version": "0.0.1",
+    "description": "Quadrant Custom Visualization",
+    "licence": "Licensed Materials - Property of IBM",
+    "repository": {},
+    "devDependencies": {
+        "@types/d3": "^5.7.0"
+    },
+    "dependencies": {
+        "@businessanalytics/customvis-lib": "file:customvis-lib.tgz"
+    },
+    "meta": {
+        "name": "Quadrant",
+        "id": "com.ibm.vis.custom.quadrant",
+        "type": "renderer",
+        "version": "1.0",
+        "description": "This sample custom visualization contains four labeled areas which are made when a plane is divided by an X and Y axis.",
+        "icon": "Quadrant.svg"
+    }
+}

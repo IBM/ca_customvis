@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="categories" caption="Names" type="cat" optional="false" channel="color" />
+        <slot name="x-values" caption="X values" type="cont" optional="false" />
+        <slot name="y-values" caption="Y values" type="cont" optional="false" />
+        <slot name="size" caption="Size" type="cont" optional="true" />
+    </slots>
+
+    <dataSets>
+        <dataSet name="data">
+            <ref slot="categories"/>
+            <ref slot="x-values" />
+            <ref slot="y-values" />
+            <ref slot="size" />
+        </dataSet>
+    </dataSets>
+
+    <properties>
+        <group name="general" caption="General">
+            <group name="visualization.general" caption="General">
+                <number name="mid-x" defaultValue="0" caption="Horizontal midpoint" />
+                <number name="mid-y" defaultValue="0" caption="Vertical midpoint" />
+                <string name="right-top-caption" defaultValue="I" caption="Right top caption"/>
+                <string name="left-top-caption" defaultValue="II" caption="Left top caption"/>
+                <string name="left-bottom-caption" defaultValue="III" caption="Left bottom caption"/>
+                <string name="right-bottom-caption" defaultValue="IV" caption="Right bottom caption"/>
+                <color name="quad-dark-color" defaultValue="rgb(240,240,240)" caption="Dark quadrants color" />
+                <boolean name="labels.visible" defaultValue="false" caption="Labels visible" />
+                <number name="min-bubble-size" defaultValue="10" caption="Minimum bubble size" />
+                <number name="max-bubble-size" defaultValue="30" caption="Maximum bubble size" />
+                <number name="transition-duration" defaultValue="400" caption="Transition duration" />
+            </group>
+            <group name="palettes" caption="Palettes">
+                <palette name="color" caption="Color" slot="categories" />
+            </group>
+            <group name="text" caption="Text">
+                <font name="labelFont" defaultValue="12px 'IBM Plex Sans'" caption="Bubble label font" />
+                <font name="quadFont" defaultValue="32px 'IBM Plex Sans'" caption="Quadrant font" />
+                <font name="axisTitleFont"  defaultValue="1.2em 'IBM Plex Sans'" caption="Axis title font" />
+            </group>
+        </group>
+    </properties>
+
+     <!-- Visualization Capabilities  -->
+    <capabilities>
+        <decorations>
+            <!-- Support selection capability-->
+            <decoration name="selected" type="boolean" target="datapoint" />
+            <decoration name="hasSelection" type="boolean" target="dataset" />
+            <!-- Support highlighting capability-->
+            <decoration name="highlighted" type="boolean" target="datapoint" />
+        </decorations>
+    </capabilities>
+</visualizationDefinition>
