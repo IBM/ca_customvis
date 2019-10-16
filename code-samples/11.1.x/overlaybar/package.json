@@ -1,0 +1,21 @@
+{
+    "name": "overlay-bar-custom-visualization",
+    "version": "0.0.1",
+    "description": "Overlay Bar Custom Visualization",
+    "license": "Licensed Materials - Property of IBM",
+    "repository": {},
+    "devDependencies": {
+        "@types/d3": "^5.7.0"
+    },
+    "dependencies": {
+        "@businessanalytics/customvis-lib": "file:customvis-lib.tgz"
+    },
+    "meta": {
+        "name": "Overlay bar",
+        "id": "com.ibm.vis.custom.overlaybar",
+        "type": "renderer",
+        "version": "1.0",
+        "description": "This sample custom visualization is a bar visualization that can display up to three measures as overlaid bars.",
+        "icon": "Overlay.svg"
+    }
+}

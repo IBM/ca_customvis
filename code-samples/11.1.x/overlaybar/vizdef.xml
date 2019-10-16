@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="categories" caption="$nls.slot.categories" type="cat" optional="false" />
+        <slot name="base" caption="$nls.slot.base" type="cont" optional="false" />
+        <slot name="overlay1" caption="$nls.slot.overlay1" type="cont" optional="false" />
+        <slot name="overlay2" caption="$nls.slot.overlay2" type="cont" optional="true" />
+        <slot name="series" caption="$nls.slot.series" type="cat" optional="true" channel="color" />
+    </slots>
+
+    <dataSets>
+        <dataSet name="data">
+            <ref slot="categories" />
+            <ref slot="base" />
+            <ref slot="overlay1" />
+            <ref slot="overlay2" />
+            <ref slot="series" />
+        </dataSet>
+    </dataSets>
+
+    <properties>
+        <group name="general" caption="$nls.property.group.general">
+            <palette name="colors" caption="$nls.property.colors" slot="series" type="cat" />
+            <boolean name="labels" caption="$nls.property.labels" defaultValue="true" />
+            <boolean name="image" caption="$nls.property.image" defaultValue="false" />
+            <length name="imageSize" caption="$nls.property.imagesize" defaultValue="64px" />
+        </group>
+    </properties>
+
+     <!-- Visualization Capabilities  -->
+     <capabilities>
+        <decorations>
+            <!-- Support selection capability-->
+            <decoration name="selected" type="boolean" target="datapoint" />
+            <decoration name="hasSelection" type="boolean" target="dataset" />
+            <!-- Support highlighting capability-->
+            <decoration name="highlighted" type="boolean" target="datapoint" />
+        </decorations>
+    </capabilities>
+</visualizationDefinition>
