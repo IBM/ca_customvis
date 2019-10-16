@@ -1,0 +1,22 @@
+{
+    "name": "ternary-custom-visualization",
+    "version": "0.0.1",
+    "description": "Ternary Custom Visualization",
+    "licence": "Licensed Materials - Property of IBM",
+    "repository": {},
+    "devDependencies": {
+        "@types/d3": "^5.7.0"
+    },
+    "dependencies": {
+        "@businessanalytics/customvis-lib": "file:customvis-lib.tgz",
+        "rbush": "3.0.1"
+    },
+    "meta": {
+        "name": "Ternary",
+        "id": "com.ibm.vis.custom.ternary",
+        "type": "renderer",
+        "version": "2.0",
+        "description": "This sample custom visualization plots three variables which sum to a constant. It graphically displays the ratios of the three variables as positions in an equilateral triangle.",
+        "icon": "Ternary.svg"
+    }
+}

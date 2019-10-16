@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="points" caption="$nls.slot_points" description="$nls.slot_points_description" type="cat" optional="false" />
+        <slot name="top" caption="$nls.slot_top" description="$nls.slot_top_description" type="cont" optional="false" />
+        <slot name="left" caption="$nls.slot_left" description="$nls.slot_left_description" type="cont" optional="false" />
+        <slot name="right" caption="$nls.slot_right" description="$nls.slot_right_description" type="cont" optional="false" />
+        <slot name="color" caption="$nls.slot_color" description="$nls.slot_color_description" type="cont" optional="true" channel="color" />
+        <slot name="size" caption="$nls.slot_size" description="$nls.slot_size_description" type="cont" optional="true" channel="size" />
+    </slots>
+
+    <dataSets>
+        <dataSet>
+            <ref slot="points" />
+            <ref slot="top" />
+            <ref slot="left" />
+            <ref slot="right" />
+            <ref slot="color"/>
+            <ref slot="size"/>
+        </dataSet>
+    </dataSets>
+
+    <properties>
+        <group name="visualization" caption="$nls.group_visualization">
+            <group name="general" caption="$nls.group_general">
+                <palette name="color" caption="$nls.color" slot="color" type="cont" />
+            </group>
+
+            <group name="background" caption="$nls.group_background">
+                <color name="background_color" caption="$nls.background_color" defaultValue="transparent" />
+                <color name="grid_background" caption="$nls.grid_background" defaultValue="#ececec" />
+                <color name="grid_outline" caption="$nls.grid_outline" defaultValue="#1e1e1e" />
+                <color name="grid_lines" caption="$nls.grid_lines" defaultValue="#fff" />
+            </group>
+
+            <group name="points" caption="$nls.group_points">
+                <number name="point_size" caption="$nls.point_size" defaultValue="10" />
+                <boolean name="labels_visible" caption="$nls.labels_visible" defaultValue="false" />
+                <font name="point_label_font" caption="$nls.point_label_font" defaultValue="8pt arial" />
+                <color name="point_label_color" caption="$nls.point_label_color" defaultValue="#000" />
+                <enum name="point_label_placement" caption="$nls.label_placement" defaultValue="topLeft">
+                    <possibleValue caption="$nls.label_placement_top_left">TopLeft</possibleValue>
+                    <possibleValue caption="$nls.label_placement_bottom_left">BottomLeft</possibleValue>
+                    <possibleValue caption="$nls.label_placement_top_right">TopRight</possibleValue>
+                    <possibleValue caption="$nls.label_placement_bottom_right">BottomRight</possibleValue>
+                </enum>
+                <number name="min_point_size" caption="$nls.min_point_size" defaultValue="10" />
+                <number name="max_point_size" caption="$nls.max_point_size" defaultValue="20" />
+            </group>
+
+            <group name="titles" caption="$nls.group_titles">
+                <font name="title_font" caption="$nls.title_font" defaultValue="bold 10pt arial" />
+                <color name="title_color" caption="$nls.title_color" defaultValue="#000" />
+            </group>
+        </group>
+    </properties>
+
+     <capabilities>
+        <decorations>
+            <decoration name="selected" type="boolean" target="datapoint" />
+            <decoration name="hasSelection" type="boolean" target="dataset" />
+            <decoration name="highlighted" type="boolean" target="datapoint" />
+        </decorations>
+    </capabilities>
+</visualizationDefinition>
