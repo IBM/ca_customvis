@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="value" caption="Value" type="cont" optional="false" />
+    </slots>
+
+    <dataSets>
+        <dataSet>
+            <ref slot="value" />
+        </dataSet>
+    </dataSets>
+
+    <properties>
+        <group name="general">
+            <color name="background-color" caption="Background color" defaultValue="lightblue" />
+            <number name="min" caption="Minimum value" defaultValue="0" />
+            <number name="max" caption="Maximum value" defaultValue="1" />
+            <boolean name="title" caption="Title" defaultValue="true" />
+            <boolean name="value" caption="Value" defaultValue="true" />
+        </group>
+    </properties>
+</visualizationDefinition>

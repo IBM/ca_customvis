@@ -1,0 +1,21 @@
+{
+    "name": "weather-custom-visualization",
+    "version": "0.0.1",
+    "description": "Weather KPI Custom Visualization",
+    "licence": "Licensed Materials - Property of IBM",
+    "repository": {},
+    "devDependencies": {
+        "@types/d3": "^5.7.0"
+    },
+    "dependencies": {
+        "@businessanalytics/customvis-lib": "file:customvis-lib.tgz"
+    },
+    "meta": {
+        "name": "Weather KPI",
+        "id": "com.ibm.vis.custom.weatherkpi",
+        "type": "renderer",
+        "version": "1.0",
+        "description": "This sample custom visualization assigns a weather-related image to a range of values.",
+        "icon": "Weatherkpi.svg"
+    }
+}
