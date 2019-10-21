@@ -51,4 +51,4 @@ Alternatively, you can package a sample with `customvis pack` and upload it to C
 - Use custom data domains for the x-axis and y-axis.
 
 ## More Information
-For more information, please visit the [Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ug_ca_dshb.doc/ca_custom_visualizations_intro.dita.html).
+For more information, please visit the [Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ig_smples.doc/c_sample_customvis.html).
