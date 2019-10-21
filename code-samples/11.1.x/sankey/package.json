@@ -1,0 +1,22 @@
+{
+    "name": "sankey-custom-visualization",
+    "version": "0.0.1",
+    "description": "Sankey Custom Visualization",
+    "licence": "Licensed Materials - Property of IBM",
+    "repository": {},
+    "devDependencies": {
+        "@types/d3": "^5.7.0"
+    },
+    "dependencies": {
+        "d3-sankey": "^0.12.3",
+        "@businessanalytics/customvis-lib": "file:customvis-lib.tgz"
+    },
+    "meta": {
+        "name": "Sankey",
+        "id": "com.ibm.vis.custom.sankey",
+        "type": "renderer",
+        "version": "1.0",
+        "description": "Sample custom visualization showing a Sankey chart",
+        "icon": "Sankey.svg"
+    }
+}

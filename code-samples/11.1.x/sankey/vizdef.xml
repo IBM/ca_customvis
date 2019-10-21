@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="from" caption="From" type="cat" optional="false" />
+        <slot name="to" caption="To" type="cat" optional="false" />
+        <slot name="weight" caption="Weight" type="cont" optional="false" />
+    </slots>
+
+    <dataSets>
+        <dataSet name="data" iterate="sorted">
+            <ref slot="from" />
+            <ref slot="to" />
+            <ref slot="weight" />
+        </dataSet>
+    </dataSets>
+
+     <capabilities>
+        <decorations>
+            <decoration name="selected" type="boolean" target="datapoint, tuple" />
+            <decoration name="hasSelection" type="boolean" target="dataset" />
+            <decoration name="highlighted" type="boolean" target="datapoint, tuple" />
+        </decorations>
+    </capabilities>
+</visualizationDefinition>
