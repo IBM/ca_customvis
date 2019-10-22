@@ -77,7 +77,7 @@ export default class Sankey extends RenderBase
         const data = _info.data;
 
         // If there is no data, remove everything from the canvas and exit.
-        if ( !data )
+        if ( !data || !data.rows.length )
         {
             svg.selectAll( "g>*" ).remove();
             return;
@@ -97,7 +97,7 @@ export default class Sankey extends RenderBase
             {
                 source: `F:${_row.tuple( FROM ).key}`,
                 target: `T:${_row.tuple( TO ).key}`,
-                value: _row.value( WEIGHT ),
+                value: Math.abs( _row.value( WEIGHT ) ), // negative values are not allowed
                 key: _row.key,
                 $: _row
             };
@@ -129,6 +129,7 @@ export default class Sankey extends RenderBase
                 .attr( "y", d => d.y0 )
                 .attr( "height", d => Math.max( 0, d.y1 - d.y0 ) )
                 .attr( "width", d => d.x1 - d.x0 )
+                .attr( "stroke-width", 0 )
                 .attr( "fill", d  => colors( d.$.key ) ); // node color
 
         // Update links that connect the nodes. From and to colors are based on tuple key.
