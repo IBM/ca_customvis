@@ -51,6 +51,7 @@ Alternatively, you can package a sample with `customvis pack` and upload it to C
 - Use custom data domains for the x-axis and y-axis.
 
 ### Sankey
+The Sankey custom visualization is not supported in Microsoft Internet Explorer 11.
 - Use a third party library for calculations.
 - Highlight and selection decorations by color and font.
 - Implement custom hit testing for tooltips, highlights and selections.
