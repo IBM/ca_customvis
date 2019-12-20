@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MetaInfo | @businessanalytics/customvis-lib</title>
+	<title>Segment | @businessanalytics/customvis-lib</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -37,10 +37,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="metainfo.html">MetaInfo</a>
+					<a href="segment.html">Segment</a>
 				</li>
 			</ul>
-			<h1>Class MetaInfo</h1>
+			<h1>Class Segment</h1>
 		</div>
 	</div>
 </header>
@@ -50,17 +50,29 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The MetaInfo class holds meta information for the visualization. The <a href="renderbase.html">RenderBase</a> class
-							owns an instance of MetaInfo and Subclasses are allowed to access and change attributes.
-						See <a href="renderbase.html#meta">RenderBase.meta</a> for more information and some sample code.</p>
+						<p>A Segment gives access to the data elements that form a tuple or a slot.
+							A data provider is able to provide &#39;stacked&#39; data, where each tuple or
+							slot is mapped to multiple segments. These segments can be accessed through
+							the &#39;segments&#39; property on a tuple or slot.
+							In many cases a visualization is only interested in the contents of the
+							entire tuple, but in some situations the visualizations needs to display
+							the individual tuple segment. Examples are the rendering of a hierachical
+							view of the associated data item, or providing an alternative representation
+						of the tuple caption.</p>
 					</div>
+					<pre><code class="language-typescript"><span class="hljs-comment">// Returns a caption for the given tuple.</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getCaption</span>(<span class="hljs-params"> _tuple </span>)
+</span>{
+    <span class="hljs-comment">// Use ', ' as a separator, instead of the default ' | '.</span>
+    <span class="hljs-keyword">return</span> _tuple.segments.map( _segment =&gt; _segment.caption ).join( <span class="hljs-string">", "</span> );
+}</code></pre>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">MetaInfo</span>
+						<span class="target">Segment</span>
 					</li>
 				</ul>
 			</section>
@@ -71,9 +83,15 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="metainfo.html#datalimit" class="tsd-kind-icon">data<wbr>Limit</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="metainfo.html#legendshape" class="tsd-kind-icon">legend<wbr>Shape</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="metainfo.html#slotlimits" class="tsd-kind-icon">slot<wbr>Limits</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="segment.html#caption" class="tsd-kind-icon">caption</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="segment.html#key" class="tsd-kind-icon">key</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="segment.html#highlighted" class="tsd-kind-icon">highlighted</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="segment.html#selected" class="tsd-kind-icon">selected</a></li>
 							</ul>
 						</section>
 					</div>
@@ -82,41 +100,63 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="datalimit" class="tsd-anchor"></a>
-					<h3>data<wbr>Limit</h3>
-					<div class="tsd-signature tsd-kind-icon">data<wbr>Limit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;-1</span></div>
+					<a name="caption" class="tsd-anchor"></a>
+					<h3>caption</h3>
+					<div class="tsd-signature tsd-kind-icon">caption<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Data limit defines the maximum number of data points the visualization supports.
-							Can be set to -1 to indicate there is no limit.</p>
+							<p>The caption of the segment.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="legendshape" class="tsd-anchor"></a>
-					<h3>legend<wbr>Shape</h3>
-					<div class="tsd-signature tsd-kind-icon">legend<wbr>Shape<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
+					<a name="key" class="tsd-anchor"></a>
+					<h3>key</h3>
+					<div class="tsd-signature tsd-kind-icon">key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Shape of elements in a categorical (swatch) legend. Possible values are <code>circle</code>,
-								<code>rectangle</code>, <code>square</code>, <code>triangle</code>, <code>cross</code>, <code>donut</code>, <code>line</code>, <code>diamond</code>, <code>star</code>,
-								<code>triangle-down</code>, <code>triangle-up</code>, <code>triangle-left</code> or <code>triangle-right</code>.
-								Can also be null to indicate that the host should use a default shape or the
-							string <code>none</code> to indicate that no shape should be displayed.</p>
+							<p>A unique key value for the segment. You can use this key when you perform
+							data binding.</p>
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="slotlimits" class="tsd-anchor"></a>
-					<h3>slot<wbr>Limits</h3>
-					<div class="tsd-signature tsd-kind-icon">slot<wbr>Limits<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map&lt;string, number&gt;()</span></div>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Slot limits define the number of supported tuples in a slot. Implemented as a
-								map from &#39;slot name&#39; to &#39;limit value&#39;. If you don&#39;t want the limit the slot,
-							remove the slot name from the map or set its value to -1.</p>
-						</div>
-					</div>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="highlighted" class="tsd-anchor"></a>
+					<h3>highlighted</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> highlighted<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns true if the segment is highlighted.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="selected" class="tsd-anchor"></a>
+					<h3>selected</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> selected<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns true if the segment is selected. Note that the visual selection state of
+									a segment might depend on the selected state of other data elements.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -184,24 +224,9 @@
 					<li class=" tsd-kind-class">
 						<a href="length.html" class="tsd-kind-icon">Length</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class=" tsd-kind-class">
 						<a href="metainfo.html" class="tsd-kind-icon">Meta<wbr>Info</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="metainfo.html#datalimit" class="tsd-kind-icon">data<wbr>Limit</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="metainfo.html#legendshape" class="tsd-kind-icon">legend<wbr>Shape</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="metainfo.html#slotlimits" class="tsd-kind-icon">slot<wbr>Limits</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="point.html" class="tsd-kind-icon">Point</a>
 					</li>
@@ -214,9 +239,27 @@
 					<li class=" tsd-kind-class">
 						<a href="renderreason.html" class="tsd-kind-icon">Render<wbr>Reason</a>
 					</li>
-					<li class=" tsd-kind-class">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
 						<a href="segment.html" class="tsd-kind-icon">Segment</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="segment.html#caption" class="tsd-kind-icon">caption</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="segment.html#key" class="tsd-kind-icon">key</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="segment.html#highlighted" class="tsd-kind-icon">highlighted</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="segment.html#selected" class="tsd-kind-icon">selected</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="slot.html" class="tsd-kind-icon">Slot</a>
 					</li>

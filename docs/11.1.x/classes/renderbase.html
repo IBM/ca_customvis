@@ -220,7 +220,7 @@
 					<a name="hittest" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> hit<wbr>Test</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">hit<wbr>Test<span class="tsd-signature-symbol">(</span>_elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, _client<span class="tsd-signature-symbol">: </span><a href="point.html" class="tsd-signature-type">Point</a>, _viewport<span class="tsd-signature-symbol">: </span><a href="point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="datapoint.html" class="tsd-signature-type">DataPoint</a><span class="tsd-signature-symbol"> | </span><a href="tuple.html" class="tsd-signature-type">Tuple</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+						<li class="tsd-signature tsd-kind-icon">hit<wbr>Test<span class="tsd-signature-symbol">(</span>_elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, _client<span class="tsd-signature-symbol">: </span><a href="point.html" class="tsd-signature-type">Point</a>, _viewport<span class="tsd-signature-symbol">: </span><a href="point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="datapoint.html" class="tsd-signature-type">DataPoint</a><span class="tsd-signature-symbol"> | </span><a href="tuple.html" class="tsd-signature-type">Tuple</a><span class="tsd-signature-symbol"> | </span><a href="segment.html" class="tsd-signature-type">Segment</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -233,9 +233,9 @@
 									Subclasses can override this method to perform specific hit testing.</p>
 									<blockquote>
 										<p><strong>Note:</strong> the default implementation checks if <code>_elem.__data__</code> represents
-											a <a href="datapoint.html">DataPoint</a> or <a href="tuple.html">Tuple</a>. If that is the case, then <code>_elem.__data__</code> is
-											returned. This provides automatic hit testing for d3 visualizations when the
-										node is bound to a <a href="datapoint.html">DataPoint</a> or <a href="tuple.html">Tuple</a>.</p>
+											a <a href="datapoint.html">DataPoint</a>, <a href="tuple.html">Tuple</a> or <a href="segment.html">Segment</a>. If this is the case, then <code>_elem.__data__</code>
+											is returned. This provides automatic hit testing for d3 visualizations when the
+										node is bound to a <a href="datapoint.html">DataPoint</a>, <a href="tuple.html">Tuple</a> or <a href="segment.html">Segment</a>.</p>
 									</blockquote>
 								</div>
 							</div>
@@ -265,10 +265,12 @@
 								<span class="tsd-signature-symbol"> | </span>
 								<a href="tuple.html" class="tsd-signature-type">Tuple</a>
 								<span class="tsd-signature-symbol"> | </span>
+								<a href="segment.html" class="tsd-signature-type">Segment</a>
+								<span class="tsd-signature-symbol"> | </span>
 								<span class="tsd-signature-type">null</span>
 							</h4>
-							<p>An DataPoint or Tuple element from the data model, or null if nothing
-							was hit.</p>
+							<p>An DataPoint, Tuple or Segment element from the data model, or null if
+							nothing was hit.</p>
 						</li>
 					</ul>
 				</section>
@@ -582,6 +584,9 @@ updateLegend( _data: DataSet ) : Encoding[]
 				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="renderreason.html" class="tsd-kind-icon">Render<wbr>Reason</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="segment.html" class="tsd-kind-icon">Segment</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="slot.html" class="tsd-kind-icon">Slot</a>

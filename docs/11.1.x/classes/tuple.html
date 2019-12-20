@@ -82,6 +82,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="tuple.html#caption" class="tsd-kind-icon">caption</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="tuple.html#index" class="tsd-kind-icon">index</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="tuple.html#key" class="tsd-kind-icon">key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="tuple.html#segments" class="tsd-kind-icon">segments</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -131,6 +132,18 @@ node.selectAll( <span class="hljs-string">"text"</span> )
     .data( tuples, <span class="hljs-function">(<span class="hljs-params"> _t: Tuple </span>) =&gt;</span> _t.key )
     .join( <span class="hljs-string">"text"</span> )
         .text( _tuple =&gt; _tuple.caption );</code></pre>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="segments" class="tsd-anchor"></a>
+					<h3>segments</h3>
+					<div class="tsd-signature tsd-kind-icon">segments<span class="tsd-signature-symbol">:</span> <a href="segment.html" class="tsd-signature-type">Segment</a><span class="tsd-signature-symbol">[]</span></div>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A list of one or more segments that form the tuple. Each segment has a caption
+								and a key. The caption of a tuple is a concatenation of the captions of all
+							segments, with a predefined separator.</p>
+						</div>
 					</div>
 				</section>
 			</section>
@@ -253,6 +266,9 @@ node.selectAll( <span class="hljs-string">"text"</span> )
 						<a href="renderreason.html" class="tsd-kind-icon">Render<wbr>Reason</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="segment.html" class="tsd-kind-icon">Segment</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="slot.html" class="tsd-kind-icon">Slot</a>
 					</li>
 				</ul>
@@ -268,6 +284,9 @@ node.selectAll( <span class="hljs-string">"text"</span> )
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="tuple.html#key" class="tsd-kind-icon">key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="tuple.html#segments" class="tsd-kind-icon">segments</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="tuple.html#highlighted" class="tsd-kind-icon">highlighted</a>
