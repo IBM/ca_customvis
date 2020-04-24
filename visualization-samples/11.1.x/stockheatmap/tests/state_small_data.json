@@ -1,0 +1,239 @@
+{
+    "data": {
+      "dataSets": [
+        {
+          "dataItems": [
+            {
+              "itemClassSets": [
+                {
+                  "h": [
+                    {
+                      "u": "[0].[Group]",
+                      "d": "Group",
+                      "l": "Group"
+                    },
+                    {
+                      "u": "[0].[Subgroup]",
+                      "d": "Subgroup",
+                      "l": "Subgroup"
+                    },
+                    {
+                      "u": "[0].[Symbol]",
+                      "d": "Symbol",
+                      "l": "Symbol"
+                    }
+                  ]
+                }
+              ],
+              "items": [
+                {
+                  "t": [
+                    {
+                      "u": "[0].[Group].[A]",
+                      "d": "A"
+                    },
+                    {
+                      "u": "[0].[Subgroup].[A1]",
+                      "d": "A1"
+                    },
+                    {
+                      "u": "[0].[Symbol].[VKL]",
+                      "d": "VKL"
+                    }
+                  ]
+                },
+                {
+                  "t": [
+                    {
+                      "u": "[0].[Group].[A]",
+                      "d": "A"
+                    },
+                    {
+                      "u": "[0].[Subgroup].[A1]",
+                      "d": "A1"
+                    },
+                    {
+                      "u": "[0].[Symbol].[VLTN]",
+                      "d": "VLTN"
+                    }
+                  ]
+                },
+                {
+                  "t": [
+                    {
+                      "u": "[0].[Group].[A]",
+                      "d": "A"
+                    },
+                    {
+                      "u": "[0].[Subgroup].[A2]",
+                      "d": "A2"
+                    },
+                    {
+                      "u": "[0].[Symbol].[DCM]",
+                      "d": "DCM"
+                    }
+                  ]
+                },
+                {
+                  "t": [
+                    {
+                      "u": "[0].[Group].[B]",
+                      "d": "B"
+                    },
+                    {
+                      "u": "[0].[Subgroup].[B1]",
+                      "d": "B1"
+                    },
+                    {
+                      "u": "[0].[Symbol].[NCL]",
+                      "d": "NCL"
+                    }
+                  ]
+                },
+                {
+                  "t": [
+                    {
+                      "u": "[0].[Group].[B]",
+                      "d": "B"
+                    },
+                    {
+                      "u": "[0].[Subgroup].[B2]",
+                      "d": "B2"
+                    },
+                    {
+                      "u": "[0].[Symbol].[Clipper]",
+                      "d": "Clipper"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "itemClass": {
+                "h": [
+                  {
+                    "u": "[0].[Size]",
+                    "d": "Size",
+                    "l": "Size",
+                    "sc": "sum",
+                    "scl": "sum"
+                  }
+                ]
+              },
+              "formatters": {
+                "data": {
+                  "style": "decimal",
+                  "missing": "",
+                  "maxDecimals": 1,
+                  "minDecimals": 0
+                },
+                "label": {
+                  "style": "abbreviate",
+                  "missing": "",
+                  "maxDecimals": 1,
+                  "minDecimals": 0
+                }
+              }
+            },
+            {
+              "itemClass": {
+                "h": [
+                  {
+                    "u": "[0].[Heat]",
+                    "d": "Heat",
+                    "l": "Heat",
+                    "sc": "sum",
+                    "scl": "sum"
+                  }
+                ]
+              },
+              "formatters": {
+                "data": {
+                  "style": "decimal",
+                  "missing": "",
+                  "maxDecimals": 2,
+                  "minDecimals": 1
+                },
+                "label": {
+                  "style": "abbreviate",
+                  "missing": "",
+                  "maxDecimals": 2,
+                  "minDecimals": 1
+                }
+              }
+            }
+          ],
+          "data": [
+            {
+              "pt": [
+                0,
+                {
+                  "v": 1000
+                },
+                {
+                  "v": 0.5
+                }
+              ]
+            },
+            {
+              "pt": [
+                1,
+                {
+                  "v": 500
+                },
+                {
+                  "v": -0.2
+                }
+              ]
+            },
+            {
+              "pt": [
+                2,
+                {
+                  "v": 800
+                },
+                {
+                  "v": 0.3
+                }
+              ]
+            },
+            {
+              "pt": [
+                3,
+                {
+                  "v": 400
+                },
+                {
+                  "v": 0.1
+                }
+              ]
+            },
+            {
+              "pt": [
+                4,
+                {
+                  "v": 5
+                },
+                {
+                  "v": 0.2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "mapping": [
+      {
+        "hierarchy": [
+          0
+        ],
+        "size": [
+          1
+        ],
+        "heat": [
+          2
+        ]
+      }
+    ]
+  }

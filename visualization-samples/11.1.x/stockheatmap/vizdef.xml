@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="hierarchy" type="cat" caption="Hierarchy" optional="false" />
+        <slot name="size" type="cont" caption="Size" channel="size" optional="false" />
+        <slot name="heat" type="cont" caption="Heat" channel="color" optional="false" />
+    </slots>
+    <dataSets>
+        <dataSet>
+            <ref slot="hierarchy" />
+            <ref slot="size" />
+            <ref slot="heat" />
+        </dataSet>
+    </dataSets>
+    <capabilities>
+        <decorations>
+            <decoration name="selected" type="boolean" target="datapoint" />
+            <decoration name="hasSelection" type="boolean" target="dataset" />
+            <decoration name="highlighted" type="boolean" target="datapoint" />
+        </decorations>
+    </capabilities>
+    <properties>
+        <group name="general" caption="General">
+            <group name="palette" caption="Palette">
+                <palette name="color" caption="Color" slot="heat" />
+            </group>
+            <group name="text" caption="Text">
+                <boolean name="text.showGroup" caption="Show group name" defaultValue="true" />
+                <boolean name="text.showName" caption="Show stock name" defaultValue="true" />
+                <boolean name="text.showValue" caption="Show stock value" defaultValue="true" />
+                <color name="text.color" caption="Text color" defaultValue="#FFFFFF" />
+            </group>
+        </group>
+    </properties>
+</visualizationDefinition>
