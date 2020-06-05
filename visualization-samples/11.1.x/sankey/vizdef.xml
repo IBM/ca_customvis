@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed Materials - Property of IBM
+
+IBM Watson Analytics
+
+(C) Copyright IBM Corp. 2019
+
+US Government Users Restricted Rights - Use, duplication or
+disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+-->
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="from" caption="$nls.slot.from" type="cat" optional="false" />
+        <slot name="to" caption="$nls.slot.to" type="cat" optional="false" />
+        <slot name="weight" caption="$nls.slot.weight" type="cont" optional="false" />
+    </slots>
+
+    <properties>
+        <group name="general" caption="$nls.group.general" >
+            <group name="palettes" caption="$nls.group.palettes">
+                <palette name="color" caption="$nls.color" type="cat" />
+                <boolean name="node.level-color" caption="$nls.node.level-color" defaultValue="true"/>
+            </group>
+            <group name="nodes" caption="$nls.group.nodes">
+                <enum name="node.alignment" caption="$nls.nodes.alignment" defaultValue="justify" description="$nls.nodes.alignment.desc">
+                    <possibleValue caption="$nls.alignment.justify">justify</possibleValue>
+                    <possibleValue caption="$nls.alignment.left">left</possibleValue>
+                    <possibleValue caption="$nls.alignment.right">right</possibleValue>
+                    <possibleValue caption="$nls.alignment.center">center</possibleValue>
+                </enum>
+
+                <number name="node.width" defaultValue="15" minValue="1" caption="$nls.node.width" description="$nls.node.width.desc"/>
+                <number name="node.padding" defaultValue="8" minValue="1" caption="$nls.node.padding" description="$nls.node.padding.desc"/>
+
+                <number name="node.border.width" defaultValue="0" minValue="0" caption="$nls.node.border.width" description="$nls.node.border.width.desc"/>
+                <color name="node.border.color" caption="$nls.node.border.color" defaultValue="black" tags="$ui-05"/>
+
+                <boolean name="suppressUnused" defaultValue="false" caption="$nls.labels.hideUnused" description="$nls.labels.hideUnused.desc"/>
+            </group>
+            <group name="labels" caption="Labels">
+                <boolean name="label.show" defaultValue="true" caption="$nls.labels.show"/>
+                <font name="label.font" caption="$nls.label.font" defaultValue="0.8em 'IBM Plex Sans'" tags="$label-02" />
+                <color name="label.color" caption="$nls.label.color" defaultValue="#262626" tags="$text-02"/>
+                <enum name="label.yAlign" caption="$nls.label.yAlign" defaultValue="default">
+                    <possibleValue caption="$nls.label.yAlign.default">default</possibleValue>
+                    <possibleValue caption="$nls.label.yAlign.top">top</possibleValue>
+                    <possibleValue caption="$nls.label.yAlign.bottom">bottom</possibleValue>
+                </enum>
+                <boolean name="label.wrapLongLabel" defaultValue="false" caption="$nls.labels.wrapping" description="$nls.labels.wrapping.desc"/>
+                <boolean name="label.hideCollidedLabel" defaultValue="true" caption="$nls.labels.hideCollided" description="$nls.labels.hideCollided.desc"/>
+                <boolean name="label.hideCollidedLabelIncludeNodes" defaultValue="true" caption="$nls.labels.hideCollided.includeNodes" description="$nls.labels.hideCollided.includeNodes.desc"/>
+            </group>
+            <group name="links" caption="$nls.group.links">
+                <enum name="linkFillType" caption="$nls.links.fillType" defaultValue="gradient">
+                    <possibleValue caption="$nls.linkFillType.gradient">gradient</possibleValue>
+                    <possibleValue caption="$nls.linkFillType.from">from</possibleValue>
+                    <possibleValue caption="$nls.linkFillType.to">to</possibleValue>
+                    <possibleValue caption="$nls.linkFillType.solid">solid</possibleValue>
+                </enum>
+                <color name="linkFillSolidColor" caption="$nls.link.color" defaultValue="#808080"/>
+            </group>
+             <group name="algorithm" caption="$nls.group.advance">
+                <boolean name="algorithm.considerNegatives" defaultValue="false" caption="$nls.advance.considerNegatives" description="$nls.advance.considerNegatives.desc"/>
+             </group>
+        </group>
+    </properties>
+
+    <dataSets>
+        <dataSet name="data">
+            <ref slot="from" />
+            <ref slot="to" />
+            <ref slot="weight" />
+        </dataSet>
+    </dataSets>
+
+     <capabilities>
+        <decorations>
+            <decoration name="selected" type="boolean" target="datapoint, tuple" />
+            <decoration name="hasSelection" type="boolean" target="dataset" />
+            <decoration name="highlighted" type="boolean" target="datapoint, tuple" />
+        </decorations>
+    </capabilities>
+</visualizationDefinition>

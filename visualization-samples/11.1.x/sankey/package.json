@@ -1,0 +1,35 @@
+{
+    "name": "custom-sankey",
+    "version": "0.0.1",
+    "description": "Custom Visualization",
+    "license": "Licensed Materials - Property of IBM",
+    "repository": {},
+    "devDependencies": {
+        "@babel/core": "~7.7.5",
+        "@babel/plugin-proposal-class-properties": "~7.7.4",
+        "@babel/plugin-proposal-object-rest-spread": "~7.7.4",
+        "@babel/preset-env": "~7.7.6",
+        "@babel/preset-typescript": "~7.7.4",
+        "rollup-plugin-babel": "~4.3.3",
+        "@rollup/plugin-commonjs": "~11.0.1",
+        "@rollup/plugin-node-resolve": "~6.1.0",
+        "typescript": "~3.7.4",
+        "@types/d3": "^5.7.0"
+    },
+    "dependencies": {
+        "@businessanalytics/customvis-lib": "file:customvis-lib.tgz",
+        "d3-sankey": "^0.12.1",
+        "rbush": "^3.0.0"
+    },
+    "meta": {
+        "name": "Sankey",
+        "id": "customvis.catalog.sankey",
+        "type": "renderer",
+        "description": "Sankey is a specific type of flow diagram, in which the width of the arrows is shown proportionally to the flow quantity. It is typically used to visualize energy transfers between processes. It is named after the Irishman Captain Matthew H.P.R. Sankey, who used it in a publication on energy efficiency of a steam engine in 1898.",
+        "version": "1.0",
+        "icon": "icon.svg"
+    },
+    "keywords": [
+        "Visualization"
+    ]
+}
