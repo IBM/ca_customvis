@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="task" caption="Tasks" type="cat" optional="false" />
+        <slot name="startDate" caption="Start date" type="cat" subType="temporal" subTypeOptional="true"  optional="false">
+            <attribute level="year" optional="true" />
+            <attribute level="month" optional="true" />
+            <attribute level="day" optional="true" />
+        </slot>
+        <slot name="endDate" caption="End date" type="cat" subType="temporal" subTypeOptional="true"  optional="false">
+            <attribute level="year" optional="true" />
+            <attribute level="month" optional="true" />
+            <attribute level="day" optional="true" />
+        </slot>
+        <slot name="color" caption="Color" type="any" optional="true" channel="color"/>
+        <slot name="label" type="cat" caption="Label" optional="true" />
+        <slot name="columns" caption="Additional columns" type="cat" optional="true" />
+    </slots>
+
+    <dataSets>
+        <dataSet name="data">
+            <ref slot="task" />
+            <ref slot="startDate" />
+            <ref slot="endDate" />
+            <ref slot="color" />
+            <ref slot="label" />
+            <ref slot="columns" />
+        </dataSet>
+    </dataSets>
+
+    <properties>
+        <group name="general" caption="General">
+            <group name="palettes" caption="Palettes">
+                <palette name="colors.cat" caption="Categories color" slot="color" type="cat" />     
+                <palette name="colors.cont" caption="Continuous color" slot="color" type="cont" />  
+            </group>  
+            <group name="axis" caption="Axis">
+                <enum name="axis.xAxisPlace" caption="x-axis placement" defaultValue="top" >
+                    <possibleValue caption="Top">top</possibleValue>
+                    <possibleValue caption="Bottom">bottom</possibleValue>
+                </enum>  
+                <color name="axis.line.color" caption="Line color" defaultValue="black" tags="$ui-04"/>
+                <color name="axis.grid.color" caption="Grid line color" defaultValue="#bdbdc5" tags="$ui-03" />
+                <color name="axis.label.color" caption="Label color" defaultValue="black" tags="$text-02"/>
+                <font name="axis.label.font" defaultValue="0.75em 'IBM Plex Sans'" caption="Label font" tags="$label-02" />
+            </group> 
+            <group name="text" caption="Text">
+                <boolean name="text.background.show" caption="Show label background" defaultValue="true" />
+                <color name="text.background.color" caption="Background color" defaultValue="#FFFFFF" />
+                <number name="text.background.opacity" caption="Background opacity" defaultValue="0.5" minValue="0" maxValue="1" />
+                <font name="text.font" caption="Font" defaultValue="0.8em 'IBM Plex Sans'" tags="$label-02" />
+                <color name="text.color" caption="Text color" defaultValue="#000000" />
+            </group>  
+        </group>
+    </properties>
+
+ <!-- Visualization Capabilities  -->
+     <capabilities>
+        <decorations>
+            <!-- Support selection capability-->
+            <decoration name="selected" type="boolean" target="datapoint" />
+            <decoration name="hasSelection" type="boolean" target="dataset" />
+            <!-- Support highlighting capability-->
+            <decoration name="highlighted" type="boolean" target="datapoint" />
+        </decorations>
+    </capabilities>
+
+</visualizationDefinition>

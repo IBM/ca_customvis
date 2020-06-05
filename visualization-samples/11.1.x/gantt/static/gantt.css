@@ -1,0 +1,16 @@
+.gantt .tick line
+{
+    stroke: #bdbdc5;
+}
+
+.gantt .column
+{
+    font-weight: bold;
+    font-size: 0.75em;
+}
+
+.gantt .colVal
+{
+    font-weight: normal;
+    font-size: 0.75em;
+}
