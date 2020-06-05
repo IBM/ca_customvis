@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="value" caption="Actual value" type="cont" optional="false" />
+        <slot name="max-axis-value" caption="Maximum axis value" type="cont" optional="true" />
+        <slot name="target" caption="Target" type="cont" optional="true" />
+    </slots>
+
+    <dataSets>
+        <dataSet>
+            <ref slot="value" />
+            <ref slot="max-axis-value" />
+            <ref slot="target" />
+        </dataSet>
+    </dataSets>
+
+    <properties>
+        <group name="Visualization">
+            <group name="General">
+                <color name="background-color" caption="Background color" defaultValue="transparent" tags="$back-02"/>
+                <color name="elements-background-color" caption="Elements background color" defaultValue="transparent" tags="$back-02"/>
+            </group>
+            <group name="Axis">
+                <number name="min-axis-value" caption="Axis minimum value" defaultValue="0" />
+                <number name="max-axis-value" caption="Axis maximum value" defaultValue="100" />
+                <number name="sweep-angle" caption="Sweep angle" defaultValue="280" minValue="10" maxValue="350" />
+                <font name="axis-font" caption="Tick label font" defaultValue="3px IBM Plex Sans" />
+                <color name="axis-font-color" caption="Tick label color" defaultValue="black" tags="$text-02" />
+                <color name="axis-tick-color" caption="Tick color" defaultValue="black" tags="$ui-04" />
+                <number name="major-ticks-count" caption="Major ticks" defaultValue="3" maxValue="250" />
+                <number name="minor-ticks-per-interval" caption="Minor ticks per interval" defaultValue="4" maxValue="100" />
+                <boolean name="show-major-tick-text" caption="Show major ticks labels" defaultValue="true" />
+            </group>
+            <group name="Pointer">
+                <color name="pointer-indicator-fill" caption="Indicator fill color" defaultValue="#eb4634" />
+                <color name="pointer-indicator-stroke" caption="Indicator stroke color" defaultValue="#eb4634" />
+                <boolean name="show-pointer-circle" caption="Show pointer circle" defaultValue="true" />
+                <color name="pointer-circle-fill" caption="Pointer circle fill color" defaultValue="#eb5634" />
+                <color name="pointer-circle-stroke" caption="Pointer circle stroke color" defaultValue="#eb4634" />
+            </group>
+            <group name="Border">
+                <boolean name="show-border" caption="Show border" defaultValue="true" />
+                <color name="outer-border-stroke" caption="Outer color" defaultValue="black" tags="$ui-04" />
+                <color name="inner-border-stroke" caption="Inner color" defaultValue="lightgrey" tags="$ui-01"/>
+                <number name="border-size" caption="Border size" defaultValue="7" minValue="1" />
+            </group>
+            <group name="Arc">
+                <group name="First interval">
+                    <number name="first-interval-start" caption="Interval start percentage" defaultValue="0" />
+                    <number name="first-interval-end" caption="Interval end percentage" defaultValue="25" maxValue="100" />
+                    <color name="first-interval-color" caption="Interval color" defaultValue="transparent" />
+                </group>
+                <group name="Second interval">
+                    <number name="second-interval-start" caption="Interval start percentage" defaultValue="25" />
+                    <number name="second-interval-end" caption="Interval end percentage" defaultValue="50" maxValue="100" />
+                    <color name="second-interval-color" caption="Interval color" defaultValue="transparent" />
+                </group>
+                <group name="Third interval">
+                    <number name="third-interval-start" caption="Interval start percentage" defaultValue="50" />
+                    <number name="third-interval-end" caption="Interval end percentage" defaultValue="100" maxValue="100" />
+                    <color name="third-interval-color" caption="Interval color" defaultValue="transparent" />
+                </group>
+            </group>
+            <group name="Target">
+                <boolean name="target-show" caption="Show target" defaultValue="true" />
+                <color name="target-color" caption="Color" defaultValue="#0f62fe" />
+                <number name="target-value" caption="Target value" defaultValue="0" />
+            </group>
+            <group name="Labels">
+                <group name="KPI label">
+                    <boolean name="KPI-label-show" caption="Show label" defaultValue="true" />
+                    <font name="KPI-label-font" caption="Font" defaultValue="4px IBM Plex Sans" />
+                    <color name="KPI-label-font-color" caption="Font color" defaultValue="black" tags="$text-01" />
+                    <number name="KPI-label-offset" caption="Vertical offset" defaultValue="-10" minValue="-20" maxValue="30" />
+                </group>
+                <group name="Value label">
+                    <boolean name="value-label-show" caption="Show label" defaultValue="true" />
+                    <font name="value-label-font" caption="Font" defaultValue="4px IBM Plex Sans" />
+                    <color name="value-label-font-color" caption="Font color" defaultValue="black" tags="$text-01" />
+                    <number name="value-label-offset" caption="Vertical offset" defaultValue="30" minValue="-20" maxValue="30" />
+                </group>
+            </group>
+        </group>
+    </properties>
+
+    <capabilities>
+        <decorations>
+            <decoration name="selected" type="boolean" target="datapoint" />
+            <decoration name="hasSelection" type="boolean" target="dataset" />
+            <decoration name="highlighted" type="boolean" target="datapoint" />
+        </decorations>
+    </capabilities>
+</visualizationDefinition>
