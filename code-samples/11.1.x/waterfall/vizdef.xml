@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="categories" caption="Categories" type="cat" optional="false" />
+        <slot name="type" caption="Value Type" type="cat" optional="false" />
+        <slot name="value" caption="Value" type="cont" optional="false" />
+    </slots>
+
+    <dataSets>
+        <dataSet name="data">
+            <ref slot="categories" />
+            <ref slot="type" />
+            <ref slot="value" />
+        </dataSet>
+    </dataSets>
+
+    <properties>
+        <group name="general" caption="General">
+            <group name="visualization.general" caption="General">
+                <boolean name="deltaLines" defaultValue="true" caption="Show changes" />
+                <number name="baseRatio" defaultValue="0.1" minValue="0" maxValue="0.5" caption="Ratio of base" />
+                <color name="totalBarColor" defaultValue="#b7b7b7" caption="Total bar" />
+                <color name="adjustmentBarColor" defaultValue="#FEFE7E" caption="Adjustment bar" />
+                <color name="posDeltaColor" defaultValue="#91ea4f" caption="Positive delta bar" />
+                <color name="negDeltaColor" defaultValue="#ff6064" caption="Negative delta bar" />
+            </group>
+            <group name="type" caption="Type classes">
+                <string name="totalType" defaultValue="TOTAL" caption="Total rows" />
+                <string name="adjustmentType" defaultValue="ADJUSTMENT" caption="Adjustment rows" />
+                <string name="deltaType" defaultValue="DELTA" caption="Delta rows" />
+            </group>
+            <group name="text" caption="Text">
+                <font name="labelFont" defaultValue="0.8em 'IBM Plex Sans'" caption="Value label font" />
+                <font name="axisFont" defaultValue="0.7em 'IBM Plex Sans'" caption="Axis label font" />
+            </group>
+        </group>
+    </properties>
+
+     <!-- Visualization Capabilities  -->
+     <capabilities>
+        <decorations>
+            <!-- Support selection capability-->
+            <decoration name="selected" type="boolean" target="datapoint" />
+            <decoration name="hasSelection" type="boolean" target="dataset" />
+            <!-- Support highlighting capability-->
+            <decoration name="highlighted" type="boolean" target="datapoint" />
+        </decorations>
+    </capabilities>
+</visualizationDefinition>
