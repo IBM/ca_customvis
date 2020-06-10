@@ -10,7 +10,7 @@
 // ******** FOR INTERNAL USE ONLY! ********
 
 // sample from https://observablehq.com/@d3/sankey-diagram
-import { RenderBase, UpdateInfo, DataSet, DataPoint, Tuple, Font } from "@businessanalytics/customvis-lib";
+import { RenderBase, UpdateInfo, CatPalette, DataSet, DataPoint, Tuple, Font } from "@businessanalytics/customvis-lib";
 import * as d3 from "d3";
 
 // Sankey plugin
@@ -330,22 +330,11 @@ export default class extends RenderBase
 
     private _createColorFn( _info: UpdateInfo ): Function
     {
-        const palette = _info.props.get( "color" );
-        const colors = palette.source.value._resolver.colors.map( e => e.toString() );
+        const palette = _info.props.get( "color" ) as CatPalette;
         if ( _info.props.get( "node.level-color" ) )
-        {
-            const maxLevel = Math.max( ...this._nodes.map( e => e.layer ) );
-            const levels = [];
-            for ( let i = 0; i <= maxLevel; i++ )
-                levels.push( i );
-            return ( _d: Node ): string =>
-                d3.scaleOrdinal( colors ).domain( levels )( _d.layer.toString() ).toString();
-        }
+            return ( _d: Node ): string => palette.getColor( this._nodes[ _d.layer ].$ ).toString();
         else
-        {
-            return ( _d: Node ): string =>
-                d3.scaleOrdinal( colors ).domain( this._domains )( _d.$.caption ).toString();
-        }
+            return ( _d: Node ): string => palette.getColor( _d.$ ).toString();
     }
 
     private _decorate( _svg: any, _hasSelections: boolean ): void
