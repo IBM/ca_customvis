@@ -118,18 +118,44 @@ function createGetDateFn( startOrEnd: number ): Function
     // Get date string from tuple key, since some dates are automatically parsed,
     // the caption is formatted and can't be recognized by Date parser
     // Used to parse Date object in CA, since it doens't support temporal slot
-    function getDateString( _tupleKey: string ): string
+    // Also see: VIDA-3623, VIDA-3804 and VIDA-4456
+    function extractDate( _tupleKey: string ): Date | null
     {
-        const component = _tupleKey.split( "[" ).pop();
-        return component.substr( 0, component.length - 1 );
+        // Try and parse CA or local key ("DATASET.SLOT->[2018-02-18 19:00:00]" or "[ID].[SLOT].[1533959781804]")
+        let dateStartIndex: number = _tupleKey.lastIndexOf( "[" );
+        let dateEndIndex: number;
+        if ( dateStartIndex === -1 )
+        {
+            // Try and parse Reporting key ("SLOT-Nov 04, 2019 3:15:00 PM")
+            dateStartIndex  = _tupleKey.lastIndexOf( "-" );
+            dateEndIndex = _tupleKey.length;
+        }
+        else
+        {
+            // Skip opening bracket and find matching bracket
+            dateStartIndex++;
+            dateEndIndex = _tupleKey.indexOf( "]", dateStartIndex );
+        }
+
+        if ( dateStartIndex === -1 || dateEndIndex === -1 )
+        {
+            console.warn( `Cannot extract date from  ${_tupleKey}` );
+            return null;
+        }
+
+        const dateString = _tupleKey.slice( dateStartIndex, dateEndIndex );
+        const dateNumber = Number( dateString );
+
+        return new Date( isNaN( dateNumber ) ? dateString : dateNumber );
     }
+
     return ( _dataPoint: DataPoint ): Date | null =>
     {
         const caption = _dataPoint.tuple( startOrEnd ).caption;
         if ( !caption )
             return null;
         const date: Date = _dataPoint.tuple( startOrEnd ).source.value;
-        return date ? date : new Date( getDateString( _dataPoint.tuple( startOrEnd ).key ) );
+        return date ? date : extractDate( _dataPoint.tuple( startOrEnd ).key );
     };
 }
 
