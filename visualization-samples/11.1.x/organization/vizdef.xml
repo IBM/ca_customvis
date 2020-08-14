@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="nodes" caption="Nodes" type="cat" optional="false" />
+        <slot name="parent" caption="Parent" type="cat" optional="false" subType="reference" reference="nodes" />
+        <slot name="color" caption="Color" type="any" optional="true" channel="color" />
+    </slots>
+
+    <dataSets>
+        <dataSet name="data">
+            <ref slot="nodes" />
+            <ref slot="parent" reference="data:nodes" />
+            <ref slot="color" />
+        </dataSet>
+    </dataSets>
+    <properties>
+        <group name="general" caption="General">
+            <group name="palettes" caption="Palettes">
+                <palette name="catcolor" caption="Categorical" slot="color" type="cat"/>
+                <palette name="contcolor" caption="Continuous" slot="color" type="cont"/>
+            </group>
+            <group name="nodes" caption="Nodes">
+                <font name="title.font" defaultValue="bold 1.5em" caption="Title font" />
+                <color name="title.color" alias="itemAxisTitleColor" allowNull="true" caption="Title color" />
+                <font name="node.font" caption="Label font" />
+                <color name="node.color" defaultValue="rgb(255,255,255)" caption="Label color" />
+                <boolean name="contrast.text.color" defaultValue="false" caption="Contrast text" />
+            </group>
+            <group name="lines" caption="Lines">
+                <color name="line.color" defaultValue="rgba(168, 168, 168, 0.2)" caption="Line color" />
+                <enum name="line.curvature" defaultValue="100" caption="Line type" >
+                    <possibleValue caption="Diagonal">0</possibleValue>
+                    <possibleValue caption="Curved">50</possibleValue>
+                    <possibleValue caption="Straight lines">100</possibleValue>
+                </enum>
+            </group>
+            <group name="tree" caption="Tree">
+                <enum name="direction" defaultValue="down" caption="Tree direction" >
+                    <possibleValue caption="Top-down">down</possibleValue>
+                    <possibleValue caption="Bottom-up">up</possibleValue>
+                    <possibleValue caption="Left-right">right</possibleValue>
+                    <possibleValue caption="Right-left">left</possibleValue>
+                </enum>
+            </group>
+        </group>
+    </properties>
+     <capabilities>
+        <decorations>
+            <decoration name="selected" type="boolean" target="datapoint" />
+            <decoration name="hasSelection" type="boolean" target="dataset" />
+            <decoration name="highlighted" type="boolean" target="datapoint" />
+        </decorations>
+    </capabilities>
+</visualizationDefinition>
