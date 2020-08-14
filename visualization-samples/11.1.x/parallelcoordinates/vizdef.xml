@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed Materials - Property of IBM
+
+IBM Watson Analytics
+
+(C) Copyright IBM Corp. 2020
+
+US Government Users Restricted Rights - Use, duplication or
+disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+-->
+
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="coordinates" caption="$nls.prop_slot.coordinates" type="cat" optional="false" role="group" />
+        <slot name="values" caption="$nls.prop_slot.value" type="cont" role="response" />
+        <slot name="color" caption="$nls.prop_slot.color" type="cat" channel="color" />
+    </slots>
+
+    <dataSets>
+        <dataSet name="data">
+            <ref slot="coordinates" />
+            <ref slot="values" />
+            <ref slot="color" />
+        </dataSet>
+    </dataSets>
+
+    <properties>
+        <group name="general" caption="$nls.group_general">       
+            <group name="palettes" caption="$nls.group_palettes">
+                <palette name="line.colors" caption="$nls.prop_line.colors" slot="color" type="cat" />
+            </group>
+
+            <group name="visualization.axes" caption="$nls.group_axes.caption">
+                <font name="axis.title.font" defaultValue="bold 1.2em" caption="$nls.prop_axis.title.font.caption" description="$nls.prop_axis.title.font.description" tags="$caption-02" />
+                <color name="axis.title.color" defaultValue="rgb(22,22,22)" caption="$nls.prop_axis.title.color.caption" description="$nls.prop_axis.title.color.description" tags="$text-01" />
+                <boolean name="axis.title.visible" defaultValue="true" caption="$nls.prop_axis.title.visible.caption" description="$nls.prop_axis.title.visible.description" />
+
+                <color name="axis.line.color" defaultValue="rgba(0, 0, 0, 0.08)" caption="$nls.prop_axis.line.color.caption" description="$nls.prop_axis.line.color.description" tags="$ui-04" />
+
+                <color name="axis.ticks.color" defaultValue="rgb(223,233,233)" caption="$nls.prop_axis.ticks.color.caption" description="$nls.prop_axis.ticks.color.description" tags="$ui-04" />
+                <boolean name="axis.ticks.visible" defaultValue="true" caption="$nls.prop_axis.ticks.visible.caption" description="$nls.prop_axis.ticks.visible.description" />
+
+                <font name="axis.ticks.labels.font" allowNull="true" caption="$nls.prop_axis.ticks.labels.font.caption" description="$nls.prop_axis.ticks.labels.font.description" tags="$label-02" />
+                <color name="axis.ticks.labels.color" defaultValue="rgb(57,57,57)" caption="$nls.prop_axis.ticks.labels.color.caption" description="$nls.prop_axis.ticks.labels.color.description" tags="$text-02" />
+                <boolean name="axis.ticks.labels.visible" defaultValue="true" caption="$nls.prop_axis.ticks.labels.visible.caption" description="$nls.prop_axis.ticks.labels.visible.description" />
+            </group>
+
+            <group name="line" caption="$nls.group_line">
+                <number name="line.width" defaultValue="1.75" caption="$nls.prop_line.width" />
+                <boolean name="marker.show" defaultValue="true" caption="$nls.prop_marker.show" />
+                <number name="marker.radius" defaultValue="4" caption="$nls.prop_marker.radius" />
+            </group>
+
+            <group name="animation" caption="$nls.prop_group.animation">
+                <number name="transition.duration" defaultValue="400" caption="$nls.prop_transition.duration" />
+            </group>
+        </group>
+    </properties>
+
+     <!-- Visualization Capabilities  -->
+     <capabilities>
+        <decorations>
+            <!-- Support selection capability-->
+            <decoration name="selected" type="boolean" target="datapoint" />
+            <decoration name="hasSelection" type="boolean" target="dataset" />
+            <!-- Support highlighting capability-->
+            <decoration name="highlighted" type="boolean" target="datapoint" />
+        </decorations>
+    </capabilities>
+
+    <configuration>
+        <string name="vida.theme.name" caption="$nls.prop_vida.theme.name" />
+    </configuration>
+
+</visualizationDefinition>
