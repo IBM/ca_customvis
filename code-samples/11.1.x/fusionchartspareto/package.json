@@ -1,0 +1,33 @@
+{
+    "name": "fusioncharts-pareto",
+    "version": "0.0.1",
+    "description": "A sample of FusionCharts pareto",
+    "repository": {},
+    "devDependencies": {
+        "@babel/core": "~7.7.5",
+        "@babel/plugin-proposal-class-properties": "~7.7.4",
+        "@babel/plugin-proposal-object-rest-spread": "~7.7.4",
+        "@babel/preset-env": "~7.7.6",
+        "@babel/preset-typescript": "~7.7.4",
+        "rollup-plugin-babel": "~4.3.3",
+        "@rollup/plugin-commonjs": "~11.0.1",
+        "@rollup/plugin-node-resolve": "^6.1.0",
+        "typescript": "~3.7.4",
+        "@types/d3": "^5.7.0"
+    },
+    "dependencies": {
+        "@businessanalytics/customvis-lib": "file:customvis-lib.tgz",
+        "fusioncharts": "latest"
+    },
+    "keywords": [
+        "Code sample"
+    ],
+    "meta": {
+        "name": "FusionCharts Pareto",
+        "id": "customvis.catalog.codesample.fusioncharts-pareto",
+        "type": "renderer",
+        "version": "1.0",
+        "description": "A sample of FusionCharts pareto",
+        "icon": "icon.svg"
+    }
+}

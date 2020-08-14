@@ -1,0 +1,33 @@
+{
+    "name": "echarts-line-custom-visualization",
+    "version": "0.0.1",
+    "description": "Sample ECharts line visualization",
+    "repository": {},
+    "devDependencies": {
+        "@babel/core": "~7.7.5",
+        "@babel/plugin-proposal-class-properties": "~7.7.4",
+        "@babel/plugin-proposal-object-rest-spread": "~7.7.4",
+        "@babel/preset-env": "~7.7.6",
+        "@babel/preset-typescript": "~7.7.4",
+        "rollup-plugin-babel": "~4.3.3",
+        "@rollup/plugin-commonjs": "~11.0.1",
+        "@rollup/plugin-node-resolve": "~6.1.0",
+        "typescript": "~3.7.4",
+        "@types/d3": "^5.7.0"
+    },
+    "dependencies": {
+        "@businessanalytics/customvis-lib": "file:customvis-lib.tgz",
+        "echarts": "^4.6.0"
+    },
+    "meta": {
+        "name": "Echarts Line",
+        "id": "customvis.catalog.codesample.echarts-line",
+        "type": "renderer",
+        "version": "1.0",
+        "description": "Sample visualization with ECharts",
+        "icon": "icon.svg"
+    },
+    "keywords": [
+        "Code sample"
+    ]
+}

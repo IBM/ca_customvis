@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="categories" caption="Categories" type="cat" optional="false" channel="color" />
+        <slot name="values" caption="Values" type="cont" optional="false" />
+    </slots>
+
+    <properties>
+        <group name="visualization" caption="Visualization">
+            <group name="general" caption="General">
+                <color name="background.color" caption="Background color" defaultValue="white" tags="$back-02" />
+                <boolean name="values.show" caption="Show values on chart" defaultValue="false" />
+                <color name="values.color" caption="Values color" defaultValue="black" tags="$text-02" />
+            </group>
+            <group name="palettes" caption="Palettes">
+                <palette name="colors" caption="Colors" type="cat" slot="categories" />
+            </group>
+            <group name="line" caption="Line">
+                <color name="line.color" caption="Line color" defaultValue="#262626" tags="$ui-04" />
+                <number name="line.width" caption="Line width" defaultValue="3" />
+                <number name="line.anchor.radius" caption="Anchor point radius" defaultValue="4" />
+            </group>
+            <group name="canvas" caption="Canvas">
+                <number name="padding.top" caption="Top padding" defaultValue="5" />
+                <number name="padding.bottom" caption="Bottom padding" defaultValue="0" />
+                <number name="padding.left" caption="Left padding" defaultValue="0" />
+                <number name="padding.right" caption="Right padding" defaultValue="0" />
+            </group>
+            <group name="axes" caption="Axes">
+                <group name="xAxis" caption="Item axis">
+                    <string name="xAxis.title" caption="Title" />
+                    <color name="xAxis.title.color" caption="Title color" defaultValue="black" tags="$text-01" />
+                    <color name="xAxis.label.color" caption="Label color" defaultValue="black" tags="$text-02" />
+                </group>
+                <group name="yAxis" caption="Value axis">
+                    <string name="yAxis.title" caption="Left axis title" />
+                    <string name="syAxis.title" caption="Right axis title" />
+                    <color name="yAxis.title.color" caption="Title color" defaultValue="black" tags="$text-01" />
+                    <color name="yAxis.label.color" caption="Label color" defaultValue="black" tags="$text-02" />
+                    <color name="yAxis.grid.color" caption="Grid lines color" defaultValue="#CCC" tags="$ui-03" />
+                </group>
+            </group>
+            <group name="tooltip" caption="Tooltip">
+                <boolean name="tooltip.show" caption="Show tooltip" defaultValue="true" />
+                <boolean name="crossline.show" caption="Show cross line" defaultValue="true" />
+                <color name="crossline.color" caption="Cross line background color" defaultValue="#DFDFDF" tags="$ui-03" />
+            </group>
+        </group>
+    </properties>
+
+    <dataSets>
+        <dataSet name="data">
+            <ref slot="categories" />
+            <ref slot="values" />
+        </dataSet>
+    </dataSets>
+</visualizationDefinition>

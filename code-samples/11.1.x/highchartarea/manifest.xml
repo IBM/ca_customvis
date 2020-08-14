@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/manifest.1">
+    <Bundle-SymbolicName>customvis.catalog.codesample.highcharts-area</Bundle-SymbolicName>
+    <Bundle-Name>Highcharts Area</Bundle-Name>
+    <Bundle-ManifestVersion>1.0</Bundle-ManifestVersion>
+    <Bundle-Version>1.0</Bundle-Version>
+    <Bundle-Config>static/config</Bundle-Config>
+    <Bundle-Type>visualization</Bundle-Type>
+    <ServiceDefinition>vizdef.xml</ServiceDefinition>
+    <Bundle-Nls lang="js">./nls/Resources</Bundle-Nls>
+    <ServiceBindings>
+        <Service format="client" lang="js" class="renderer/Main" apiversion="1.0" />
+    </ServiceBindings>
+</manifest>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="categories" caption="Categories" type="cat" optional="false" />
+        <slot name="series" caption="Series" type="cat" optional="true" channel="color" />
+        <slot name="values" caption="Values" type="cont" optional="false" />
+    </slots>
+
+    <dataSets>
+        <dataSet iterate="sorted">
+            <ref slot="categories" />
+            <ref slot="series" />
+            <ref slot="values" />
+        </dataSet>
+    </dataSets>
+
+    <properties>
+        <group name="visualization" caption="Visualization">
+            <group name="general" caption="General">
+                <color name="background.color" caption="Background color" defaultValue="white" tags="$back-02" />
+            </group>
+            <group name="palettes" caption="Palettes">
+                <palette name="colors" caption="Colors" slot="series" />
+            </group>
+            <group name="area" caption="Area">
+                <enum name="area.stack" caption="Stacking" defaultValue="normal">
+                    <possibleValue caption="Normal">normal</possibleValue>
+                    <possibleValue caption="Percent">percent</possibleValue>
+                    <possibleValue caption="None">none</possibleValue>
+                </enum>
+                <boolean name="area.reverse" caption="Reverse stack" defaultValue="false" />
+                <number name="area.fillOpacity" caption="Fill opacity" defaultValue="0.75" minValue="0" maxValue="1" />
+                <enum name="area.symbol" caption="Marker symbol" defaultValue="none">
+                    <possibleValue caption="Round">round</possibleValue>
+                    <possibleValue caption="Square">square</possibleValue>
+                    <possibleValue caption="Diamond">diamond</possibleValue>
+                    <possibleValue caption="Triangle">triangle</possibleValue>
+                    <possibleValue caption="None">none</possibleValue>
+                </enum>
+                <enum name="area.zoom" caption="Zoom mode" description="Enable zooming by dragging on the chart area" defaultValue="none">
+                    <possibleValue caption="Item axis only">x</possibleValue>
+                    <possibleValue caption="Value axis only">y</possibleValue>
+                    <possibleValue caption="Both axes">xy</possibleValue>
+                    <possibleValue caption="None">none</possibleValue>
+                </enum>
+            </group>
+            <group name="axes" caption="Axes">
+                <group name="xAxis" caption="Item axis">
+                    <string name="xAxis.title" caption="Title" />
+                    <color name="xAxis.title.color" caption="Title color" defaultValue="#666666" tags="$text-01" />
+                    <color name="xAxis.label.color" caption="Label color" defaultValue="#666666" tags="$text-02" />
+                    <color name="xAxis.line.color" caption="Base line color" defaultValue="#ccd6eb" tags="$ui-04"/>
+                </group>
+                <group name="yAxis" caption="Value axis">
+                    <string name="yAxis.title" caption="Title" />
+                    <color name="yAxis.title.color" caption="Title color" defaultValue="#666666" tags="$text-01" />
+                    <color name="yAxis.label.color" caption="Label color" defaultValue="#666666" tags="$text-02" />
+                    <color name="yAxis.grid.color" caption="Grid color" defaultValue="#e6e6e6" tags="$ui-03"/>
+                </group>
+            </group>
+            <group name="tooltip" caption="Tooltip">
+                <boolean name="tooltip.show" caption="Show Highcharts tooltip" defaultValue="true" />
+                <enum name="tooltip.focus" caption="Focus" defaultValue="category">
+                    <possibleValue caption="Category">category</possibleValue>
+                    <possibleValue caption="Series">series</possibleValue>
+                </enum>
+            </group>
+            <group name="highchartsLegend" caption="Legend">
+                <boolean name="highchartsLegend.show" caption="Show Highcharts legend" defaultValue="false" />
+                <enum name="highchartsLegend.place.horizontal" caption="Horizontal place" defaultValue="center">
+                    <possibleValue caption="Left">left</possibleValue>
+                    <possibleValue caption="Center">center</possibleValue>
+                    <possibleValue caption="Right">right</possibleValue>
+                </enum>
+                <enum name="highchartsLegend.place.vertical" caption="Vertical place" defaultValue="bottom">
+                    <possibleValue caption="Top">top</possibleValue>
+                    <possibleValue caption="Middle">middle</possibleValue>
+                    <possibleValue caption="Bottom">bottom</possibleValue>
+                </enum>
+                <enum name="highchartsLegend.layout" caption="Layout" defaultValue="horizontal">
+                    <possibleValue caption="Horizontal">horizontal</possibleValue>
+                    <possibleValue caption="Vertical">vertical</possibleValue>
+                </enum>
+                <color name="highchartsLegend.text.color" caption="Text color" defaultValue="#333333" tags="$text-02"/>
+            </group>
+        </group>
+    </properties>
+</visualizationDefinition>

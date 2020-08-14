@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="categories" caption="Categories" type="cat" optional="false" />
+        <slot name="series" caption="Series" type="cat" optional="true" channel="color" />
+        <slot name="values" caption="Values" type="cont" optional="false" />
+    </slots>
+
+    <dataSets>
+        <dataSet name="data">
+            <ref slot="categories" />
+            <ref slot="series" />
+            <ref slot="values" />
+        </dataSet>
+    </dataSets>
+
+    <properties>
+        <group name="general" caption="General">
+            <group name="palettes" caption="Palettes">
+                <palette name="color" caption="Color" type="cat" slot="series" />
+            </group>
+            <group name="line" caption="Line">
+                <number name="line.width" caption="Width" defaultValue="2" />
+                <enum name="line.style" caption="Style" defaultValue="solid">
+                    <possibleValue caption="Solid">solid</possibleValue>
+                    <possibleValue caption="Dashed">dashed</possibleValue>
+                    <possibleValue caption="Dotted">dotted</possibleValue>
+                </enum>
+                <enum name="line.symbol" caption="Symbol" defaultValue="circle">
+                    <possibleValue caption="Circle">circle</possibleValue>
+                    <possibleValue caption="Rectangle">rect</possibleValue>
+                    <possibleValue caption="Triangle">triangle</possibleValue>
+                    <possibleValue caption="Arrow">arrow</possibleValue>
+                    <possibleValue caption="None">none</possibleValue>
+                </enum>
+                <number name="line.symbol.size" caption="Symbol size" defaultValue="4" />
+            </group>
+            <group name="grid" caption="Grid">
+                <string name="grid.top" caption="Top padding" defaultValue="60" />
+                <string name="grid.bottom" caption="Bottom padding" defaultValue="60" />
+                <string name="grid.left" caption="Left padding" defaultValue="10%" />
+                <string name="grid.right" caption="Right padding" defaultValue="10%" />
+            </group>
+            <group name="axes" caption="Axes">
+                <group name="xAxis" caption="Item axis">
+                    <string name="xAxis.title" caption="Title" />
+                    <enum name="xAxis.title.place" caption="Title placement" defaultValue="center">
+                        <possibleValue caption="Left">start</possibleValue>
+                        <possibleValue caption="Center">center</possibleValue>
+                        <possibleValue caption="Right">end</possibleValue>
+                    </enum>
+                    <color name="xAxis.title.color" caption="Title color" defaultValue="black" tags="$text-01"/>
+                    <number name="xAxis.title.padding" caption="Title padding" defaultValue="30" />
+                    <boolean name="xAxis.inverse" caption="Inverse" defaultValue="false" />
+                    <boolean name="xAxis.zoom" caption="Enable zooming" defaultValue="false" />
+                    <color name="xAxis.label.color" caption="Label color" defaultValue="black" tags="$text-02"/>
+                    <color name="xAxis.line.color" caption="Base line color" defaultValue="black" tags="$ui-04"/>
+                </group>
+                <group name="yAxis" caption="Value axis">
+                    <string name="yAxis.title" caption="Title" />
+                    <enum name="yAxis.title.place" caption="Title placement" defaultValue="center">
+                        <possibleValue caption="Top">end</possibleValue>
+                        <possibleValue caption="Center">center</possibleValue>
+                        <possibleValue caption="Bottom">start</possibleValue>
+                    </enum>
+                    <color name="yAxis.title.color" caption="Title color" defaultValue="black" tags="$text-01"/>
+                    <number name="yAxis.title.padding" caption="Title padding" defaultValue="50" />
+                    <boolean name="yAxis.inverse" caption="Inverse" defaultValue="false" />
+                    <color name="yAxis.label.color" caption="Label color" defaultValue="black" tags="$text-02"/>
+                    <color name="yAxis.line.color" caption="Base line color" defaultValue="black" tags="$ui-04"/>
+                    <color name="yAxis.grid.color" caption="Grid line color" defaultValue="#CCC" tags="$ui-03"/>
+                </group>
+            </group>
+            <group name="tooltip" caption="Tooltip">
+                <boolean name="tooltip.show" caption="Show ECharts tooltip" defaultValue="true" />
+                <color name="tooltip.background.color" caption="Background color" defaultValue="rgb(50,50,50)" tags="$ui-05"/>
+                <number name="tooltip.background.opacity" caption="Background opacity" defaultValue="0.7" minValue="0" maxValue="1" />
+                <color name="tooltip.text.color" caption="Text color" defaultValue="white" tags="$back-02"/>
+            </group>
+            <group name="echartsLegend" caption="Legend">
+                <boolean name="echartsLegend.show" caption="Show ECharts legend" defaultValue="false" />
+                <enum name="echartsLegend.place.horizontal" caption="Horizontal place" defaultValue="right">
+                    <possibleValue caption="Left">left</possibleValue>
+                    <possibleValue caption="Center">center</possibleValue>
+                    <possibleValue caption="Right">right</possibleValue>
+                </enum>
+                <enum name="echartsLegend.place.vertical" caption="Vertical place" defaultValue="top">
+                    <possibleValue caption="Top">top</possibleValue>
+                    <possibleValue caption="Center">center</possibleValue>
+                    <possibleValue caption="Bottom">bottom</possibleValue>
+                </enum>
+                <enum name="echartsLegend.orient" caption="Orientation" defaultValue="vertical">
+                    <possibleValue caption="Horizontal">horizontal</possibleValue>
+                    <possibleValue caption="Vertical">vertical</possibleValue>
+                </enum>
+                <color name="echartsLegend.text.color" caption="Text color" defaultValue="black" tags="$text-02"/>
+            </group>
+        </group>
+    </properties>
+</visualizationDefinition>
