@@ -1,0 +1,9 @@
+USA Standard
+Source: https://commons.wikimedia.org/wiki/File:Blank_US_Map_With_Labels.svg
+License: https://creativecommons.org/licenses/by-sa/3.0/deed.en
+Changes: The SVG file was annotated to link SVG elements to a dataset.
+
+
+USA Scaled Electoral
+Source: https://commons.wikimedia.org/wiki/File:Cartogram—2012_Electoral_Vote.svg
+License: https://creativecommons.org/publicdomain/zero/1.0/deed.en

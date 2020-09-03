@@ -1,0 +1,9 @@
+{
+    "name": "periodic_table",
+    "meta": {
+        "name": "Periodic table",
+        "id": "schematics.catalog.periodictable",
+        "type": "schematics"
+    },
+    "keywords": ["Schematics"]
+}

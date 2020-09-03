@@ -1,0 +1,13 @@
+{
+    "id":"com.ibm.vis.schematic.floorplan",
+    "name":"Floor plan",
+    "type":"schematic",
+    "content":
+    [
+        {
+        "key": "FloorPlan",
+        "caption": "Floor Plan",
+        "source": "floor_plan.svg"
+        }
+    ]
+}

@@ -1,0 +1,4 @@
+Source: https://commons.wikimedia.org/wiki/File:Periodic_table_large.svg
+Author: 2012rc
+License: https://creativecommons.org/licenses/by/3.0/deed.en 
+Modifications: We removed the colours and adjusted the placement of some of the boxes.

@@ -1,0 +1,9 @@
+{
+    "name": "floor_plan",
+    "meta": {
+        "name": "Floor plan",
+        "id": "schematics.catalog.floorplan",
+        "type": "schematics"
+    },
+    "keywords": ["Schematics"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "stadium",
+    "meta": {
+        "name": "Stadium",
+        "id": "schematics.catalog.stadium",
+        "type": "schematics"
+    },
+    "keywords": ["Schematics"]
+}

@@ -1,0 +1,13 @@
+{
+    "id":"com.ibm.vis.schematic.periodictable",
+    "name":"Periodic table",
+    "type":"schematic",
+    "content":
+    [
+        {
+        "key": "PeriodicTable",
+        "caption": "Periodic Table",
+        "source": "Periodic_table.svg"
+        }
+    ]
+}

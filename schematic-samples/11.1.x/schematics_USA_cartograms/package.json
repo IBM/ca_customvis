@@ -1,0 +1,9 @@
+{
+    "name": "usacartograms",
+    "meta": {
+        "name": "USA State Cartograms",
+        "id": "schematics.catalog.usacartograms",
+        "type": "schematics"
+    },
+    "keywords": ["Schematics"]
+}

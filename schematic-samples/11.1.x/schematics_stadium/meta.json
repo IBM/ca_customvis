@@ -1,0 +1,13 @@
+{
+    "id":"com.ibm.vis.schematic.stadium",
+    "name":"Stadium",
+    "type":"schematic",
+    "content":
+    [
+        {
+        "key": "Stadium",
+        "caption": "Stadium",
+        "source": "Olympiastadium.svg"
+        }
+    ]
+}

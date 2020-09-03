@@ -1,0 +1,4 @@
+Source: https://commons.wikimedia.org/wiki/File:Olympic_Stadium_Munich_Seating_Plan_(color).svg
+Author: OpenStreetMap contributors (OSM), MagentaGreen
+License: https://creativecommons.org/licenses/by-sa/2.0/deed.en
+Changes: The SVG file was annotated to link SVG elements to a dataset.
