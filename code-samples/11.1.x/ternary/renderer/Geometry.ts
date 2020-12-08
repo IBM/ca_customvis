@@ -1,9 +1,9 @@
 // Represents a 2d point.
 /**
  * Licensed Materials - Property of IBM
- * 
+ *
  * Copyright IBM Corp. 2019 All Rights Reserved.
- * 
+ *
  * US Government Users Restricted Rights - Use, duplication or
  * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  */
@@ -63,6 +63,6 @@ export class Triangle
     // Returns a path representation of the triangle.
     public toPath(): string
     {
-        return `M${this.vertices[0]}L${this.vertices[1]}L${this.vertices[2]}Z`
+        return `M${this.vertices[ 0 ]}L${this.vertices[ 1 ]}L${this.vertices[ 2 ]}Z`;
     }
 }

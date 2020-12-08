@@ -5,7 +5,7 @@ The Ternary visualization shows a chart that positions data points inside a tria
 
 For instance the data point [ 10, 15, 30 ] will be positioned on 10 / 55 = 18% of the first axis, 15 / 55 = 27% of the second axis and 30 / 55 = 55% of the third axis.
 
-**Note:** This sample is **not supported** on IE 11 browsers.
+**Note:** This sample is **not supported** in Microsoft Internet Explorer 11.
 
 ## Objective
 This example illustrates the following concepts:

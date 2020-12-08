@@ -1,22 +1,41 @@
 {
-    "name": "ternary-custom-visualization",
-    "version": "0.0.1",
-    "description": "Ternary Custom Visualization",
-    "licence": "Licensed Materials - Property of IBM",
+    "name": "@vida/vizbundle-codesample-ternary",
+    "version": "2.0.1-alpha.2",
+    "description": "This sample custom visualization plots three variables which sum to a constant. It graphically displays the ratios of the three variables as positions in an equilateral triangle.",
+    "private": true,
+    "keywords": [
+        "Code sample"
+    ],
     "repository": {},
     "devDependencies": {
-        "@types/d3": "^5.7.0"
-    },
-    "dependencies": {
+        "@babel/core": "~7.12.3",
+        "@babel/plugin-proposal-class-properties": "^7.12.1",
+        "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+        "@babel/preset-env": "^7.12.1",
+        "@babel/preset-typescript": "^7.12.1",
         "@businessanalytics/customvis-lib": "file:customvis-lib.tgz",
-        "rbush": "3.0.1"
+        "@rollup/plugin-babel": "~5.2.1",
+        "@rollup/plugin-commonjs": "~16.0.0",
+        "@rollup/plugin-node-resolve": "~10.0.0",
+        "@types/d3": "^5.7.0",
+        "del-cli": "^3.0.1",
+        "rbush": "^3.0.1"
     },
+    "scripts": {
+        "build": "customvis build",
+        "clean": "del-cli build/**",
+        "watch": "customvis watch",
+        "start": "customvis start"
+    },
+    "files": [
+        "build/**"
+    ],
     "meta": {
         "name": "Ternary",
-        "id": "com.ibm.vis.custom.ternary",
+        "id": "customvis.catalog.codesample.ternary",
         "type": "renderer",
         "version": "2.0",
         "description": "This sample custom visualization plots three variables which sum to a constant. It graphically displays the ratios of the three variables as positions in an equilateral triangle.",
-        "icon": "Ternary.svg"
+        "icon": "icon.svg"
     }
 }
