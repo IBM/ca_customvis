@@ -1,8 +1,8 @@
 /**
  * Licensed Materials - Property of IBM
- * 
+ *
  * Copyright IBM Corp. 2019 All Rights Reserved.
- * 
+ *
  * US Government Users Restricted Rights - Use, duplication or
  * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  */
@@ -40,18 +40,16 @@ export default class extends RenderBase
             .attr( "x", "50" )
             .attr( "y", "78" )
             .style( "font-size", "12px" )
-            .style( "fill", "white" )
             .style( "text-anchor", "middle" )
-            .style( "text-shadow","4px 4px 8px gray" );
+            .style( "text-shadow","4px 4px 8px white" );
 
         svg.append( "text" )
             .attr( "class", "title" )
             .attr( "x", "50" )
             .attr( "y", "92" )
             .style( "font-size", "10px" )
-            .style( "fill", "white" )
             .style( "text-anchor", "middle" )
-            .style( "text-shadow","4px 4px 8px gray" );
+            .style( "text-shadow","4px 4px 8px white" );
 
         // Return the svg node as the visualization root node.
         return svg.node();

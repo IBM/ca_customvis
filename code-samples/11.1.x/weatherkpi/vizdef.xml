@@ -11,8 +11,8 @@
     </dataSets>
 
     <properties>
-        <group name="general">
-            <color name="background-color" caption="Background color" defaultValue="lightblue" />
+        <group name="general" caption="General">
+            <color name="background-color" caption="Background color" defaultValue="transparent" />
             <number name="min" caption="Minimum value" defaultValue="0" />
             <number name="max" caption="Maximum value" defaultValue="1" />
             <boolean name="title" caption="Title" defaultValue="true" />
