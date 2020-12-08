@@ -1,8 +1,8 @@
 /**
  * Licensed Materials - Property of IBM
- * 
+ *
  * Copyright IBM Corp. 2019 All Rights Reserved.
- * 
+ *
  * US Government Users Restricted Rights - Use, duplication or
  * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  */
@@ -11,7 +11,7 @@ import { RenderBase, UpdateInfo } from "@businessanalytics/customvis-lib";
 import { Encoding, DataSet } from "@businessanalytics/customvis-lib";
 import * as d3 from "d3";
 
-const CAT = 0, XPOS = 1, YPOS = 2, COLOR = 3; // slot indices
+const XPOS = 1, YPOS = 2, COLOR = 3; // slot indices
 
 /**
  * Shows a simple scatter visualization.
@@ -23,7 +23,8 @@ export default class extends RenderBase
         // Create an svg canvas that sizes to its parent.
         const svg = d3.select( _node ).append( "svg" )
             .attr( "width", "100%" )
-            .attr( "height", "100%" );
+            .attr( "height", "100%" )
+            .style( "position", "absolute" );
 
         // Create groups for axes and elements.
         const chart = svg.append( "g" ).attr( "class", "chart" );
@@ -32,7 +33,8 @@ export default class extends RenderBase
         chart.append( "g" ).attr( "class", "elem data" );
 
         // Return the svg node as the visualization root node.
-        return svg.node();
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        return svg.node()!;
     }
 
     protected updateLegend( _data: DataSet ): Encoding[]
@@ -40,7 +42,7 @@ export default class extends RenderBase
         // Call base class implementation to setup initial encodings.
         const encodings = super.updateLegend( _data );
         const hasColor = _data.cols[ COLOR ].mapped;
-    
+
         // Filter encodings: if color slot is mapped, skip categorical legend.
         return encodings.filter( _encoding =>
         {
@@ -50,7 +52,7 @@ export default class extends RenderBase
         } );
     }
 
-    protected updateProperty( _name: string, _value: any )
+    protected updateProperty( _name: string, _value: any ): void
     {
         switch( _name )
         {
@@ -83,14 +85,15 @@ export default class extends RenderBase
         const xHeight = 20; // assume an x-axis height of 20px.
 
         // Set the background image.
-        let urlImage = null;
+        let urlImage = "";
         if ( props.get( "showBackground" ) )
         {
             const image = props.get( "background" );
             if ( image !== "" )
                 urlImage = `url(${image})`;
         }
-        _info.node.parentElement.style.backgroundImage = urlImage;
+
+        d3.select( _info.node.parentNode as HTMLElement ).style( "background-image", urlImage );
 
         // Create the y-axis.
         const yHeight = _info.node.clientHeight - 2 * margin - xHeight;
@@ -102,7 +105,8 @@ export default class extends RenderBase
         if ( yMax === null )
             yScale.nice(); // apply nice scale only if scale is automatic.
         const yAxis = svg.select<SVGGElement>( ".yaxis" ).call( d3.axisLeft( yScale ) );
-        const yWidth = yAxis.node().getBBox().width;
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const yWidth = yAxis.node()!.getBBox().width;
 
         // Create the x-axis and position at bottom of y-axis.
         const xWidth = _info.node.clientWidth - yWidth - 2 * margin;
@@ -117,7 +121,7 @@ export default class extends RenderBase
         xAxis.attr( "transform", `translate(0,${yHeight})` );
 
         // Position the chart (axes and elements).
-        svg.select( ".chart" ).attr( "transform", `translate(${yWidth+margin},${margin})` );
+        svg.select( ".chart" ).attr( "transform", `translate(${yWidth + margin},${margin})` );
 
         // Determine color palette and shape from the properties.
         const hasColor = data.cols[ COLOR ].mapped;
@@ -134,7 +138,8 @@ export default class extends RenderBase
             .data( data.rows, ( row: any ) => row.key )
             .join( "path" )
                 .attr( "d", shape )
-                .attr( "transform", row => `translate(${xScale(row.value(XPOS))},${yScale(row.value(YPOS))})` )
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                .attr( "transform", row => `translate(${xScale( row.value( XPOS )! )},${yScale( row.value( YPOS )! )})` )
                 .attr( "stroke-width", 3 )
                 .attr( "stroke", row => palette.getOutlineColor( row ) )
                 .attr( "fill", row => palette.getFillColor( row ) );

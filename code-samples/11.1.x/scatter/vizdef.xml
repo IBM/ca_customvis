@@ -17,7 +17,7 @@
     </dataSets>
 
     <properties>
-        <group name="general">
+        <group name="general" caption="General">
             <palette name="color_cat" caption="$nls.prop_color_cat" slot="categories" />
             <palette name="color_cont" caption="$nls.prop_color_cont" slot="color" />
             <enum name="pointShape" caption="$nls.prop_shape" defaultValue="circle">

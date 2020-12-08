@@ -1,21 +1,40 @@
 {
-    "name": "scatter-custom-visualization",
-    "version": "0.0.1",
-    "description": "Scatter Custom Visualization",
-    "licence": "Licensed Materials - Property of IBM",
+    "name": "@vida/vizbundle-codesample-scatter",
+    "version": "1.0.1-alpha.2",
+    "description": "This sample custom visualization uses data points to plot two measures anywhere along a scale, not only at regular tick marks. You can use scatter visualizations to explore correlations between different measures.",
+    "private": true,
+    "keywords": [
+        "Code sample"
+    ],
     "repository": {},
     "devDependencies": {
-        "@types/d3": "^5.7.0"
+        "@babel/core": "~7.12.3",
+        "@babel/plugin-proposal-class-properties": "^7.12.1",
+        "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+        "@babel/preset-env": "^7.12.1",
+        "@babel/preset-typescript": "^7.12.1",
+        "@businessanalytics/customvis-lib": "file:customvis-lib.tgz",
+        "@rollup/plugin-babel": "~5.2.1",
+        "@rollup/plugin-commonjs": "~16.0.0",
+        "@rollup/plugin-node-resolve": "~10.0.0",
+        "@types/d3": "^5.7.0",
+        "del-cli": "^3.0.1"
     },
-    "dependencies": {
-        "@businessanalytics/customvis-lib": "file:customvis-lib.tgz"
+    "scripts": {
+        "build": "customvis build",
+        "clean": "del-cli build/**",
+        "watch": "customvis watch",
+        "start": "customvis start"
     },
+    "files": [
+        "build/**"
+    ],
     "meta": {
         "name": "Scatter",
-        "id": "com.ibm.vis.custom.scatter",
+        "id": "customvis.catalog.codesample.scatter",
         "type": "renderer",
         "version": "1.0",
         "description": "This sample custom visualization uses data points to plot two measures anywhere along a scale, not only at regular tick marks. You can use scatter visualizations to explore correlations between different measures.",
-        "icon": "Scatter.svg"
+        "icon": "icon.svg"
     }
 }
