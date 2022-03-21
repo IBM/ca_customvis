@@ -17,8 +17,8 @@
     </dataSets>
 
     <properties>
-        <group name="general" caption="General">
-            <group name="visualization.general" caption="General">
+        <group name="visualization" caption="Visualization">
+            <group name="general" caption="General">
                 <number name="mid-x" defaultValue="0" caption="Horizontal midpoint" />
                 <number name="mid-y" defaultValue="0" caption="Vertical midpoint" />
                 <string name="right-top-caption" defaultValue="I" caption="Right top caption"/>
@@ -29,16 +29,16 @@
                 <boolean name="labels.visible" defaultValue="false" caption="Labels visible" />
                 <number name="min-bubble-size" defaultValue="10" caption="Minimum bubble size" />
                 <number name="max-bubble-size" defaultValue="30" caption="Maximum bubble size" />
-                <number name="transition-duration" defaultValue="400" caption="Transition duration" />
+                <number name="transition.duration" alias="transition-duration" defaultValue="400" caption="Transition duration" />
             </group>
             <group name="palettes" caption="Palettes">
                 <palette name="color" caption="Color" slot="categories" />
             </group>
-            <group name="text" caption="Text">
-                <font name="labelFont" defaultValue="12px 'IBM Plex Sans'" caption="Bubble label font" />
-                <font name="quadFont" defaultValue="32px 'IBM Plex Sans'" caption="Quadrant font" />
-                <font name="axisTitleFont"  defaultValue="1.2em 'IBM Plex Sans'" caption="Axis title font" />
-            </group>
+        </group>
+        <group name="text" caption="Text">
+            <font name="labelFont" defaultValue="12px 'IBM Plex Sans'" caption="Bubble label font" />
+            <font name="quadFont" defaultValue="32px 'IBM Plex Sans'" caption="Quadrant font" />
+            <font name="axisTitleFont"  defaultValue="1.2em 'IBM Plex Sans'" caption="Axis title font" />
         </group>
     </properties>
 
