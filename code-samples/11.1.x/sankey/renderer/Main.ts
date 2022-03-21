@@ -1,8 +1,8 @@
 /**
  * Licensed Materials - Property of IBM
- * 
- * Copyright IBM Corp. 2019 All Rights Reserved.
- * 
+ *
+ * Copyright IBM Corp. 2020 All Rights Reserved.
+ *
  * US Government Users Restricted Rights - Use, duplication or
  * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  */
@@ -23,16 +23,19 @@ import * as d3Sankey from "d3-sankey";
 // Data column indices (see vizdef.xml).
 const FROM = 0, TO = 1, WEIGHT = 2;
 
+// Carbon color palette
+const PALETTE = [ "#6929c4", "#1192e8", "#005d5d", "#9f1853", "#fa4d56", "#570408", "#198038", "#002d9c", "#ee538b", "#b28600", "#009d9a", "#022b30", "#8a3800", "#a56eff" ];
+
 // Key function that uniquely identifies data elements. Used in 'update'.
-const keyFn = ( elem: any ) => elem.key || "";
+const keyFn = ( elem: any ): string => elem.key || "";
 
 // Creates empty paths for each link between two nodes. Called during 'update' when
 // new data needs to be rendered.
-function createLinks( _selection: d3.Selection<any, any, any, any> )
+function createLinks( _selection: d3.Selection<any, any, any, any> ): void
 {
     // Create a linear gradient and a stroke refering to that gradient.
     const id = Math.random().toString( 36 ).substr( 2 ); // claim a new gradient id.
-    const gradient = ( i: number ) => `grad_${id}:${i}`;
+    const gradient = ( i: number ): string => `grad_${id}:${i}`;
     _selection.style( "mix-blend-mode", "multiply" )
         .append( "linearGradient" )
             .attr( "gradientUnits", "userSpaceOnUse" )
@@ -58,7 +61,8 @@ export default class Sankey extends RenderBase
         // Create an svg canvas with groups for nodes, links and labels.
         const svg = d3.select( _parent ).append( "svg" )
             .attr( "width", "100%" )
-            .attr( "height", "100%" );
+            .attr( "height", "100%" )
+            .style( "position", "absolute" );
         svg.append( "g" ).attr( "class", "nodes" ).attr( "stroke", "#000" );
         svg.append( "g" ).attr( "class", "links" ).attr( "fill", "none" );
         svg.append( "g" ).attr( "class", "labels" );
@@ -117,8 +121,8 @@ export default class Sankey extends RenderBase
             .size( [ width, height ] ); // size of the visualization
         createSankey( { nodes, links } ); // generate Sankey data
 
-        // An ordinal color scale assigns a new color to each unique node.
-        const colors = d3.scaleOrdinal( d3.schemeSet3 );
+        // An ordinal color scale assigns a new color to each unique node, using our defined palette.
+        const colors = d3.scaleOrdinal().range( PALETTE );
 
         // Update nodes. Ensure that tuples are colored based on tuple key.
         svg.select( ".nodes" )
@@ -130,7 +134,7 @@ export default class Sankey extends RenderBase
                 .attr( "height", d => Math.max( 0, d.y1 - d.y0 ) )
                 .attr( "width", d => d.x1 - d.x0 )
                 .attr( "stroke-width", 0 )
-                .attr( "fill", d  => colors( d.$.key ) ); // node color
+                .attr( "fill", d  => colors( d.$.key ).toString() ); // node color
 
         // Update links that connect the nodes. From and to colors are based on tuple key.
         svg.select( ".links" )
@@ -144,9 +148,9 @@ export default class Sankey extends RenderBase
                         .attr( "x1", d => d.source.x1 )
                         .attr( "x2", d => d.source.x2 );
                     g.select( "stop:nth-of-type(1)" ) // 'from' color
-                        .attr( "stop-color", d => colors( d.source.$.key ) );
+                        .attr( "stop-color", d => colors( d.source.$.key ).toString() );
                     g.select( "stop:nth-of-type(2)" ) // 'to' color
-                        .attr( "stop-color", d => colors( d.target.$.key ) );
+                        .attr( "stop-color", d => colors( d.target.$.key ).toString() );
                     g.select( "path" ) // uses the generated path in 'links'
                         .attr( "d", d3Sankey.sankeyLinkHorizontal() )
                         .attr( "stroke-width", d => Math.max( 1, d.width ) );
