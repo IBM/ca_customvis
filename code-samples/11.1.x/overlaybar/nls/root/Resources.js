@@ -15,7 +15,7 @@ define(
     "slot.overlay1":            "First overlay value",
     "slot.overlay2":            "Second overlay value",
     "slot.series":              "Color",
-    "property.group.general":   "General",
+    "property.group.visualization": "Visualization",
     "property.colors":          "Colors",
     "property.labels":          "Labels",
     "property.image":           "Image",

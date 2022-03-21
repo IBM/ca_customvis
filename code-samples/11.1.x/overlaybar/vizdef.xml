@@ -19,7 +19,7 @@
     </dataSets>
 
     <properties>
-        <group name="general" caption="$nls.property.group.general">
+        <group name="visualization" caption="$nls.property.group.visualization">
             <palette name="colors" caption="$nls.property.colors" slot="series" type="cat" />
             <boolean name="labels" caption="$nls.property.labels" defaultValue="true" />
             <boolean name="image" caption="$nls.property.image" defaultValue="false" />

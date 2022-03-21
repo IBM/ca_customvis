@@ -1,8 +1,8 @@
 /**
  * Licensed Materials - Property of IBM
- * 
+ *
  * Copyright IBM Corp. 2019 All Rights Reserved.
- * 
+ *
  * US Government Users Restricted Rights - Use, duplication or
  * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  */
@@ -25,6 +25,7 @@ export default class extends RenderBase
         return d3.select( _node ).append( "svg" )
             .attr( "width", "100%" )
             .attr( "height", "100%" )
+            .style( "position", "absolute" )
             .node();
     }
 
@@ -39,7 +40,7 @@ export default class extends RenderBase
         let maxValue = 0;
         if ( _info.data )
         {
-            maxValue = Math.max( Math.max( _info.data.cols[BASE].domain.max, _info.data.cols[OVERLAY1].domain.max ), _info.data.cols[OVERLAY2].domain.max );
+            maxValue = Math.max( Math.max( _info.data.cols[ BASE ].domain.max, _info.data.cols[ OVERLAY1 ].domain.max ), _info.data.cols[ OVERLAY2 ].domain.max );
         }
         const hasColors = colors.length > 0;
 
@@ -49,15 +50,16 @@ export default class extends RenderBase
         const palette = _info.props.get( "colors" ) as CatPalette;
 
         // Set or clear the background image on the parent node.
-        svg.parentElement.style.backgroundImage = _info.props.get( "image" ) ? `url(${logo})` : null;
-        svg.parentElement.style.backgroundSize = _info.props.get( "imageSize" );
+        d3.select( svg.parentNode )
+            .style( "background-image", _info.props.get( "image" ) ? `url(${logo})` : null )
+            .style( "background-size", _info.props.get( "imageSize" ) );
 
-        let getColor = function( _row: DataPoint, _alpha: number ): string
+        const getColor = function( _row: DataPoint, _alpha: number ): string
         {
-            let tuple = _row.tuple( palette.slot );
-            let color = palette.getColor( tuple );
+            const tuple = _row.tuple( palette.slot );
+            const color = palette.getColor( tuple );
             return Color.fromObject( { ...color, a: _alpha } ).toString();
-        }
+        };
 
         // Data binding uses the DataSet.filterRows function to create a subset of the
         // rows, filtered by category.
@@ -93,14 +95,14 @@ export default class extends RenderBase
         elements.select( ".r2" ) // create / update all rectangles (bars)
             .attr( "x", valScale( 0 ) )
             .attr( "y", row => hasColors ? colorScale( row.tuple( SERIES ).key ) + colorScale.bandwidth() * 0.2 : colorScale.bandwidth() * 0.2 )
-            .attr( "width", row => valScale( row.value( OVERLAY1 )) - valScale( 0 ) )
+            .attr( "width", row => valScale( row.value( OVERLAY1 ) ) - valScale( 0 ) )
             .attr( "height", hasColors ? colorScale.bandwidth() * 0.6 : catScale.bandwidth() * 0.6 )
             .attr( "fill", row => getColor( row, 0.6 ) )
             .attr( "stroke", row => palette.getOutlineColor( row ) );
 
         elements.select( ".r3" ) // create / update all rectangles (bars)
             .attr( "x", valScale( 0 ) )
-            .attr( "y", row => hasColors ? colorScale(row.tuple(SERIES).key) + colorScale.bandwidth() * 0.4 : colorScale.bandwidth() * 0.4 )
+            .attr( "y", row => hasColors ? colorScale( row.tuple( SERIES ).key ) + colorScale.bandwidth() * 0.4 : colorScale.bandwidth() * 0.4 )
             .attr( "width", row => valScale( row.value( OVERLAY2 ) ) - valScale( 0 ) )
             .attr( "height", hasColors ? colorScale.bandwidth() * 0.2 : catScale.bandwidth() * 0.2 )
             .attr( "fill", row => getColor( row, 1.0 ) )
