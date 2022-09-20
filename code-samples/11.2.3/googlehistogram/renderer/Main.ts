@@ -129,7 +129,7 @@ export default class extends RenderBase
             }
         };
 
-        google.charts.setOnLoadCallback( () => this._chart.draw( google.visualization.arrayToDataTable( chartData ), options ) );
+        loadPromise.then( () => google.charts.setOnLoadCallback( () => this._chart.draw( google.visualization.arrayToDataTable( chartData ), options ) ) );
     }
 
     // Disable/enable properties based on property update
