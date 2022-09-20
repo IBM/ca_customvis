@@ -1,6 +1,6 @@
 {
     "name": "@vida/vizbundle-codesample-googlechart-histogram",
-    "version": "1.0.2-alpha.6",
+    "version": "1.0.2-alpha.7",
     "description": "Google histogram sample",
     "private": true,
     "keywords": [
