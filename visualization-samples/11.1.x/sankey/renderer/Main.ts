@@ -2,7 +2,7 @@
 //
 // IBM Watson Analytics
 //
-// (C) Copyright IBM Corp. 2019
+// (C) Copyright IBM Corp. 2019, 2023
 //
 // US Government Users Restricted Rights - Use, duplication or
 // disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
@@ -30,18 +30,19 @@ const Y_BUFFER = 5; // for vertical adjustment to give enough padding at top/bot
 // Key function for d3.data to uniquely identify data elements.
 const keyFn = ( elem: any ): string => elem.key || "";
 
-const getSankeyAlignmentFn = ( _alignment: string ): Function =>
+function getSankeyAlignment( _alignment: string ): Function
 {
-    switch( _alignment )
+    switch ( _alignment )
     {
         case "left": return d3Sankey.sankeyLeft;
         case "right": return d3Sankey.sankeyRight;
         case "center": return d3Sankey.sankeyCenter;
         default: return d3Sankey.sankeyJustify;
     }
-};
+}
 
-type Node = {
+type Node =
+{
     key: string;
     $: Tuple;
     x0?: number;
@@ -53,7 +54,8 @@ type Node = {
     layer?: number;
 }
 
-type Link = {
+type Link =
+{
     key: string;
     $: DataPoint;
     source: any; // source and target can be string / Node
@@ -62,7 +64,8 @@ type Link = {
     _negated?: boolean;
 }
 
-type Decoration = {
+type Decoration =
+{
     highlighted: boolean;
     selected: boolean;
 }
@@ -70,9 +73,9 @@ type Decoration = {
 function buildLabelDomains( _nodes: Node[] ): string[]
 {
     const colorDomains: string[] = []; // specific for color lookup.
-    for ( let i = 0; i < _nodes.length; ++i )
+    for ( const node of _nodes )
     {
-        const dv: string = _nodes[ i ].$.caption;
+        const dv: string = node.$.caption;
         if ( colorDomains.indexOf( dv ) < 0 ) // don't want duplicated caption.
         {
             colorDomains.push( dv );
@@ -85,11 +88,11 @@ function buildLabelDomains( _nodes: Node[] ): string[]
 function mergeNodes( _from: Node[], _to: Node[] ): Node[]
 {
     const nodes: Node[] = [].concat( _from );
-    for ( let i = 0; i < _to.length; ++i )
+    for ( const toNode of _to )
     {
-        const n = nodes.some( _e => _e.key === _to[ i ].key );
+        const n = nodes.some( _e => _e.key === toNode.key );
         if ( !n )
-            nodes.push( _to[ i ] );
+            nodes.push( toNode );
     }
     return nodes;
 }
@@ -99,7 +102,7 @@ function filterNodes( _nodes: Node[], _links: Link[] ): Node[]
     const nodes: Node[] = [].concat( _nodes );
     if ( _links && _links.length > 0 )
     {
-        const filtered = nodes.filter( function( _n )
+        return nodes.filter( function( _n )
         {
             const anyLink = _links.some( function( _l )
             {
@@ -107,20 +110,19 @@ function filterNodes( _nodes: Node[], _links: Link[] ): Node[]
             } );
             return !!anyLink;
         } );
-        return filtered;
     }
     else
         return nodes;
 }
 
-function createLinkOpacityFn( _hasSelections: boolean ): Function
+function createLinkOpacityFn( _hasSelections: boolean ): ( d: Link ) => number
 {
     if ( _hasSelections )
         return ( d: Link ): number => d.$.highlighted || d.$.selected ? 0.9 : 0.3;
     return ( d: Link ): number => d.$.highlighted ? 0.9 : 0.5;
 }
 
-function createNodeOpacityFn( _hasSelections: boolean ): Function
+function createNodeOpacityFn( _hasSelections: boolean ): ( d: Node ) => number
 {
     const nodeDecoration = ( d: Node ): Decoration =>
     {
@@ -174,7 +176,8 @@ export default class extends RenderBase
         // Create an svg canvas with groups for nodes, links and labels.
         const svg = d3.select( _parent ).append( "svg" )
             .attr( "width", "100%" )
-            .attr( "height", "100%" );
+            .attr( "height", "100%" )
+            .style( "position", "absolute" );
         svg.append( "g" ).attr( "class", "chartContent links" ).attr( "fill", "none" );
         svg.append( "g" ).attr( "class", "chartContent nodes" );
         svg.append( "g" ).attr( "class", "chartContent labels" );
@@ -260,7 +263,7 @@ export default class extends RenderBase
             const createSankey = d3Sankey.sankey()
                 .nodeId( ( n: Node ) => n.key )
                 .nodeWidth( _info.props.get( "node.width" ) )
-                .nodeAlign( getSankeyAlignmentFn( _info.props.get( "node.alignment" ) ) )
+                .nodeAlign( getSankeyAlignment( _info.props.get( "node.alignment" ) ) )
                 .nodePadding( _info.props.get( "node.padding" ) )
                 .size( [ width - nodeBorderWidth * 2, height - nodeBorderWidth * 2 ] ); // prevent node border from being cut off by chart container
             svg.selectAll( ".chartContent" ).attr( "transform", `translate(${nodeBorderWidth}, ${nodeBorderWidth})` );
@@ -328,9 +331,9 @@ export default class extends RenderBase
         }
     }
 
-    private _createColorFn( _info: UpdateInfo ): Function
+    private _createColorFn( _info: UpdateInfo ): ( d: Node ) => string
     {
-        const palette = _info.props.get( "color" ) as CatPalette;
+        const palette: CatPalette = _info.props.get( "color" );
         if ( _info.props.get( "node.level-color" ) )
             return ( _d: Node ): string => palette.getColor( this._nodes[ _d.layer ].$ ).toString();
         else
@@ -372,7 +375,7 @@ export default class extends RenderBase
     {
         const linkFillType = _info.props.get( "linkFillType" );
 
-        const strokeFn = ( d: Link, i: number ): string =>
+        const strokeFn = ( d: Link ): string =>
         {
             switch( linkFillType )
             {
@@ -383,7 +386,7 @@ export default class extends RenderBase
             case "solid":
                 return _info.props.get( "linkFillSolidColor" ).toString();
             default:
-                return `url(#${this._gradient( d, i )})`;
+                return `url(#${this._gradient( d )})`;
             }
         };
 
@@ -397,7 +400,8 @@ export default class extends RenderBase
                 {
                     g.select( "linearGradient" )
                         .attr( "x1", ( d: Link ) => d.source.x1 )
-                        .attr( "x2", ( d: Link ) => d.target.x0 );
+                        .attr( "x2", ( d: Link ) => d.target.x0 )
+                        .attr( "id", ( _ ) => this._gradient( _ ) );
                     g.select( "stop:nth-of-type(1)" )
                         .attr( "stop-color", ( d: Link ) => this._colorsFn( d.source ) );
                     g.select( "stop:nth-of-type(2)" )
@@ -428,7 +432,7 @@ export default class extends RenderBase
             }
         };
 
-        const labelFont = _info.props.get( "label.font" ) as Font;
+        const labelFont: Font = _info.props.get( "label.font" );
 
         _svg.select( ".labels" )
             .style( "font-size", labelFont.size ? labelFont.size.toString() : null )
@@ -504,22 +508,20 @@ export default class extends RenderBase
         if ( links.length > 1 )
             links = links.reduce<Link[]>( function( _accum, _curr, _currentIndex )
             {
-                const links = _accum;
-                let i = -1;
-                links.some( ( _e: Link, _idx ) =>
+                let index = -1;
+                for ( let i = 0; i < _accum.length; ++i )
                 {
-                    if ( _e.source === _curr.source && _e.target === _curr.target )
+                    if ( _accum[ i ].source === _curr.source && _accum[ i ].target === _curr.target )
                     {
-                        i = _idx;
-                        return true;
+                        index = i;
+                        break;
                     }
-                    return false;
-                } );
-                if ( i < 0 )
-                    links.push( _curr ); // add if unfound
-                else if ( links[ i ]._negated && !_curr._negated ) // found "made" postitive and _curr is not "made" positive
-                    links[ i ] = _curr; // Prefer normal to "made positive" link
-                return links;
+                }
+                if ( index < 0 )
+                    _accum.push( _curr ); // add if unfound
+                else if ( _accum[ index ]._negated && !_curr._negated ) // found "made" postitive and _curr is not "made" positive
+                    _accum[ index ] = _curr; // Prefer normal to "made positive" link
+                return _accum;
             }, [] );
 
         // TODO: To consider Circular linkings between nodes, and "break" the link.
@@ -528,7 +530,7 @@ export default class extends RenderBase
     }
 
 
-    private _gradient( d: Link, _i: number ): string
+    private _gradient( d: Link ): string
     {
         const keys = [ this._domains.indexOf( d.source.$.caption ), this._domains.indexOf( d.target.$.caption ) ].sort();
         return `grad_${this._renderId}_${keys[ 0 ]}_${keys[ 1 ]}`;
@@ -539,7 +541,6 @@ export default class extends RenderBase
         // Create a linear gradient and a path.
         _selection.append( "linearGradient" )
             .attr( "gradientUnits", "userSpaceOnUse" )
-            .attr( "id", ( _, i ) => this._gradient( _, i ) )
             .call( g => g.append( "stop" ).attr( "offset", "0%" ) )
             .call( g => g.append( "stop" ).attr( "offset", "100%" ) );
         // TODO: optimise to create/remove gradient fills instead of predefining all, whether being used or not.
@@ -596,18 +597,17 @@ export default class extends RenderBase
     private _getMinimumGapWidth( _links: Link[] ): number
     {
         let w = Number.MAX_VALUE;
-        for ( let i = 0; i < _links.length; ++i )
+        for ( const l of _links )
         {
-            const l = _links[ i ];
             w = Math.min( w, l.target.x0 - l.source.x1 );
         }
         return w;
     }
 
-    private _wrap( text: any, width: number ): void
+    private _wrap( texts: any, width: number ): void
     {
         // logic idea from https://bl.ocks.org/mbostock/7555321 to wrap text.
-        text.each( function()
+        texts.each( function()
         {
             const text = d3.select( this ),
                 words = text.text().split( /\s+/ ).reverse(),
