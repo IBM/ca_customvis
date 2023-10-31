@@ -1,6 +1,8 @@
 import { RenderBase, UpdateInfo, Slot, DataPoint, Color, DataSet, Font, Segment, Properties } from "@businessanalytics/customvis-lib";
 import * as d3 from "d3";
 import { AxesComponent, AxisProperty } from "@businessanalytics/d3-axis-layout";
+import DateUtils from "./DateUtils";
+
 const TASK = 0, START_DATE = 1, END_DATE = 2, COLOR = 3, LABEL = 4, COLUMNS = 5; // data column indices
 const DESC_PADDING = 10, MIN_ARROW_PADDING = 5, MAX_ARROW_PADDING = 15;
 
@@ -20,6 +22,8 @@ type ColumnValue = {
     x: number;
     text: string;
 }
+
+type ResolveDateFn = ( _dataPoint: DataPoint ) => Date | null;
 
 function setColorOpacity( color: Color, opacity = 0 ): Color
 {
@@ -113,49 +117,15 @@ function computeDateDomain( _rows: DataPoint[], _startDateCol: Slot, _endDateCol
 * Create function that get either Start date or End date of a data point
 * @param startOrEnd Slot number of start date or end date
 */
-function createGetDateFn( startOrEnd: number ): Function
+function createGetDateFn( startOrEnd: number ): ResolveDateFn
 {
-    // Get date string from tuple key, since some dates are automatically parsed,
-    // the caption is formatted and can't be recognized by Date parser
-    // Used to parse Date object in CA, since it doens't support temporal slot
-    // Also see: VIDA-3623, VIDA-3804 and VIDA-4456
-    function extractDate( _tupleKey: string ): Date | null
-    {
-        // Try and parse CA or local key ("DATASET.SLOT->[2018-02-18 19:00:00]" or "[ID].[SLOT].[1533959781804]")
-        let dateStartIndex: number = _tupleKey.lastIndexOf( "[" );
-        let dateEndIndex: number;
-        if ( dateStartIndex === -1 )
-        {
-            // Try and parse Reporting key ("SLOT-Nov 04, 2019 3:15:00 PM")
-            dateStartIndex  = _tupleKey.lastIndexOf( "-" );
-            dateEndIndex = _tupleKey.length;
-        }
-        else
-        {
-            // Skip opening bracket and find matching bracket
-            dateStartIndex++;
-            dateEndIndex = _tupleKey.indexOf( "]", dateStartIndex );
-        }
-
-        if ( dateStartIndex === -1 || dateEndIndex === -1 )
-        {
-            console.warn( `Cannot extract date from  ${_tupleKey}` );
-            return null;
-        }
-
-        const dateString = _tupleKey.slice( dateStartIndex, dateEndIndex );
-        const dateNumber = Number( dateString );
-
-        return new Date( isNaN( dateNumber ) ? dateString : dateNumber );
-    }
-
     return ( _dataPoint: DataPoint ): Date | null =>
     {
         const caption = _dataPoint.tuple( startOrEnd ).caption;
         if ( !caption )
             return null;
         const date: Date = _dataPoint.tuple( startOrEnd ).source.value;
-        return date ? date : extractDate( _dataPoint.tuple( startOrEnd ).key );
+        return date ? date : DateUtils.extractDate( _dataPoint.tuple( startOrEnd ).key );
     };
 }
 
