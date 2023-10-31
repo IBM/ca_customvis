@@ -1,25 +1,42 @@
 import { RenderBase, UpdateInfo, Slot, DataPoint, Color, DataSet, Font, Segment, Properties } from "@businessanalytics/customvis-lib";
 import * as d3 from "d3";
 import { AxesComponent, AxisProperty } from "@businessanalytics/d3-axis-layout";
+import DateUtils from "./DateUtils";
 const TASK = 0, START_DATE = 1, END_DATE = 2, COLOR = 3, LABEL = 4, COLUMNS = 5; // data column indices
 const DESC_PADDING = 10, MIN_ARROW_PADDING = 5, MAX_ARROW_PADDING = 15;
 
-type AxesBound = {
+type AxesBound =
+{
     x: number;
     width: number;
     height: number;
 }
 
-type Connection = {
+type Connection =
+{
     from: DataPoint;
     to: DataPoint;
     path: string;
 }
 
-type ColumnValue = {
+type ColumnValue =
+{
     x: number;
     text: string;
 }
+
+type RowToTaskMap =
+{
+    rowMap: Record<string, string>,
+    numberedTaskArray: string[],
+    taskMap: Record<string, DataPoint[]>
+};
+
+type ResolveDateFn = ( _dataPoint: DataPoint ) => Date | null;
+type ResolveNumberFn = ( _dataPoint: DataPoint ) => number | null;
+type ResolveStringFn = ( _dataPoint: DataPoint ) => string;
+type ResolvePathFn = ( _connection: Connection ) => number[];
+type ResolvePathWithPaddingFn = ( _connection: Connection, _arrowPadding: number ) => number[];
 
 function setColorOpacity( color: Color, opacity = 0 ): Color
 {
@@ -43,7 +60,7 @@ function calculateArrowPadding( _svgWidth: number ): number
  * @param _date
  * @returns True if date is invalid
  */
-function isInvalidDate( _date: null | Date ): boolean
+function isInvalidDate( _date: null | Readonly<Date> ): boolean
 {
     return _date === null || isNaN( _date.getTime() );
 }
@@ -52,18 +69,16 @@ function isInvalidDate( _date: null | Date ): boolean
 * Compute the date domain based on the rows start and end date value/caption.
 * In case of cat date slot tuple caption is used to parse Data otherwise vale.
 * @param _rows
-* @param _startDateCol Slot of start date
-* @param _endDateCol Slot of end date
 * @param _getStartDate Function to get start date
 * @param _getEndDate Function to get end date
 */
-function computeDateDomain( _rows: DataPoint[], _startDateCol: Slot, _endDateCol: Slot, _getStartDate: Function, _getEndDate: Function ): [ Date, Date ]
+function computeDateDomain( _rows: DataPoint[], _getStartDate: ResolveDateFn, _getEndDate: ResolveDateFn ): [ Date, Date ]
 {
     let startDateMin = null, startDateMax = null;
     let endDateMin = null, endDateMax = null;
     _rows.forEach( ( _dataPoint ) =>
     {
-        const startDateVal = _getStartDate( _dataPoint, _startDateCol );
+        const startDateVal = _getStartDate( _dataPoint );
         if ( startDateVal )
         {
             if ( isInvalidDate( startDateMin ) && isInvalidDate( startDateMax ) )
@@ -80,7 +95,7 @@ function computeDateDomain( _rows: DataPoint[], _startDateCol: Slot, _endDateCol
                 startDateMax = startDateVal;
             }
         }
-        const endDateVal = _getEndDate( _dataPoint, _endDateCol );
+        const endDateVal = _getEndDate( _dataPoint );
         if ( endDateVal )
         {
             if ( isInvalidDate( endDateMin ) && isInvalidDate( endDateMax ) )
@@ -109,53 +124,20 @@ function computeDateDomain( _rows: DataPoint[], _startDateCol: Slot, _endDateCol
     return [ minDate, maxDate ];
 }
 
+
 /**
 * Create function that get either Start date or End date of a data point
 * @param startOrEnd Slot number of start date or end date
 */
-function createGetDateFn( startOrEnd: number ): Function
+function createGetDateFn( startOrEnd: number ): ResolveDateFn
 {
-    // Get date string from tuple key, since some dates are automatically parsed,
-    // the caption is formatted and can't be recognized by Date parser
-    // Used to parse Date object in CA, since it doens't support temporal slot
-    // Also see: VIDA-3623, VIDA-3804 and VIDA-4456
-    function extractDate( _tupleKey: string ): Date | null
-    {
-        // Try and parse CA or local key ("DATASET.SLOT->[2018-02-18 19:00:00]" or "[ID].[SLOT].[1533959781804]")
-        let dateStartIndex: number = _tupleKey.lastIndexOf( "[" );
-        let dateEndIndex: number;
-        if ( dateStartIndex === -1 )
-        {
-            // Try and parse Reporting key ("SLOT-Nov 04, 2019 3:15:00 PM")
-            dateStartIndex  = _tupleKey.lastIndexOf( "-" );
-            dateEndIndex = _tupleKey.length;
-        }
-        else
-        {
-            // Skip opening bracket and find matching bracket
-            dateStartIndex++;
-            dateEndIndex = _tupleKey.indexOf( "]", dateStartIndex );
-        }
-
-        if ( dateStartIndex === -1 || dateEndIndex === -1 )
-        {
-            console.warn( `Cannot extract date from  ${_tupleKey}` );
-            return null;
-        }
-
-        const dateString = _tupleKey.slice( dateStartIndex, dateEndIndex );
-        const dateNumber = Number( dateString );
-
-        return new Date( isNaN( dateNumber ) ? dateString : dateNumber );
-    }
-
     return ( _dataPoint: DataPoint ): Date | null =>
     {
         const caption = _dataPoint.tuple( startOrEnd ).caption;
         if ( !caption )
             return null;
         const date: Date = _dataPoint.tuple( startOrEnd ).source.value;
-        return date ? date : extractDate( _dataPoint.tuple( startOrEnd ).key );
+        return date ? date : DateUtils.extractDate( _dataPoint.tuple( startOrEnd ).key );
     };
 }
 
@@ -163,7 +145,7 @@ function createGetDateFn( startOrEnd: number ): Function
 * Create function to calculate label background width
 * @param _svgElem Dummy SVGTextElement having font-size equal to label's
 */
-function createCalLabelWidthFn( _svgElem: SVGTextElement ): Function
+function createCalLabelWidthFn( _svgElem: SVGTextElement ): ResolveNumberFn
 {
     return ( _d: DataPoint ): number =>
     {
@@ -180,7 +162,7 @@ function createCalLabelWidthFn( _svgElem: SVGTextElement ): Function
 * @param _calArrowPathX Function that calculate all x coordinates of path
 * @param _calArrowPathY Function that calculate all y coordinates of path
 */
-function createCalArrowPathFn( _calArrowPathX: Function, _calArrowPathY: Function ): Function
+function createCalArrowPathFn( _calArrowPathX: ResolvePathWithPaddingFn, _calArrowPathY: ResolvePathFn ): ( connection: Connection, _arrowPadding: number ) => Connection
 {
     return ( connection: Connection, _arrowPadding: number ): Connection =>
     {
@@ -199,7 +181,7 @@ function createCalArrowPathFn( _calArrowPathX: Function, _calArrowPathY: Functio
 * Used for zoom handling
 * @param _calArrowPathX Function that calculate all x coordinates of path
 */
-function createRecalArrowPathXFn( _calArrowPathX: Function ): Function
+function createRecalArrowPathXFn( _calArrowPathX: ResolvePathWithPaddingFn ): ( connection: Connection, _arrowPadding: number ) => Connection
 {
     return ( connection: Connection, _arrowPadding: number ): Connection =>
     {
@@ -225,6 +207,22 @@ function applyFont( _selection: any, _font: Font ): void
         .style( "font-weight", _font.weight ? _font.weight.toString() : null );
 }
 
+function areRowsOverlap( _row1: DataPoint, _row2: DataPoint, _getStartDate: ResolveDateFn, _getEndDate: ResolveDateFn ): boolean
+{
+    function dateToTime( _date: Date | null, startOrEnd: string ): number
+    {
+        if ( startOrEnd === "start" )
+            return _date ? _date.getTime() : 0;
+        else
+            return _date ? _date.getTime() : Number.MAX_SAFE_INTEGER;
+    }
+    const start1 = dateToTime( _getStartDate( _row1 ), "start" );
+    const end1 = dateToTime( _getEndDate( _row1 ), "end" );
+    const start2 = dateToTime( _getStartDate( _row2 ), "start" );
+    const end2 = dateToTime( _getEndDate( _row2 ), "end" );
+    return ( end2 < start1 || start2 > end1 ) ? false : true;
+}
+
 export default class extends RenderBase
 {
     private _chartContainer;
@@ -237,7 +235,7 @@ export default class extends RenderBase
     private _bundleUniqueId: number;
     private _xAxisPlace: string;
     private _palette;
-    private _rowTaskMap: object;
+    private _rowTaskMap: Record<string, string>;
 
     protected create( _node: HTMLElement ): Element
     {
@@ -245,7 +243,8 @@ export default class extends RenderBase
         const svg = d3.select( _node ).append( "svg" )
             .attr( "width", "100%" )
             .attr( "height", "100%" )
-            .attr( "class", "gantt" );
+            .attr( "class", "gantt" )
+            .style( "position", "absolute" );
         this.loadCss( "../static/gantt.css" );
         const defs = svg.append( "defs" ).attr( "id", "defs" );
         this._clip = defs
@@ -283,7 +282,7 @@ export default class extends RenderBase
         const props = _info.props;
         const showLabelBg = props.get( "text.background.show" );
         this._xAxisPlace = props.get( "axis.xAxisPlace" );
-        const axisLabelFont = props.get( "axis.label.font" ) as Font;
+        const axisLabelFont: Font = props.get( "axis.label.font" );
         const axisLabelColor = props.get( "axis.label.color" );
 
         if ( !data || data.rows.length === 0 )
@@ -297,12 +296,10 @@ export default class extends RenderBase
         this._updateProperties( _info );
 
         const rows = data.rows;
-        const startDateCol = data.cols[ START_DATE ];
-        const endDateCol = data.cols[ END_DATE ];
         const getStartDate = createGetDateFn( START_DATE );
         const getEndDate = createGetDateFn( END_DATE );
-        const getX = this._createGetXFn( startDateCol, getStartDate );
-        const getWidth = this._createGetWidthFn( startDateCol, endDateCol, getX, getEndDate );
+        const getX = this._createGetXFn( getStartDate );
+        const getWidth = this._createGetWidthFn( getX, getEndDate );
 
         const calculateArrowPathX = this._createCalArrowPathXFn( getX, getWidth );
         const calculateArrowPathY = this._createCalArrowPathYFn();
@@ -318,7 +315,7 @@ export default class extends RenderBase
             .extent( [ [ 0, 0 ], [ width, height ] ] )
             .on( "zoom", () =>
             {
-                this._x1Scale.domain( computeDateDomain( rows, startDateCol, endDateCol, getStartDate, getEndDate ) ).nice();
+                this._x1Scale.domain( computeDateDomain( rows, getStartDate, getEndDate ) ).nice();
                 this._x1Scale = d3.event.transform.rescaleX( this._x1Scale );
                 this._chartContainer.select( ".axisTransform." + this._xAxisPlace ).call( this._x1Axis.scale( this._x1Scale ) );
                 this._chartContainer.selectAll( ".bar" )
@@ -344,10 +341,16 @@ export default class extends RenderBase
         if ( _info.reason.data || _info.reason.size || _info.reason.properties )
         {
             this._createRadialGradients( data );
-            const restructureTasks: any = this._mapRowToTaskArray(  this._restructureTasks( rows, getStartDate, getEndDate ) );
+            // Use a set to avoid duplicate items
+            const taskOrder = new Set<string>();
+            rows.forEach( function( _row )
+            {
+                taskOrder.add( _row.caption( TASK ) );
+            } );
+            const restructureTasks = this._mapRowToTaskArray( this._restructureTasks( rows, getStartDate, getEndDate ), taskOrder );
             this._rowTaskMap = restructureTasks.rowMap;
             const numberedTaskArray = restructureTasks.numberedTaskArray.reverse();
-            this._x1Scale = d3.scaleTime().domain( computeDateDomain( rows, startDateCol, endDateCol, getStartDate, getEndDate ) ).nice();
+            this._x1Scale = d3.scaleTime().domain( computeDateDomain( rows, getStartDate, getEndDate ) ).nice();
             this._y0Scale = d3.scaleBand().domain( numberedTaskArray ).paddingInner( 0.2 ).paddingOuter( 0.4 );
             const leftColumnsSize = Math.min( data.cols[ COLUMNS ].segments.length * 0.1, 0.4 );
             const axesBound: AxesBound = { x : ( width - margin.left - margin.right ) * leftColumnsSize,
@@ -431,10 +434,10 @@ export default class extends RenderBase
                 .style( "stroke-width", "2px" );
             if ( data.cols[ LABEL ].mapped && barHeight > 20 )
             {
-                const labelFont = props.get( "text.font" ) as Font;
+                const labelFont: Font = props.get( "text.font" );
                 if ( showLabelBg )
                 {
-                    const labelBgColor = props.get( "text.background.color" ) as Color;
+                    const labelBgColor: Color = props.get( "text.background.color" );
                     const labelBgOpacity = props.get( "text.background.opacity" ) as number;
                     dummySvg.call( applyFont, labelFont );
                     const getLabelWidth = createCalLabelWidthFn( dummySvg.node() );
@@ -455,7 +458,7 @@ export default class extends RenderBase
                 {
                     this._chartContainer.select( ".labelBackground" ).html( null );
                 }
-                const labelColor = props.get( "text.color" ) as Color;
+                const labelColor: Color = props.get( "text.color" );
                 this._chartContainer.select( ".labels" )
                     .selectAll( "text" )
                     .data( rows )
@@ -511,7 +514,7 @@ export default class extends RenderBase
      */
     private _drawAxes( _bounds: AxesBound, _props: Properties ): any
     {
-        const axisLabelFont = _props.get( "axis.label.font" ) as Font;
+        const axisLabelFont: Font = _props.get( "axis.label.font" );
         const defaultFont =
         {
             "font-size": axisLabelFont.size ? axisLabelFont.size.toString() : "",
@@ -640,7 +643,7 @@ export default class extends RenderBase
             .attr( "stop-color", ( _d: DataPoint ) => setColorOpacity(  colorStops.getColor( _d ) ).toString() );
     }
 
-    private _createGetFillColorFn( _getStartDate: Function, _getEndDate: Function, _col: Slot ): Function
+    private _createGetFillColorFn( _getStartDate: ResolveDateFn, _getEndDate: ResolveDateFn, _col: Slot ): ResolveStringFn
     {
         let getValue;
         if ( _col.dataType === "cat" )
@@ -694,11 +697,11 @@ export default class extends RenderBase
     * @param _startDateCol
     * @param _getStartDate
     */
-    private _createGetXFn( _startDateCol: Slot, _getStartDate: Function ): Function
+    private _createGetXFn( _getStartDate: ResolveDateFn ): ResolveNumberFn
     {
         return ( _dataPoint: DataPoint ): number =>
         {
-            const xVal = _getStartDate( _dataPoint, _startDateCol );
+            const xVal = _getStartDate( _dataPoint );
             if ( isInvalidDate( xVal ) )
                 return this._x1Scale.range()[ 0 ];
             return this._x1Scale( xVal );
@@ -712,13 +715,13 @@ export default class extends RenderBase
     * @param _getX
     * @param _getEndDate
     */
-    private _createGetWidthFn( _startDateCol: Slot, _endDateCol: Slot, _getX: Function, _getEndDate: Function ): Function
+    private _createGetWidthFn( _getX: ResolveNumberFn, _getEndDate: ResolveDateFn ): ResolveNumberFn
     {
         return ( _dataPoint: DataPoint ): number =>
         {
-            const start = _getX( _dataPoint, _startDateCol );
+            const start = _getX( _dataPoint );
             let end;
-            const endVal = _getEndDate( _dataPoint, _endDateCol );
+            const endVal = _getEndDate( _dataPoint );
             if ( isInvalidDate( endVal ) )
                 end = this._x1Scale.range()[ 1 ];
             else
@@ -735,24 +738,9 @@ export default class extends RenderBase
      * @param _getStartDate
      * @param _getEndDate
      */
-    private _restructureTasks( _rows: DataPoint[], _getStartDate: Function, _getEndDate: Function ): any
+    private _restructureTasks( _rows: readonly DataPoint[], _getStartDate: ResolveDateFn, _getEndDate: ResolveDateFn ): Record<string, DataPoint[][]>
     {
-        function areRowsOverlap( _row1: DataPoint, _row2: DataPoint, _getStartDate: Function, _getEndDate: Function ): boolean
-        {
-            function dateToTime( _date: Date | null, startOrEnd: string ): number
-            {
-                if ( startOrEnd === "start" )
-                    return _date ? _date.getTime() : 0;
-                else
-                    return _date ? _date.getTime() : Number.MAX_SAFE_INTEGER;
-            }
-            const start1 = dateToTime( _getStartDate( _row1 ), "start" );
-            const end1 = dateToTime( _getEndDate( _row1 ), "end" );
-            const start2 = dateToTime( _getStartDate( _row2 ), "start" );
-            const end2 = dateToTime( _getEndDate( _row2 ), "end" );
-            return ( end2 < start1 || start2 > end1 ) ? false : true;
-        }
-        const tasks: { [taskName: string]: DataPoint[][] } = {};
+        const tasks: Record<string, DataPoint[][]> = {};
         _rows.forEach( row =>
         {
             const taskName = row.tuple( TASK ).caption;
@@ -795,21 +783,27 @@ export default class extends RenderBase
     /**
      * Map row to its "new" task
      * @param _taskArray Object contains tasks, generated from this._restructureTasks
+     * @param _taskOrder Order of tasks since taskArray cannot reserve the original order of rows
      */
-    private _mapRowToTaskArray( _taskArray: object ): object
+    private _mapRowToTaskArray( _taskArray: Record<string, DataPoint[][]>, _taskOrder: Set<string> ): RowToTaskMap
     {
-        const result: any = {};
-        result[ "rowMap" ] = {};
-        result[ "numberedTaskArray" ]  = [];
-        result[ "taskMap" ] = [];
-        Object.keys( _taskArray ).forEach( taskName =>
+        const result: RowToTaskMap =
+        {
+            rowMap: {},
+            numberedTaskArray: [],
+            taskMap: {}
+        };
+        _taskOrder.forEach( taskName =>
         {
             const task = _taskArray[ taskName ];
-            for ( let i = 0; i < task.length; ++i )
+            let i = 0;
+            for ( ; i < task.length; ++i )
             {
                 let numberedTaskName = "";
                 for ( let j = 0; j < i; ++j )
+                {
                     numberedTaskName += " ";
+                }
                 numberedTaskName += taskName;
                 result.numberedTaskArray.push( numberedTaskName );
                 task[ i ].forEach( row =>
@@ -834,10 +828,10 @@ export default class extends RenderBase
      * @returns A function that returns ColumnValue object from datapoint key and index of column segment
      */
     private _createGetColumnValueFn(
-        _taskMap: {[key: string]: [DataPoint]},
+        _taskMap: Record<string, DataPoint[]>,
         _maxColumnWidth: number,
         _columnSegments: number,
-        _svgElem: SVGTextElement ): Function
+        _svgElem: SVGTextElement ): ( dataPointKey: string, i: number ) => ColumnValue
     {
         function trimText( _text: string, _maxWidth: number ): string | null
         {
@@ -850,7 +844,7 @@ export default class extends RenderBase
             return i < _text.length ? _text.substr( 0, Math.max( 0, i - 1 ) ) + "..." : _text;
         }
         const padding = 10;
-        const result: { [key: string]: ColumnValue[]} = {};
+        const result: Record<string, ColumnValue[]> = {};
         Object.keys( _taskMap ).forEach( taskName =>
         {
             for ( let segmentIndex = 0; segmentIndex < _columnSegments; ++segmentIndex )
@@ -881,7 +875,7 @@ export default class extends RenderBase
      * @param _rows All rows
      * @param _getStartDate Get start date function of DataPoint
      */
-    private _getConnectingRows( _rows: DataPoint[], _getStartDate: Function ): Connection[]
+    private _getConnectingRows( _rows: DataPoint[], _getStartDate: ResolveDateFn ): Connection[]
     {
         const connections: Connection[] = [];
         const tasks = {};
@@ -896,7 +890,7 @@ export default class extends RenderBase
         for ( const taskName of Object.keys( tasks ) )
         {
             const task: DataPoint[] = tasks[ taskName ];
-            task.sort( ( a: DataPoint, b: DataPoint ) => _getStartDate( a ) - _getStartDate( b ) );
+            task.sort( ( a: DataPoint, b: DataPoint ) => +_getStartDate( a ) - +_getStartDate( b ) );
             for ( let i = 1; i < task.length; ++i )
                 if ( this._rowTaskMap[ task[ i - 1 ].key ] !== this._rowTaskMap[ task[ i ].key ] )
                     connections.push( { from: task[ i - 1 ], to: task[ i ], path: "" } );
@@ -909,7 +903,7 @@ export default class extends RenderBase
      * @param _getX Get x of gantt bar function
      * @param _getWidth Get width of gantt bar function
      */
-    private _createCalArrowPathXFn( _getX: Function, _getWidth: Function ): Function
+    private _createCalArrowPathXFn( _getX: ResolveNumberFn, _getWidth: ResolveNumberFn ): ResolvePathWithPaddingFn
     {
         return ( _connection: Connection, _arrowPadding: number ): number[] =>
         {
@@ -932,7 +926,7 @@ export default class extends RenderBase
     /**
      * Create function that calculates all Y coordinates of a path
      */
-    private _createCalArrowPathYFn(): Function
+    private _createCalArrowPathYFn(): ResolvePathFn
     {
         return ( _connection: Connection ): number[] =>
         {
