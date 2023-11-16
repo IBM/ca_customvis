@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+    <slots>
+        <slot name="categories" caption="Explain by" description="$nls.slot_areaHierarchy.description" type="cat" optional="false" maxLevels="50" suppressMissing="true" role="explanatory" />
+        <slot name="value" caption="Value" description="$nls.slot_size.description" type="cont" role="response" />
+        <!-- <slot name="tooltip" caption="Tooltip" type="any" optional="true"  /> -->
+    </slots>
+
+    <dataSets>
+        <dataSet name="data">
+            <ref slot="categories" />
+            <ref slot="value" />
+            <!-- <ref slot="tooltip" /> -->
+        </dataSet>
+    </dataSets>
+
+    <properties>
+        <group name="Visualization">
+            <number name="transitionDuration" caption="Animation duration (ms)" minValue="0" defaultValue="100" />
+            <number name="pathCurve" caption="Path curve" minValue="0" defaultValue="25" />
+            <number name="barWidth" caption="Bar width" minValue="0" defaultValue="100" />
+            <number name="barHeight" caption="Bar height" minValue="0" defaultValue="20" />
+            <number name="siblingFactor" caption="Space between siblings" minValue="0" defaultValue="3.5" />
+            <enum name="labelOption" caption="Label display style" defaultValue="ValueAndPercentage">
+                <possibleValue caption="Value and percentage">ValueAndPercentage</possibleValue>
+                <possibleValue caption="Value">Value</possibleValue>
+                <possibleValue caption="Percentage">Percentage</possibleValue>
+            </enum>
+            <color name="labelColor" caption="Label color" defaultValue="black" tags="$text-02"/>
+            <font name="labelFont" defaultValue="bold 15px 'IBM Plex Sans'" caption="Label font" />
+            <font name="valueLabelFont" defaultValue="15px 'IBM Plex Sans'" caption="Value label font" />
+            <color name="categoryLabelColor" caption="Category label color" defaultValue="black" tags="$text-02"/>
+            <font name="categoryLabelFont" defaultValue="bold 15px 'IBM Plex Sans'" caption="Category label font" />
+            <color name="categorySubLabelColor" caption="Category sub-label color" defaultValue="black" tags="$text-02"/>
+            <font name="categorySubLabelFont" defaultValue="15px 'IBM Plex Sans'" caption="Category sub-label font" />
+            <color name="pathColor" caption="Path color" defaultValue="#555555" /> <!-- TODO: tag -->
+            <color name="selectedPathColor" caption="Selected path color" defaultValue="#319bd4"/> <!-- TODO: tag -->
+            <enum name="nodesAlignment" caption="Items alignment" defaultValue="Auto">
+                <possibleValue caption="Center">Center</possibleValue>
+                <possibleValue caption="Top">Top</possibleValue>
+                <possibleValue caption="Current">Current</possibleValue>
+                <possibleValue caption="Auto">Auto</possibleValue>
+            </enum>
+        </group>
+        <group name="palettes" caption="Palettes">
+            <color name="colorActual" defaultValue="#319bd4" caption="Bar actual color" tags="palette" />
+            <color name="colorTarget" defaultValue="#dddddd" caption="Bar target color" tags="palette" />
+        </group>
+    </properties>
+
+    <configuration>
+        <string name="vida.theme.name" caption="VIDA theme" />
+    </configuration>
+</visualizationDefinition>
