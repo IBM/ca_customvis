@@ -1,6 +1,6 @@
 {
     "name": "@vida/vizbundle-customvis-decompositiontree",
-    "version": "1.0.0-alpha.9",
+    "version": "1.0.0-alpha.10",
     "description": "Decomposition tree",
     "repository": {},
     "devDependencies": {
@@ -18,7 +18,6 @@
         "@rollup/plugin-json": "4.1.0",
         "@rollup/plugin-replace": "3.0.1",
         "@types/d3": "^5.7.0",
-        "@vida/carbon-vizbundle-utils": "^0.1.2-alpha.5",
         "node-sass": "^8.0.0",
         "postcss": "~8.4.31",
         "rollup-plugin-postcss": "4.0.2"

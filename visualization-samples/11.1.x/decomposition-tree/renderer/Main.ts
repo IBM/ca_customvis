@@ -11,7 +11,6 @@ import { RenderBase, UpdateInfo, DataPoint, Segment, Color, Properties, DataSet,
 
 import * as d3 from "d3";
 import { buildTree, getDepthRecursive, getTreeRoot, setSelection, closeOtherRoots, TreeNode, HierarchyDatum } from "./TreeData";
-import * as CarbonUtils from "@vida/carbon-vizbundle-utils";
 
 const CONTAINER_SVG_CLASS = "svg-chart-container";
 const SVG_GROUP = "svg-group";
@@ -246,7 +245,6 @@ export default class extends RenderBase
         const props = _info.props;
         this.locale = _info.locale;
         this._updateProps( props );
-        CarbonUtils.applyTheme( this._chartContainer, props.get( "vida.theme.name" ) );
 
         // Specify the charts’ dimensions. The height is variable, depending on the layout.
         this.width = this._chartContainer.clientWidth;
