@@ -1,0 +1,102 @@
+Probability,Impact,Risk ID
+Low,Low,R001
+Medium,High,R002
+High,Medium,R003
+Low,Very High,R004
+High,High,R005
+Medium,Low,R006
+Very High,High,R007
+Low,Medium,R008
+High,Very High,R009
+Medium,Medium,R010
+Medium,High,R011
+High,Low,R012
+Low,Low,R013
+Medium,Medium,R014
+High,Very High,R015
+Low,Medium,R016
+Very High,Low,R017
+Medium,High,R018
+High,Medium,R019
+Low,Low,R020
+Medium,High,R021
+High,Low,R022
+Low,Very High,R023
+High,High,R024
+Medium,Low,R025
+Very High,High,R026
+Low,Medium,R027
+High,Very High,R028
+Medium,Medium,R029
+Medium,High,R030
+High,Low,R031
+Low,Low,R032
+Medium,Medium,R033
+High,Very High,R034
+Low,Medium,R035
+Very High,Low,R036
+Medium,High,R037
+High,Medium,R038
+Low,Low,R039
+Medium,High,R040
+High,Low,R041
+Low,Very High,R042
+High,High,R043
+Medium,Low,R044
+Very High,High,R045
+Low,Medium,R046
+High,Very High,R047
+Medium,Medium,R048
+High,High,R049
+Low,Low,R050
+Medium,High,R051
+High,Low,R052
+Low,Very High,R053
+High,High,R054
+Medium,Low,R055
+Very High,High,R056
+Low,Medium,R057
+High,Very High,R058
+Medium,Medium,R059
+High,High,R060
+Low,Low,R061
+Medium,High,R062
+High,Low,R063
+Low,Very High,R064
+High,High,R065
+Medium,Low,R066
+Very High,High,R067
+Low,Medium,R068
+High,Very High,R069
+Medium,Medium,R070
+High,High,R071
+Low,Low,R072
+Medium,High,R073
+High,Low,R074
+Low,Very High,R075
+High,High,R076
+Medium,Low,R077
+Very High,High,R078
+Low,Medium,R079
+High,Very High,R080
+Medium,Medium,R081
+High,High,R082
+Low,Low,R083
+Medium,High,R084
+High,Low,R085
+Low,Very High,R086
+High,High,R087
+Medium,Low,R088
+Very High,High,R089
+Low,Medium,R090
+High,Very High,R091
+Medium,Medium,R092
+High,High,R093
+Low,Low,R094
+Medium,High,R095
+High,Low,R096
+Low,Very High,R097
+High,High,R098
+Medium,Low,R099
+Very High,High,R100
+Very High, Very High, R101
