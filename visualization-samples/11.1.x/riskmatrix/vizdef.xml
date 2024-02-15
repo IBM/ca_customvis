@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visualizationDefinition version="3.1" xmlns="http://www.ibm.com/xmlns/prod/ba/vipr/vizBundle/vizdef.3">
+
+    <slots>
+        <slot name="probability" caption="$nls.slot_probability.caption" type="cat" optional="false" />
+        <slot name="impact" caption="$nls.slot_impact.caption" type="cat" optional="false" />
+        <slot name="riskId" caption="$nls.slot_riskId.caption" type="cat" optional="false"/>
+    </slots>
+
+    <dataSets>
+        <dataSet name="data">
+            <ref slot="probability" />
+            <ref slot="impact" />
+            <ref slot="riskId" />
+        </dataSet>
+    </dataSets>
+
+    <properties>
+        <group name="visualization" caption="$nls.group_visualization.caption">
+            <group name="general" caption="$nls.group_general.caption">
+                <group name="tileColors" caption="$nls.group_tileColors.caption">
+                    <color name="low" caption="$nls.prop_color.low.caption" defaultValue="#6aa84f" />
+                    <color name="medium" caption="$nls.prop_color.medium.caption" defaultValue="#f1c232" />
+                    <color name="high" caption="$nls.prop_color.high.caption" defaultValue="#e69138" />
+                    <color name="veryHigh" caption="$nls.prop_color.veryHigh.caption" defaultValue="#cc0000" />
+                </group>
+            </group>
+            <group name="axes" caption="$nls.group_axes.caption">
+                <group name="bottom" caption="$nls.group_bottom.caption">
+                    <boolean name="bottom.title.visible" alias="bottom.labels.visible,bottom.title.visible" defaultValue="true" caption="$nls.prop_bottom.title.visible.caption" description="$nls.prop_bottom.title.visible.description" />
+                    <boolean name="bottom.ticks.labels.visible" defaultValue="true" caption="$nls.prop_bottom.ticks.labels.visible.caption" description="$nls.prop_bottom.ticks.labels.visible.description" />
+                    <boolean name="bottom.ticks.visible" defaultValue="false" caption="$nls.prop_bottom.ticks.visible.caption" description="$nls.prop_bottom.ticks.visible.description" />
+                    <color name="bottom.ticks.color" defaultValue="rgb(223,233,233)" caption="$nls.prop_bottom.ticks.color.caption" description="$nls.prop_bottom.ticks.color.description" tags="$ui-04" />
+                    <boolean name="bottom.line.visible" defaultValue="true" caption="$nls.prop_bottom.line.visible.caption" description="$nls.prop_bottom.line.visible.description" />
+                    <color name="bottom.line.color" defaultValue="rgba(0, 0, 0, 0.08)" caption="$nls.prop_bottom.line.color.caption" description="$nls.prop_bottom.line.color.description" tags="$ui-04" />
+                    <enum name="bottom.ticks.labels.layoutMode" alias="bottom.labels.layoutMode" defaultValue="automatic" caption="$nls.prop_bottom.ticks.labels.layoutMode.caption" description="$nls.prop_bottom.ticks.labels.layoutMode.description">
+                        <possibleValue caption="$nls.enum_layoutMode_automatic.caption">automatic</possibleValue>
+                        <possibleValue caption="$nls.enum_layoutMode_horizontal.caption">horizontal</possibleValue>
+                        <possibleValue caption="$nls.enum_layoutMode_stagger.caption">stagger</possibleValue>
+                    </enum>
+                </group>
+                <group name="left" caption="$nls.group_left.caption">
+                    <boolean name="left.title.visible" alias="left.labels.visible,left.title.visible" defaultValue="true" caption="$nls.prop_left.title.visible.caption" description="$nls.prop_left.title.visible.description" />
+                    <boolean name="left.ticks.labels.visible" defaultValue="true" caption="$nls.prop_left.ticks.labels.visible.caption" description="$nls.prop_left.ticks.labels.visible.description" />
+                    <boolean name="left.ticks.visible" defaultValue="false" caption="$nls.prop_left.ticks.visible.caption" description="$nls.prop_left.ticks.visible.description" />
+                    <color name="left.ticks.color" defaultValue="rgb(223,233,233)" caption="$nls.prop_left.ticks.color.caption" description="$nls.prop_left.ticks.color.description" tags="$ui-04" />
+                    <boolean name="left.line.visible" defaultValue="true" caption="$nls.prop_left.line.visible.caption" description="$nls.prop_left.line.visible.description" />
+                    <color name="left.line.color" defaultValue="rgba(0, 0, 0, 0.08)" caption="$nls.prop_left.line.color.caption" description="$nls.prop_left.line.color.description" tags="$ui-04" />
+                </group>
+            </group>
+            <group name="chart" caption="$nls.group_chart.caption">
+                <group name="padding" caption="$nls.group_visualization.padding.caption" description="$nls.group_visualization.padding.description">
+                    <length name="visualization.padding.left" defaultValue="10px" caption="$nls.prop_visualization.padding.left.caption" description="$nls.prop_visualization.padding.left.description" />
+                    <length name="visualization.padding.right" defaultValue="10px" caption="$nls.prop_visualization.padding.right.caption" description="$nls.prop_visualization.padding.right.description" />
+                    <length name="visualization.padding.top" defaultValue="10px" caption="$nls.prop_visualization.padding.top.caption" description="$nls.prop_visualization.padding.top.description" />
+                    <length name="visualization.padding.bottom" defaultValue="10px" caption="$nls.prop_visualization.padding.bottom.caption" description="$nls.prop_visualization.padding.bottom.description" />
+                </group>
+                <boolean name="contrast.label.color" defaultValue="true" caption="$nls.prop_contrast.label.color.caption" description="$nls.prop_contrast.label.color.description" />
+            </group>
+        </group>
+            <group name="text" caption="$nls.group_text.caption">
+                <group name="text.axis.label" caption="$nls.group_axis.label.caption">
+                    <string name="bottom.title" defaultValue="" caption="$nls.prop_bottom.title.caption" description="$nls.prop_bottom.title.description" />
+                    <font name="bottom.title.font" defaultValue="bold" caption="$nls.prop_bottom.title.font.caption" description="$nls.prop_bottom.title.font.description" tags="$caption-02" />
+                    <color name="bottom.title.color" defaultValue="rgb(106,115,115)" caption="$nls.prop_bottom.title.color.caption" description="$nls.prop_bottom.title.color.description" tags="$text-01" />
+                    <string name="left.title" defaultValue="" caption="$nls.prop_left.title.caption" description="$nls.prop_left.title.description" />
+                    <font name="left.title.font" defaultValue="bold" caption="$nls.prop_left.title.font.caption" description="$nls.prop_left.title.font.description" tags="$caption-02" />
+                    <color name="left.title.color" defaultValue="rgb(106,115,115)" caption="$nls.prop_left.title.color.caption" description="$nls.prop_left.title.color.description" tags="$text-01" />
+                </group>
+                <group name="text.axis.value" caption="$nls.group_axis.value.caption">
+                    <font name="bottom.ticks.labels.font" allowNull="true" caption="$nls.prop_bottom.ticks.labels.font.caption" description="$nls.prop_bottom.ticks.labels.font.description" tags="$label-02" />
+                    <color name="bottom.ticks.labels.color" defaultValue="rgb(106,115,115)" caption="$nls.prop_bottom.ticks.labels.color.caption" description="$nls.prop_bottom.ticks.labels.color.description" tags="$text-02" />
+                    <font name="left.ticks.labels.font" allowNull="true" caption="$nls.prop_left.ticks.labels.font.caption" description="$nls.prop_left.ticks.labels.font.description" tags="$label-02" />
+                    <color name="left.ticks.labels.color" defaultValue="rgb(106,115,115)" caption="$nls.prop_left.ticks.labels.color.caption" description="$nls.prop_left.ticks.labels.color.description" tags="$text-02" />
+                </group>
+                <group name="text.value.label" caption="$nls.group_value.label.caption">
+                    <font name="valueLabels.font" allowNull="true" caption="$nls.prop_valueLabels.font.caption" defaultValue="0.8em 'IBM Plex Sans'" description="$nls.prop_valueLabels.font.description" />
+                    <color name="valueLabels.color" alias="labelColor" defaultValue="rgb(30, 30, 30)" caption="$nls.prop_valueLabels.color.caption" description="$nls.prop_valueLabels.color.description" tags="$text-02" />
+                </group>
+            </group>
+    </properties>
+
+    <capabilities>
+        <decorations>
+            <decoration name="selected" type="boolean" target="datapoint" />
+            <decoration name="hasSelection" type="boolean" target="dataset" />
+            <decoration name="highlighted" type="boolean" target="datapoint" />
+        </decorations>
+    </capabilities>
+</visualizationDefinition>
