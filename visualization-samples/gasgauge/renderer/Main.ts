@@ -2,33 +2,33 @@
 //
 // IBM Watson Analytics
 //
-// (C) Copyright IBM Corp. 2019
+// (C) Copyright IBM Corp. 2019, 2024
 //
 // US Government Users Restricted Rights - Use, duplication or
 // disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
 
-import { RenderBase, UpdateInfo, DataSet, Properties, DataPoint, Point, Font, Length, LengthUnit } from "@businessanalytics/customvis-lib";
+import { RenderBase, UpdateInfo, DataSet, DataPoint, Point, Font, Length, LengthUnit } from "@businessanalytics/customvis-lib";
 import * as d3 from "d3";
 
 // General global settings
 const ACTUAL_VALUE_SLOT                             = 0;
 const MAX_AXIS_VALUE_SLOT                           = 1;
-const CENTER_X                                      = 50;
-const CENTER_Y                                      = 50;
-const BORDER_START_RADIUS                           = 38;
-const ARC_START_RADIUS                              = 29;
-const ARC_END_RADIUS                                = 35;
-const POINTER_INDICATOR_LENGTH                      = ARC_END_RADIUS - 1;
-const POINTER_INDICATOR_SIZE                        = 1.5;
+const CENTER_X                                      = 200;
+const CENTER_Y                                      = 200;
+const BORDER_START_RADIUS                           = 152;
+const ARC_START_RADIUS                              = 116;
+const ARC_END_RADIUS                                = 140;
+const POINTER_INDICATOR_LENGTH                      = ARC_END_RADIUS - 4;
+const POINTER_INDICATOR_SIZE                        = 6;
 const POINTER_INDICATOR_ANIMATION_DURATION_IN_MS    = 1000;
 const MAIN_AXIS_TICKS                               = 2; // results in default being min and max tick
-const AXIS_TICKS_DISTANCE_FROM_CENTER               = 30;
-const STANDARD_TICK_SIZE                            = 5;
-const AXIS_TICK_TEXT_MAX_WIDTH                      = 15;
-const AXIS_TICK_TEXT_DISTANCE_FROM_TICKS            = 2.5;
+const AXIS_TICKS_DISTANCE_FROM_CENTER               = 120;
+const STANDARD_TICK_SIZE                            = 20;
+const AXIS_TICK_TEXT_MAX_WIDTH                      = 60;
+const AXIS_TICK_TEXT_DISTANCE_FROM_TICKS            = 10;
 const AXIS_FONT_WEIGHT                              = 1.25;
 const STANDARD_TRUNCATION_END_SECTION               = "...";
-const STANDARD_FONT_SIZE                            = 3;
+const STANDARD_FONT_SIZE                            = 12;
 
 // CSS global class names
 const VISUALIZATION_CLASS_NAME                      = "gas-gauge";
@@ -52,7 +52,6 @@ export default class extends RenderBase
 {
     // Private fields
     private _dataSet: DataSet;
-    private _properties: Properties;
     private _svg: d3.Selection<Element, unknown, null, undefined>;
     private _minAxisValue: number;
     private _maxAxisValue: number;
@@ -69,8 +68,10 @@ export default class extends RenderBase
     protected create( _node: HTMLElement ): Element
     {
         // Create an svg canvas that sizes to its parent.
+        // Note that Safari has issues determining the SVG's size upon rerender: we need position: absolute
         const svg = d3.select( _node ).append( "svg" )
-            .attr( "viewBox", "0 0 100 100" )
+            .style( "position", "absolute" )
+            .attr( "viewBox", "0 0 400 400" )
             .attr( "width", "100%" )
             .attr( "height", "100%" );
 
@@ -97,8 +98,8 @@ export default class extends RenderBase
             .attr( "class", POINTER_CIRCLE_CLASS_NAME )
             .attr( "cx", 0 )
             .attr( "cy", 0 )
-            .attr( "r", "6" )
-            .style( "stroke-width", "0.5" );
+            .attr( "r", "24" )
+            .style( "stroke-width", "2" );
 
         this._KPILabel = labels.append( "text" )
             .attr( "class", "KPI-label" )
@@ -114,7 +115,7 @@ export default class extends RenderBase
             .attr( "class", TARGET_INDICATOR_CLASS_NAME )
             .attr( "y1", AXIS_TICKS_DISTANCE_FROM_CENTER )
             .attr( "y2", AXIS_TICKS_DISTANCE_FROM_CENTER + STANDARD_TICK_SIZE )
-            .attr( "stroke-width", "1" );
+            .attr( "stroke-width", "4" );
 
         // Return the svg node as the visualization root node.
         return svg.node();
@@ -125,7 +126,6 @@ export default class extends RenderBase
         // Update dataSet, svg and properties
         this.dataSet = _info.data;
         this.svg = d3.select( _info.node );
-        this.properties = _info.props;
         this.minAxisValue = this.properties.get( "min-axis-value" );
         const maxAxisValueProperty = this.properties.get( "max-axis-value" );
         this.startAngleInDegrees = this._calculateStartAngle();
@@ -229,8 +229,8 @@ export default class extends RenderBase
             .text( this.properties.get( "value-label-show" ) ? ValueLabelValue : "" );
 
         const calculateMaxTextWidth = this._createCalculateMaxTextWidthFn();
-        const kpiLabelMaxWidth = calculateMaxTextWidth( this._properties.get( "KPI-label-offset" ) );
-        const valueLabelMaxWidth = calculateMaxTextWidth( this._properties.get( "value-label-offset" ) );
+        const kpiLabelMaxWidth = calculateMaxTextWidth( this.properties.get( "KPI-label-offset" ) );
+        const valueLabelMaxWidth = calculateMaxTextWidth( this.properties.get( "value-label-offset" ) );
         this._truncateTextLabel( this._KPILabel, kpiLabelMaxWidth, STANDARD_TRUNCATION_END_SECTION );
         this._truncateTextLabel( this._valueLabel, valueLabelMaxWidth, STANDARD_TRUNCATION_END_SECTION );
     }
@@ -319,7 +319,7 @@ export default class extends RenderBase
             .attr( "y1", AXIS_TICKS_DISTANCE_FROM_CENTER )
             .attr( "y2", AXIS_TICKS_DISTANCE_FROM_CENTER + STANDARD_TICK_SIZE )
             .attr( "stroke", targetColor )
-            .attr( "stroke-width", "1" )
+            .attr( "stroke-width", "4" )
             .attr( "visibility", "visible" )
             .attr( "transform", `rotate(${targetIndicatorAngle})` );
     }
@@ -400,7 +400,7 @@ export default class extends RenderBase
             .attr( "points", `-${POINTER_INDICATOR_SIZE},0 ${POINTER_INDICATOR_SIZE},0 0,${POINTER_INDICATOR_LENGTH}` )
             .attr( "transform", `rotate(${this.startAngleInDegrees})` )
             .attr( "class", POINTER_INDICATOR_CLASS_NAME )
-            .style( "stroke-width", "0.5" )
+            .style( "stroke-width", "2" )
             .merge( pointerIndicator )
             .style( "stroke", this.properties.get( "pointer-indicator-stroke" ) )
             .style( "fill", this.properties.get( "pointer-indicator-fill" ) )
@@ -455,7 +455,7 @@ export default class extends RenderBase
                 .attr( "y1", AXIS_TICKS_DISTANCE_FROM_CENTER )
                 .attr( "y2", AXIS_TICKS_DISTANCE_FROM_CENTER + STANDARD_TICK_SIZE )
                 .attr( "stroke", _axisTickColor )
-                .attr( "stroke-width", "1" )
+                .attr( "stroke-width", "4" )
                 .attr( "shape-rendering", "geometricPrecision" )
                 .attr( "transform", `rotate(${currentTickAngleLineLocation})` );
 
@@ -508,16 +508,16 @@ export default class extends RenderBase
                     .append( "g" )
                     .attr( "class", "interval" );
 
-                for ( let i = 1; i <= _minorTicksPerInterval; i++ )
+                for ( let j = 1; j <= _minorTicksPerInterval; ++j )
                 {
-                    const currentMinorTickAngle = previousTickAngle + minorTickMultiplier * i;
+                    const currentMinorTickAngle = previousTickAngle + minorTickMultiplier * j;
 
                     axisIntervalSelection.append( "line" )
                         .datum( this.dataSet.rows[ 0 ] )
-                        .attr( "y1", AXIS_TICKS_DISTANCE_FROM_CENTER + 2 )
+                        .attr( "y1", AXIS_TICKS_DISTANCE_FROM_CENTER + 8 )
                         .attr( "y2", AXIS_TICKS_DISTANCE_FROM_CENTER + STANDARD_TICK_SIZE )
                         .attr( "stroke", _axisTickColor )
-                        .attr( "stroke-width", "0.5" )
+                        .attr( "stroke-width", "2" )
                         .attr( "shape-rendering", "geometricPrecision" )
                         .attr( "transform", `rotate(${currentMinorTickAngle})` );
                 }
@@ -596,9 +596,6 @@ export default class extends RenderBase
                 _textElement.text( currentText + _endingSection );
                 iterator--;
             }
-
-            if ( _endingSection )
-                currentText += _endingSection;
         }
     }
 
@@ -626,7 +623,7 @@ export default class extends RenderBase
      * @param _secondLabel The second label that needs to be checked for overlapping
      * @param _deviation The optional deviation to be used for eliminating borderline cases, e.g. elements that look like they are overlapping but in reality are not
      */
-    private _checkLabelOverlap( _firstLabel: d3.Selection<SVGTextElement, unknown, null, undefined>, _secondLabel: d3.Selection<SVGTextElement, unknown, null, undefined>, _deviation = 2 ): boolean
+    private _checkLabelOverlap( _firstLabel: d3.Selection<SVGTextElement, unknown, null, undefined>, _secondLabel: d3.Selection<SVGTextElement, unknown, null, undefined>, _deviation = 8 ): boolean
     {
         const firstLabelBBox = _firstLabel.node().getBBox();
         const secondLabelBBox = _secondLabel.node().getBBox();
@@ -676,7 +673,7 @@ export default class extends RenderBase
 
     private _calculateStartAngle(): number
     {
-        return ( 360 - this._properties.get( "sweep-angle" ) ) / 2;
+        return ( 360 - this.properties.get( "sweep-angle" ) ) / 2;
     }
 
     // Calculate the circle extra height (vertical distance from the bottom of the circle to center)
@@ -692,11 +689,11 @@ export default class extends RenderBase
     // Comparing extra height of the circle and label offset
     private _calculateChartExtraHeight(): number
     {
-        if ( this._properties.get( "show-border" ) )
+        if ( this.properties.get( "show-border" ) )
             return ARC_END_RADIUS; // always return full height when gauge border is shown
         const circleExtraHeight = this._calculateCircleExtraHeight();
-        const labelOffset = this._properties.get( "KPI-label-show" ) ? this._properties.get( "KPI-label-offset" ) : 0;
-        const valueOffset = this._properties.get( "value-label-show" ) ? this._properties.get( "value-label-offset" ) : 0;
+        const labelOffset = this.properties.get( "KPI-label-show" ) ? this.properties.get( "KPI-label-offset" ) : 0;
+        const valueOffset = this.properties.get( "value-label-show" ) ? this.properties.get( "value-label-offset" ) : 0;
         return this._clamp( Math.max( circleExtraHeight, labelOffset, valueOffset ), 0, ARC_END_RADIUS );
     }
 
@@ -704,17 +701,17 @@ export default class extends RenderBase
     {
         const maxGaugeExtraHeight = ARC_END_RADIUS;
 
-        const showBorder = this._properties.get( "show-border" );
-        const borderOffset = showBorder ? 0 : -10;
+        const showBorder = this.properties.get( "show-border" );
+        const borderOffset = showBorder ? 0 : -40;
 
-        const maxExtraHeight = 50 + borderOffset / 2; // Height including padding
-        const minHeight = 50 + borderOffset / 2;
-        const width = 100;
+        const maxExtraHeight = 200 + borderOffset / 2; // Height including padding
+        const minHeight = 200 + borderOffset / 2;
+        const width = 400;
         let height = minHeight + Math.round( _extraGaugeHeight / maxGaugeExtraHeight * maxExtraHeight );
 
-        const showPointerCircle = this._properties.get( "show-pointer-circle" );
+        const showPointerCircle = this.properties.get( "show-pointer-circle" );
         if ( showPointerCircle )
-            height = Math.max( height, minHeight + 3 );
+            height = Math.max( height, minHeight + 12 );
 
         return `0 0 ${width + borderOffset * 2} ${height + borderOffset / 2}`;
     }
@@ -722,20 +719,20 @@ export default class extends RenderBase
     private _calculateTranslation( _extraGaugeHeight: number ): string
     {
         const maxExtraHeight = ARC_END_RADIUS;
-        const maxYOffset = 10;
+        const maxYOffset = 40;
         const yOffset = maxYOffset - Math.round( _extraGaugeHeight / maxExtraHeight * maxYOffset );
-        const showBorder = this._properties.get( "show-border" );
-        const borderOffset = showBorder ? 0 : -10;
+        const showBorder = this.properties.get( "show-border" );
+        const borderOffset = showBorder ? 0 : -40;
         return `translate(${CENTER_X + borderOffset} ${CENTER_Y - yOffset + borderOffset / 2})`;
     }
 
     // Create function that calculate maximum text width of KPI and value label
     // Based on their offset (y position) and current sweep angle, border visibility
-    private _createCalculateMaxTextWidthFn(): Function
+    private _createCalculateMaxTextWidthFn(): ( _textOffset: number ) => number
     {
         return ( _textOffset: number ): number =>
         {
-            const padding = 3;
+            const padding = 12;
             const circleExtraHeight = this._calculateCircleExtraHeight();
             const innerRadius = ARC_START_RADIUS - padding * 2;
             // Vertical distance from first tick to circle center
@@ -744,10 +741,10 @@ export default class extends RenderBase
             // Text is under the whole gauge
             if ( _textOffset > circleExtraHeight + padding )
             {
-                if ( this._properties.get( "show-border" ) )
+                if ( this.properties.get( "show-border" ) )
                     return Math.sqrt( Math.pow( BORDER_START_RADIUS, 2 ) - Math.pow( _textOffset, 2 ) ) * 2;
                 else
-                    return 100;
+                    return 400;
             }
             // Text is between first tick and bottom of gauge
             else if ( _textOffset > firstTickHeight )
@@ -767,16 +764,6 @@ export default class extends RenderBase
     public set dataSet( _dataSet: DataSet )
     {
         this._dataSet = _dataSet;
-    }
-
-    public get properties(): Properties
-    {
-        return this._properties;
-    }
-
-    public set properties( _properties: Properties )
-    {
-        this._properties = _properties;
     }
 
     public get svg(): d3.Selection<Element, unknown, null, undefined>

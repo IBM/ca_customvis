@@ -1,21 +1,22 @@
 /* GENERATED FILE */
 
 // Rollup plugins
-const resolve = require( "@rollup/plugin-node-resolve" );
+const { nodeResolve } = require( "@rollup/plugin-node-resolve" );
 const commonjs = require( "@rollup/plugin-commonjs" );
-const babel = require( "rollup-plugin-babel" );
+const { babel } = require( "@rollup/plugin-babel" );
 
 // Utilities
 const path = require( "path" );
 const fs = require( "fs" );
 const pkgJson = require( "./package.json" );
+const dependencies = pkgJson.dependencies || {};
 
 const extensions = [ ".js", ".ts" ];
 const input = fs.existsSync( path.join( __dirname, "./renderer/Main.ts" ) ) ?
                     path.join( __dirname, "./renderer/Main.ts" ) :
                     path.join( __dirname, "./renderer/Main.js" );
 
-const hasD3Dependency = !!pkgJson.dependencies.d3;
+const hasD3Dependency = !!dependencies.d3;
 const paths = {
     "requirejs": "require"
 };
@@ -28,7 +29,7 @@ module.exports =
     input,
     plugins:
     [
-        resolve(
+        nodeResolve(
         {
             extensions
         } ),
@@ -36,6 +37,7 @@ module.exports =
         babel(
         {
             cwd: __dirname,
+            babelHelpers: "bundled",
             babelrc: false,
             exclude: [ "node_modules/**" ],
             extensions,
@@ -46,8 +48,8 @@ module.exports =
             ],
             plugins:
             [
-                "@babel/proposal-class-properties",
-                "@babel/proposal-object-rest-spread"
+                "@babel/transform-class-properties",
+                "@babel/transform-object-rest-spread"
             ]
         } )
     ],

@@ -2,54 +2,54 @@
 //
 // IBM Watson Analytics
 //
-// (C) Copyright IBM Corp. 2019
+// (C) Copyright IBM Corp. 2019, 2024
 //
 // US Government Users Restricted Rights - Use, duplication or
 // disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
 
 define( [
-    "test/common/com/ibm/vida/vizbundles/testutils/TestContainer",
-    "test/common/com/ibm/vida/vizbundles/testutils/TestBundleLoader",
-    "test/common/com/ibm/vida/vizbundles/testutils/TestData"
-], function(
-    TestContainer,
-    TestBundleLoader,
-    TestData
-)
+        "test/utils/TestContainer",
+        "test/utils/TestBundleLoader",
+        "test/utils/TestData"
+    ], function(
+        TestContainer,
+        TestBundleLoader,
+        TestData
+    )
 {
 "use strict";
 
-var minimumTestData = TestData.fromCsv( [
-        [ "Value" ],
-        [   10    ]
-    ] );
+const minimumTestData = TestData.fromCsv( "Value\n10" ).createMapping(
+{
+    value: 0
+} );
 
-minimumTestData.addMapping( "value", 0 );
+const fullTestDataV1 = TestData.fromCsv( `Value,Axis,Target
+10,100,50
+` ).createMapping(
+{
+    value: 0,
+    "max-axis-value": 1,
+    target: 2
+} );
 
-var fullTestDataV1 = TestData.fromCsv( [
-    [ "Value", "Axis", "Target" ],
-    [   10   ,  100  ,    50    ]
-] );
 
-fullTestDataV1.addMapping( "value",        0 )
-            .addMapping( "max-axis-value", 1 )
-            .addMapping( "target",         2 );
+const fullTestDataV2 = TestData.fromCsv( `HigherValue,Axis,Target
+5000000,10000000,7500000
+` ).createMapping(
+{
+    value: 0,
+    "max-axis-value": 1,
+    target: 2
+} );
 
-var fullTestDataV2 = TestData.fromCsv( [
-    [ "HigherValue", "Axis"   , "Target" ],
-    [    5000000   , 10000000 ,  7500000  ]
-] );
-
-fullTestDataV2.addMapping( "value",        0 )
-            .addMapping( "max-axis-value", 1 )
-            .addMapping( "target",         2 );
 
 function renderBundle( _bundle, _duration = 60 )
 {
     return Promise.all( [ _bundle.vizService.render(), new Promise( resolve => setTimeout( resolve, _duration ) ) ] );
 }
 
-describe( "Gas Gauge renderer", () =>
+describe( "Gas Gauge renderer", function()
 {
     const loader = new TestBundleLoader();
     let bundle;  // TestBundle instance.
@@ -57,7 +57,8 @@ describe( "Gas Gauge renderer", () =>
 
     before( function()
     {
-        return loader.load( "gas-gauge", "vis/customvis/gas-gauge" ).then( function( _bundle )
+        this.timeout( 30000 );
+        return loader.load( "gas-gauge", "packages/vizbundle-customvis-gas-gauge/build" ).then( function( _bundle )
         {
             bundle = _bundle;
         } );
@@ -71,6 +72,7 @@ describe( "Gas Gauge renderer", () =>
 
     beforeEach( function()
     {
+        this.timeout( 5000 );
         return bundle.newViz( TestContainer.create() ).then( function()
         {
             svg = document.querySelector( "svg" );
@@ -103,10 +105,10 @@ describe( "Gas Gauge renderer", () =>
 
             // Change the min and max axis properties to the same value
             bundle.setProperties(
-                {
-                    "min-axis-value" : "50",
-                    "max-axis-value" : "50"
-                } );
+            {
+                "min-axis-value" : "50",
+                "max-axis-value" : "50"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -126,10 +128,10 @@ describe( "Gas Gauge renderer", () =>
 
             // Update the color properties
             bundle.setProperties(
-                {
-                    "outer-border-stroke" : "blue",
-                    "inner-border-stroke" : "yellow"
-                } );
+            {
+                "outer-border-stroke" : "blue",
+                "inner-border-stroke" : "yellow"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -145,14 +147,14 @@ describe( "Gas Gauge renderer", () =>
         return renderBundle( bundle ).then( function()
         {
             // Check if the current size is set to the default
-            expect( parseFloat( svg.querySelector( ".outer-border" ).style.strokeWidth ) ).to.be.closeTo( 1.16, 0.25 ); // Default total size: 7 - inner-border
-            expect( parseFloat( svg.querySelector( ".inner-border" ).style.strokeWidth ) ).to.be.closeTo( 5.83, 0.25 ); // Default total size: 7 - outer-border
+            expect( parseFloat( svg.querySelector( ".outer-border" ).style.strokeWidth ) ).to.be.closeTo( 4.65, 0.25 ); // Default total size: 28 - inner-border
+            expect( parseFloat( svg.querySelector( ".inner-border" ).style.strokeWidth ) ).to.be.closeTo( 23.33, 0.25 ); // Default total size: 28 - outer-border
 
             // Update the size property
             bundle.setProperties(
-                {
-                    "border-size" : 10
-                } );
+            {
+                "border-size" : 10
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -180,11 +182,11 @@ describe( "Gas Gauge renderer", () =>
 
             // Update the arc coloring properties
             bundle.setProperties(
-                {
-                    "first-interval-color" : "red",
-                    "second-interval-color" : "orange",
-                    "third-interval-color" : "green"
-                } );
+            {
+                "first-interval-color" : "red",
+                "second-interval-color" : "orange",
+                "third-interval-color" : "green"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -204,28 +206,28 @@ describe( "Gas Gauge renderer", () =>
         return renderBundle( bundle ).then( function()
         {
             // For every arc piece, check the size
-            expect( svg.querySelector( ".arc" ).childNodes.item( 0 ).getTotalLength() ).to.be.closeTo( 90.19, 0.5 ); // Default: Start = 0, End = 25
-            expect( svg.querySelector( ".arc" ).childNodes.item( 1 ).getTotalLength() ).to.be.closeTo( 90.19, 0.5 ); // Default: Start = 25, End = 50
-            expect( svg.querySelector( ".arc" ).childNodes.item( 2 ).getTotalLength() ).to.be.closeTo( 168.38, 0.5 ); // Default: Start = 50, End = 100
+            expect( svg.querySelector( ".arc" ).childNodes.item( 0 ).getTotalLength() ).to.be.closeTo( 360.77, 0.5 ); // Default: Start = 0, End = 25
+            expect( svg.querySelector( ".arc" ).childNodes.item( 1 ).getTotalLength() ).to.be.closeTo( 360.77, 0.5 ); // Default: Start = 25, End = 50
+            expect( svg.querySelector( ".arc" ).childNodes.item( 2 ).getTotalLength() ).to.be.closeTo( 673.54, 0.5 ); // Default: Start = 50, End = 100
 
             // Update the arc sizing properties
             bundle.setProperties(
-                {
-                    "first-interval-start" : "10",
-                    "first-interval-end" : "20",
-                    "second-interval-start" : "20",
-                    "second-interval-end" : "60",
-                    "third-interval-start" : "60",
-                    "third-interval-end" : "90"
-                } );
+            {
+                "first-interval-start" : "10",
+                "first-interval-end" : "20",
+                "second-interval-start" : "20",
+                "second-interval-end" : "60",
+                "third-interval-start" : "60",
+                "third-interval-end" : "90"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
         {
             // Check if the color properties got updated
-            expect( svg.querySelector( ".arc" ).childNodes.item( 0 ).getTotalLength() ).to.be.closeTo( 43.27, 0.5 ); // Updated: Start = 10, End = 20 => Less than before
-            expect( svg.querySelector( ".arc" ).childNodes.item( 1 ).getTotalLength() ).to.be.closeTo( 137.10, 0.5 ); // Updated: Start = 20, End = 60 => Greater than before
-            expect( svg.querySelector( ".arc" ).childNodes.item( 2 ).getTotalLength() ).to.be.closeTo( 105.83, 0.5 ); // Updated: Start = 50, End = 100 => Less than before
+            expect( svg.querySelector( ".arc" ).childNodes.item( 0 ).getTotalLength() ).to.be.closeTo( 173.10, 0.5 ); // Updated: Start = 10, End = 20 => Less than before
+            expect( svg.querySelector( ".arc" ).childNodes.item( 1 ).getTotalLength() ).to.be.closeTo( 548.42, 0.5 ); // Updated: Start = 20, End = 60 => Greater than before
+            expect( svg.querySelector( ".arc" ).childNodes.item( 2 ).getTotalLength() ).to.be.closeTo( 423.35, 0.5 ); // Updated: Start = 50, End = 100 => Less than before
         } );
     } );
 
@@ -241,9 +243,9 @@ describe( "Gas Gauge renderer", () =>
 
             // Update the target show property
             bundle.setProperties(
-                {
-                    "target-show" : "true"
-                } );
+            {
+                "target-show" : "true"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -253,9 +255,9 @@ describe( "Gas Gauge renderer", () =>
 
             // Update the target value property
             bundle.setProperties(
-                {
-                    "target-value" : "20"
-                } );
+            {
+                "target-value" : "20"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -270,9 +272,9 @@ describe( "Gas Gauge renderer", () =>
         // Full test data is needed for the target to be mapped to a slot
         bundle.setData( fullTestDataV1 );
         bundle.setProperties(
-            {
-                "target-show" : "true"
-            } );
+        {
+            "target-show" : "true"
+        } );
 
         return renderBundle( bundle ).then( function()
         {
@@ -282,9 +284,9 @@ describe( "Gas Gauge renderer", () =>
 
             // Update the target value property
             bundle.setProperties(
-                {
-                    "target-value" : "25"
-                } );
+            {
+                "target-value" : "25"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -308,9 +310,9 @@ describe( "Gas Gauge renderer", () =>
         // Minimum test data is needed for the target to possibly be visible
         bundle.setData( minimumTestData );
         bundle.setProperties(
-            {
-                "target-show" : "true"
-            } );
+        {
+            "target-show" : "true"
+        } );
 
         return renderBundle( bundle ).then( function()
         {
@@ -319,9 +321,9 @@ describe( "Gas Gauge renderer", () =>
 
             // Update the target color property
             bundle.setProperties(
-                {
-                    "target-color" : "green"
-                } );
+            {
+                "target-color" : "green"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -344,10 +346,10 @@ describe( "Gas Gauge renderer", () =>
 
             // Change the min and max axis properties
             bundle.setProperties(
-                {
-                    "min-axis-value" : "20",
-                    "max-axis-value" : "200"
-                } );
+            {
+                "min-axis-value" : "20",
+                "max-axis-value" : "200"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -367,22 +369,22 @@ describe( "Gas Gauge renderer", () =>
         return renderBundle( bundle ).then( function()
         {
             // Check the default axis
-            expect( parseFloat( svg.querySelector( ".axis" ).childNodes.item( 0 ).childNodes.item( 1 ).getAttribute( "x" ) ) ).to.be.closeTo( -17.04, 0.5 ); // Default: min starting x coordinate
-            expect( parseFloat( svg.querySelector( ".axis" ).childNodes.item( 7 ).childNodes.item( 1 ).getAttribute( "x" ) ) ).to.be.closeTo( 16.46, 0.5 ); // Default: max starting x coordinate
+            expect( parseFloat( svg.querySelector( ".axis" ).childNodes.item( 0 ).childNodes.item( 1 ).getAttribute( "x" ) ) ).to.be.closeTo( -68.17, 0.5 ); // Default: min starting x coordinate
+            expect( parseFloat( svg.querySelector( ".axis" ).childNodes.item( 7 ).childNodes.item( 1 ).getAttribute( "x" ) ) ).to.be.closeTo( 65.84, 0.5 ); // Default: max starting x coordinate
 
             // Change the min and max axis properties
             bundle.setProperties(
-                {
-                    "min-axis-value" : "200",
-                    "max-axis-value" : "20"
-                } );
+            {
+                "min-axis-value" : "200",
+                "max-axis-value" : "20"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
         {
             // Check if the places got swapped after inverting the axis
-            expect( parseFloat( svg.querySelector( ".axis" ).childNodes.item( 0 ).childNodes.item( 1 ).getAttribute( "x" ) ) ).to.be.closeTo( 16.75, 0.5 ); // Updated: inverted min x coordinate
-            expect( parseFloat( svg.querySelector( ".axis" ).childNodes.item( 7 ).childNodes.item( 1 ).getAttribute( "x" ) ) ).to.be.closeTo( -16.46, 0.5 ); // Updated: inverted max x coordinate
+            expect( parseFloat( svg.querySelector( ".axis" ).childNodes.item( 0 ).childNodes.item( 1 ).getAttribute( "x" ) ) ).to.be.closeTo( 67, 0.5 ); // Updated: inverted min x coordinate
+            expect( parseFloat( svg.querySelector( ".axis" ).childNodes.item( 7 ).childNodes.item( 1 ).getAttribute( "x" ) ) ).to.be.closeTo( -65.86, 0.5 ); // Updated: inverted max x coordinate
         } );
     } );
 
@@ -399,10 +401,10 @@ describe( "Gas Gauge renderer", () =>
 
             // Change the min and max axis properties
             bundle.setProperties(
-                {
-                    "min-axis-value" : "-20",
-                    "max-axis-value" : "-10"
-                } );
+            {
+                "min-axis-value" : "-20",
+                "max-axis-value" : "-10"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -427,10 +429,10 @@ describe( "Gas Gauge renderer", () =>
 
             // Increase the axis ticks
             bundle.setProperties(
-                {
-                    "major-ticks-count" : "10",
-                    "minor-ticks-per-interval" : "2"
-                } );
+            {
+                "major-ticks-count" : "10",
+                "minor-ticks-per-interval" : "2"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -472,19 +474,19 @@ describe( "Gas Gauge renderer", () =>
                 if ( currentItem.getAttribute( "class" ) === "major-tick" )
                 {
                     expect( currentItem.querySelector( "line" ).getAttribute( "stroke" ) ).to.equal( "rgb(0,0,0)" ); // Default: black
-                    expect( currentItem.querySelector( "text" ).style[ "font-size" ] ).to.equal( "3px" ); // Default: 3px font
-                    expect( currentItem.querySelector( "text" ).style[ "font-family" ] ).to.equal( "\"IBM Plex Sans\"" ); // Default: 3px IBM Plex Sans
+                    expect( currentItem.querySelector( "text" ).style[ "font-size" ] ).to.equal( "12px" ); // Default: 12px font
+                    expect( currentItem.querySelector( "text" ).style[ "font-family" ] ).to.equal( "\"IBM Plex Sans\"" ); // Default: 12px IBM Plex Sans
                     expect( currentItem.querySelector( "text" ).style.fill ).to.equal( "rgb(0, 0, 0)" ); // Default: black
                 }
             }
 
             // Change the axis font and color properties
             bundle.setProperties(
-                {
-                    "axis-font" : "5px \"IBM Plex Sans\"",
-                    "axis-font-color" : "red",
-                    "axis-tick-color" : "blue"
-                } );
+            {
+                "axis-font" : "5px \"IBM Plex Sans\"",
+                "axis-font-color" : "red",
+                "axis-tick-color" : "blue"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -546,9 +548,9 @@ describe( "Gas Gauge renderer", () =>
 
             // Increase the major-ticks count to a point where overlapping will always occur if not prevented
             bundle.setProperties(
-                {
-                    "major-ticks-count" : "100"
-                } );
+            {
+                "major-ticks-count" : "100"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -586,10 +588,10 @@ describe( "Gas Gauge renderer", () =>
 
             // Change the labels show properties
             bundle.setProperties(
-                {
-                    "KPI-label-show" : "false",
-                    "value-label-show" : "false"
-                } );
+            {
+                "KPI-label-show" : "false",
+                "value-label-show" : "false"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -608,21 +610,21 @@ describe( "Gas Gauge renderer", () =>
         return renderBundle( bundle ).then( function()
         {
             // Check the default font settings of the labels
-            expect( svg.querySelector( ".labels" ).childNodes.item( 0 ).style[ "font-size" ] ).to.equal( "4px" ); // Default: 4px font
+            expect( svg.querySelector( ".labels" ).childNodes.item( 0 ).style[ "font-size" ] ).to.equal( "16px" ); // Default: 16px font
             expect( svg.querySelector( ".labels" ).childNodes.item( 0 ).style[ "font-family" ] ).to.equal( "\"IBM Plex Sans\"" ); // Default: IBM Plex Sans
-            expect( svg.querySelector( ".labels" ).childNodes.item( 1 ).style[ "font-size" ] ).to.equal( "4px" ); // Default: 4px font
+            expect( svg.querySelector( ".labels" ).childNodes.item( 1 ).style[ "font-size" ] ).to.equal( "16px" ); // Default: 16px font
             expect( svg.querySelector( ".labels" ).childNodes.item( 1 ).style[ "font-family" ] ).to.equal( "\"IBM Plex Sans\"" ); // Default: IBM Plex Sans
             expect( svg.querySelector( ".labels" ).childNodes.item( 0 ).style.fill ).to.equal( "rgb(0, 0, 0)" ); // Default: black
             expect( svg.querySelector( ".labels " ).childNodes.item( 1 ).style.fill ).to.equal( "rgb(0, 0, 0)" ); // Default: black
 
             // Change the labels font properties
             bundle.setProperties(
-                {
-                    "KPI-label-font" : "8px \"IBM Plex Sans\"",
-                    "KPI-label-font-color" : "red",
-                    "value-label-font" : "10px \"IBM Plex Sans\"",
-                    "value-label-font-color" : "blue"
-                } );
+            {
+                "KPI-label-font" : "8px \"IBM Plex Sans\"",
+                "KPI-label-font-color" : "red",
+                "value-label-font" : "10px \"IBM Plex Sans\"",
+                "value-label-font-color" : "blue"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -638,8 +640,8 @@ describe( "Gas Gauge renderer", () =>
     it( "applies trunction for all labels when needed", function()
     {
         // Truncation should apply at these values:
-        const valueLabelMaxWidth = 45;
-        const KPILabelMaxWidth = 50;
+        const valueLabelMaxWidth = 180;
+        const KPILabelMaxWidth = 200;
 
         // Minimum test data is needed for the labels to receive content
         bundle.setData( minimumTestData );
@@ -655,10 +657,10 @@ describe( "Gas Gauge renderer", () =>
             // Update the bundle with label data that is longer than the max width allowed (this will force truncation to apply)
             bundle.setData( fullTestDataV2 );
             bundle.setProperties(
-                {
-                    "KPI-label-font" : "12px \"IBM Plex Sans\"",
-                    "value-label-font" : "12px \"IBM Plex Sans\""
-                } );
+            {
+                "KPI-label-font" : "48px \"IBM Plex Sans\"",
+                "value-label-font" : "48px \"IBM Plex Sans\""
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
@@ -686,12 +688,12 @@ describe( "Gas Gauge renderer", () =>
 
             // Update the pointer color properties
             bundle.setProperties(
-                {
-                    "pointer-circle-fill" : "red",
-                    "pointer-circle-stroke" : "red",
-                    "pointer-indicator-fill" : "blue",
-                    "pointer-indicator-stroke" : "blue"
-                } );
+            {
+                "pointer-circle-fill" : "red",
+                "pointer-circle-stroke" : "red",
+                "pointer-indicator-fill" : "blue",
+                "pointer-indicator-stroke" : "blue"
+            } );
 
             return renderBundle( bundle );
         } ).then( function()
