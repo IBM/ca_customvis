@@ -848,32 +848,78 @@ export default class extends RenderBase
     protected hitTest( _element: Element | null ): DataPoint | Segment | any
     {
         // Retrieve the d3 datum of the element that was hit.
+        const data = [];
         const element = d3.select<Element, any>( _element );
         const node = element.empty() ? null : element.datum();
 
+        function getChildren( element: d3.Selection<Element, any, null, undefined> ): TreeNode[] | null
+        {
+            const allChildren = [];
+            const elementsChildren = [];
+            const firstElement = element.data()[ 0 ];
+            function collectChildren( element: TreeNode ): void
+            {
+                const childKey = "_children";
+                if( element[ childKey ] )
+                {
+                    const children = element[ childKey ];
+                    children.forEach( child =>
+                    {
+                        allChildren.push( child );
+                        collectChildren( child );
+                    } );
+                }
+            }
+
+            if( firstElement && firstElement._children )
+            {
+                const children = firstElement._children;
+                children.forEach( child =>
+                {
+                    elementsChildren.push( child );
+                    allChildren.push( child );
+                } );
+            }
+            elementsChildren.forEach( child => collectChildren( child ) );
+            return allChildren;
+        }
+
+        function getData( node ): any
+        {
         if ( node instanceof Object && "segment" in node ) return node.segment;
 
         if ( node instanceof Object && "data" in node )
-        {
-            if( node.data.dataPoint )
             {
-                return {
-                    source: node.data.dataPoint,
-                    key: node.key,
-                    caption: node.caption
-                };
-            }
-
-            if( node.data.tuple )
-            {
-                return {
-                    source: node.data.tuple,
-                    key: node.key,
-                    caption: node.value
-                };
+                if( node.data.dataPoint )
+                {
+                    return {
+                        source: node.data.dataPoint,
+                        key: node.key,
+                        caption: node.caption
+                    };
+                }
+                return null;
             }
         }
 
-        return null;
+        if( !node.parent )
+            return null;
+
+        const children = getChildren( element );
+
+        if( children.length )
+        {
+            children.forEach( child =>
+            {
+                const childData = getData( child );
+                if( childData )
+                    data.push( childData );
+            } );
+        }
+        else
+        {
+            data.push( getData( node ) );
+        }
+        return data;
     }
 }
