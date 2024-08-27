@@ -7,7 +7,7 @@
     </slots>
 ​
     <dataSets>
-        <dataSet name="data">
+        <dataSet name="data" sortsByDatapoint="true">
             <ref slot="categories" />
             <ref slot="series" />
             <ref slot="values" />
