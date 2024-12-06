@@ -1,3 +1,12 @@
+// Licensed Materials - Property of IBM
+//
+// IBM Watson Analytics
+//
+// (C) Copyright IBM Corp. 2024
+//
+// US Government Users Restricted Rights - Use, duplication or
+// disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+
 import { RenderBase, UpdateInfo, Slot, DataPoint, Color, DataSet, Font, Segment, Properties } from "@businessanalytics/customvis-lib";
 import * as d3 from "d3";
 import { AxesComponent, AxisProperty } from "@businessanalytics/d3-axis-layout";
