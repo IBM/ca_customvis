@@ -1,3 +1,12 @@
+// Licensed Materials - Property of IBM
+//
+// IBM Watson Analytics
+//
+// (C) Copyright IBM Corp. 2024
+//
+// US Government Users Restricted Rights - Use, duplication or
+// disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+
 export default class DateUtils
 {
     // Get date string from tuple key, since some dates are automatically parsed,
@@ -58,6 +67,13 @@ export default class DateUtils
             {
                 dateString = "20" + dateString;
             }
+
+            // Workaround for VIDA-7182. For german content language date contains comma instead of dot
+            if ( dateString.includes( "," ) )
+            {
+                dateString = dateString.replace( ",", "." );
+            }
+            
             return new Date( dateString );
         }
 
