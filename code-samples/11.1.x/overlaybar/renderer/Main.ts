@@ -50,7 +50,7 @@ export default class extends RenderBase
         const palette = _info.props.get( "colors" ) as CatPalette;
 
         // Set or clear the background image on the parent node.
-        d3.select( svg.parentNode )
+        d3.select( svg.parentNode as Element )
             .style( "background-image", _info.props.get( "image" ) ? `url(${logo})` : null )
             .style( "background-size", _info.props.get( "imageSize" ) );
 
