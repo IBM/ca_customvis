@@ -53,13 +53,13 @@ module.exports =
             ]
         } )
     ],
-    // since fusionchart uses dynamic imports, and we only generate single amd module
-    // we should inline the dynamic imports
-    inlineDynamicImports: true,
     output:
     {
         paths,
         format: "amd",
-        sourcemap: "inline"
+        sourcemap: "inline",
+        // since fusionchart uses dynamic imports, and we only generate single amd module
+        // we should inline the dynamic imports
+        inlineDynamicImports: true,
     }
 };
