@@ -18,7 +18,7 @@
         "@rollup/plugin-json": "4.1.0",
         "@rollup/plugin-replace": "3.0.1",
         "@types/d3": "^5.7.0",
-        "node-sass": "^8.0.0",
+        "sass": "^1.93.2",
         "postcss": "~8.4.31",
         "rollup-plugin-postcss": "4.0.2"
     },
