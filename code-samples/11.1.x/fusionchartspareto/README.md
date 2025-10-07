@@ -1,5 +1,9 @@
 # FusionCharts Pareto chart code sample
 
+> [!WARNING]
+> Do not use newly built FusionCharts Pareto customvis with Cognos Analytics Dashboard. It can break the application with risk of loss of unsaved work.
+> An existing [customvis.catalog.codesample.fusioncharts-pareto.zip](https://github.com/IBM/ca_customvis/blob/master/code-samples/11.1.x/fusionchartspareto/customvis.catalog.codesample.fusioncharts-pareto.zip) is safe to use.
+
 This FusionCharts Pareto chart example is integrated with Customvis library. A more complete explanation on the library and API using can be found in [Customvis documentation](https://www.ibm.com/support/knowledgecenter/en/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.dg_custom_vis.doc/ca_customviz_lib_summary.html).
 
 For more details on FusionCharts information and options, see the [FusionCharts documentation](https://www.fusioncharts.com/dev/fusioncharts).
