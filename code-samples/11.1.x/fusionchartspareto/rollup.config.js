@@ -24,6 +24,15 @@ const paths = {
 if ( !hasD3Dependency )
     paths[ "d3" ] = "https://d3js.org/d3.v5.min.js";
 
+console.warn(`
+
+    WARNING
+
+    Do not use newly built FusionCharts Pareto customvis with Cognos Analytics Dashboard.
+    It can break the application with risk of loss of unsaved work.
+
+`);
+
 module.exports =
 {
     input,
