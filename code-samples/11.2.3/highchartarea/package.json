@@ -21,7 +21,7 @@
         "@businessanalytics/customvis-lib": "file:customvis-lib.tgz",
         "@types/d3": "^5.7.0",
         "del-cli": "^3.0.1",
-        "highcharts": "latest"
+        "highcharts": "^12.6.0"
     },
     "scripts": {
         "build": "customvis build",
