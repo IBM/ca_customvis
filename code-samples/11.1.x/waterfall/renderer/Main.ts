@@ -26,9 +26,17 @@ type Connection = {
 // darker the color by a factor
 const darker = ( _color: Color, _factor = 0.7 ): string => `rgba(${_factor * _color.r},${_factor * _color.g},${_factor * _color.b},${_color.a})`;
 
+// generate random unique identifier using cryptographically secure random values
+function generateUUID(): string
+{
+    const array = new Uint32Array( 2 );
+    window.crypto.getRandomValues( array );
+    return `id${array[ 0 ].toString( 36 )}${array[ 1 ].toString( 36 )}`;
+}
+
 export default class extends RenderBase
 {
-    private readonly _uuid = `id${Math.random().toString( 36 ).substring( 2, 15 ) + Math.random().toString( 36 ).substring( 2, 15 )}`;
+    private readonly _uuid = generateUUID();
     private readonly _axisComp = new AxesComponent();
 
     // Create is called during initialization
