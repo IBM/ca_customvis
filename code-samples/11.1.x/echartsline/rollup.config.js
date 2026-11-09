@@ -4,6 +4,7 @@
 const { nodeResolve } = require( "@rollup/plugin-node-resolve" );
 const commonjs = require( "@rollup/plugin-commonjs" );
 const { babel } = require( "@rollup/plugin-babel" );
+const replace = require( "@rollup/plugin-replace" );
 
 // Utilities
 const path = require( "path" );
@@ -34,6 +35,12 @@ module.exports =
     ],
     plugins:
     [
+        // ECharts 6 reads process.env.NODE_ENV, which does not exist in the browser
+        replace(
+        {
+            preventAssignment: true,
+            values: { "process.env.NODE_ENV": JSON.stringify( "production" ) }
+        } ),
         nodeResolve(
         {
             extensions

@@ -21,11 +21,11 @@ For more information on data model, refer to [Customvis library documentation](h
 
 ### 2. Loading and initializing chart
 
-In order to use ECharts libraries, we need to include it in the `package.json` under `dependencies`. After installing the library, the package will show up in `node_modules/`.
+In order to use ECharts libraries, we need to include it in the `package.json` under `devDependencies`. After installing the library, the package will show up in `node_modules/`.
 ```
 {
-  "dependencies": {
-    "echarts": "^4.6.0",
+  "devDependencies": {
+    "echarts": "6.1.0",
     ...
   },
   ...
@@ -33,8 +33,15 @@ In order to use ECharts libraries, we need to include it in the `package.json` u
 ```
 On top of [`renderer/Main.ts`](./renderer/Main.ts), the library needs to be loaded.
 ```typescript
-import { init } from  "echarts/echarts.common";
-``` 
+import { init, use } from "echarts/index.common";
+import { LegacyGridContainLabel } from "echarts/features";
+
+use( [ LegacyGridContainLabel ] );
+```
+`LegacyGridContainLabel` is only needed to keep the previous behavior of the `grid.containLabel` option, which this sample uses.
+
+>ECharts 6 changed some of its default styles (for example tooltip, legend, axis and zoom slider). [`renderer/Main.ts`](./renderer/Main.ts) sets the previous defaults explicitly so the chart looks the same as with ECharts 4.
+
 For the ECharts to work, we only need the  `init` function that create the chart and return its instance. We will initialize the chart in `create( _node )`, store it in variable `this._chart`.  The provided argument `_node` is used as the chart container.
 ```typescript
 this._chart = init( _node );
